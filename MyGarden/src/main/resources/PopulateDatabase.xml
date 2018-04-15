@@ -31,12 +31,12 @@
 	</bean>
 
 	<bean id="userAccount2" class="security.UserAccount">
-		<property name="username" value="customer" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="username" value="gardener1" />
+		<property name="password" value="cceb6832a38063456d643838d175e6e5" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
+					<property name="authority" value="GARDENER" />
 				</bean>
 			</list>
 		</property>
@@ -51,7 +51,31 @@
 					<property name="authority" value="ADMIN" />
 				</bean>
 				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
+					<property name="authority" value="GARDENER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="gardener2" />
+		<property name="password" value="4e6d7475b75810020358197c742ad839" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="GARDENER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="gardener3" />
+		<property name="password" value="5aec7d2ecefab000025c5eaca36c85ec" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="GARDENER" />
 				</bean>
 			</list>
 		</property>
@@ -59,4 +83,560 @@
 	
 	<!-- Other domain beans come here -->	
 	
+	<!-- Administrator -->	
+	
+	<bean id="administrator1" class="domain.Administrator">
+		<property name="name" value="administrator1" />
+		<property name="surname" value="-" />
+		<property name="email" value="admin@email.com" />
+		<property name="userAccount" ref="userAccount1" />
+		<property name="sentMessages">
+			<list>
+				<ref bean="message3"/>
+			</list>
+		</property>
+		<property name="receivedMessages">
+			<list>
+				
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="administrator2" class="domain.Administrator">
+		<property name="name" value="super" />
+		<property name="surname" value="-" />
+		<property name="email" value="super@email.com" />
+		<property name="userAccount" ref="userAccount3" />
+		<property name="sentMessages">
+			<list>
+				
+			</list>
+		</property>
+		<property name="receivedMessages">
+			<list>
+				<ref bean="message3"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Gardener -->
+	<bean id="gardener1" class="domain.Gardener">
+		<property name="name" value="NameGardener1" />
+		<property name="surname" value="SurnameGardener1" />
+		<property name="email" value="gardener1@email.com" />
+		<property name="userAccount" ref="userAccount2" />
+		<property name="picture" value="https://www.google.es" />
+		<property name="animalDetectionEventActivated" value="true"/>
+		<property name="useOfFertilizerEventActivated" value="true"/>
+		<property name="waterTankEventActivated" value="true"/>
+		<property name="sentMessages">
+			<list>
+				<ref bean="message1"/>
+			</list>
+		</property>
+		<property name="receivedMessages">
+			<list>
+				<ref bean="message2"/>
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+			<ref bean="taste1"/>
+				<ref bean="taste2"/>
+			</list>
+		</property>
+		<property name="comments">
+			<list>
+				 <ref bean="comment1" />
+				 <ref bean="comment2" />
+			</list>
+		</property>
+		<property name="wateringAreas">
+			<list>
+				 <ref bean="wateringArea1" />
+				 <ref bean="wateringArea2" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="gardener2" class="domain.Gardener">
+		<property name="name" value="NameGardener2" />
+		<property name="surname" value="SurnameGardener2" />
+		<property name="email" value="gardener2@email.com" />
+		<property name="userAccount" ref="userAccount4" />
+		<property name="picture" value="https://www.google.es" />
+		<property name="animalDetectionEventActivated" value="false"/>
+		<property name="useOfFertilizerEventActivated" value="false"/>
+		<property name="waterTankEventActivated" value="false"/>
+		<property name="sentMessages">
+			<list>
+				<ref bean="message2"/>
+			</list>
+		</property>
+		<property name="receivedMessages">
+			<list>
+				<ref bean="message1"/>
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+			
+			</list>
+		</property>
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="wateringAreas">
+			<list>
+				 <ref bean="wateringArea3" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="gardener3" class="domain.Gardener">
+		<property name="name" value="NameGardener1" />
+		<property name="surname" value="SurnameGardener3" />
+		<property name="email" value="gardener3@email.com" />
+		<property name="userAccount" ref="userAccount5" />
+		<property name="picture" value="https://www.google.es" />
+		<property name="animalDetectionEventActivated" value="true"/>
+		<property name="useOfFertilizerEventActivated" value="false"/>
+		<property name="waterTankEventActivated" value="true"/>
+		<property name="sentMessages">
+			<list>
+			
+			</list>
+		</property>
+		<property name="receivedMessages">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+			
+			</list>
+		</property>
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="wateringAreas">
+			<list>
+				 <ref bean="wateringArea4" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Plant -->
+	
+	<bean id="plant1" class="domain.Plant">
+		<property name="name" value="Tomatera" />
+		<property name="description" value="Tomate clásico" />
+		<property name="minTemperature" value="2.0" />
+		<property name="maxTemperature" value="25.0" />
+		<property name="moisture" value="10.0" />
+		<property name="pH" value="7.0" />
+		<property name="wateringAreas">
+			<list> 
+				<ref bean="wateringArea1"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="plant2" class="domain.Plant">
+		<property name="name" value="Cerezo" />
+		<property name="description" value="Árbol famoso en Japón" />
+		<property name="minTemperature" value="2.0" />
+		<property name="maxTemperature" value="25.0" />
+		<property name="moisture" value="10.0" />
+		<property name="pH" value="7.0" />
+		<property name="wateringAreas">
+			<list> 
+				<ref bean="wateringArea2"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="plant3" class="domain.Plant">
+		<property name="name" value="Fresa" />
+		<property name="description" value="Fresa clásica" />
+		<property name="minTemperature" value="2.0" />
+		<property name="maxTemperature" value="25.0" />
+		<property name="moisture" value="10.0" />
+		<property name="pH" value="7.0" />
+		<property name="wateringAreas">
+			<list> 
+				<ref bean="wateringArea3"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="plant4" class="domain.Plant">
+		<property name="name" value="Naranja valenciana" />
+		<property name="description" value="Naranja clásica" />
+		<property name="minTemperature" value="2.0" />
+		<property name="maxTemperature" value="25.0" />
+		<property name="moisture" value="10.0" />
+		<property name="pH" value="7.0" />
+		<property name="wateringAreas">
+			<list> 
+				<ref bean="wateringArea4"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Fertilizer -->
+	
+	<bean id="fertilizer1" class="domain.Fertilizer">
+		<property name="name" value="Fertilizante1" />
+		<property name="description" value="Descripcion del fertilizante1" />
+		<property name="pH" value="7.0" />
+		<property name="nitrogen" value="25.0" />
+		<property name="phosphorus" value="10.0" />
+		<property name="potassium" value="7.0" />
+	</bean>
+	
+	<bean id="fertilizer2" class="domain.Fertilizer">
+		<property name="name" value="Fertilizante2" />
+		<property name="description" value="Descripcion del fertilizante2" />
+		<property name="pH" value="7.0" />
+		<property name="nitrogen" value="25.0" />
+		<property name="phosphorus" value="10.0" />
+		<property name="potassium" value="7.0" />
+	</bean>
+	
+	<!-- WateringArea -->
+	
+	<bean id="wateringArea1" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="pictures">
+			<list> 
+				
+			</list>
+		</property>
+		<property name="visible" value="false" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+				<ref bean="timetable1"/>
+				<ref bean="timetable2"/>
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+				<ref bean="measurement1"/>
+				<ref bean="measurement2"/>
+				<ref bean="measurement3"/>
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea2" class="domain.WateringArea">
+		<property name="name" value="Cerezos" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mis nuevos cerezos" />
+		<property name="pictures">
+			<list> 
+				
+			</list>
+		</property>
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+			
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+		
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant2" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea3" class="domain.WateringArea">
+		<property name="name" value="Fresas" />
+		<property name="place" value="Madrid" />
+		<property name="description" value="¡Fresas a tutiplén!" />
+		<property name="pictures">
+			<list> 
+				
+			</list>
+		</property>
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener2" />
+		<property name="timeTables">
+			<list>
+				<ref bean="timetable3"/>
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+		
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant3" />
+		<property name="comments">
+			<list>
+				<ref bean="comment1"/>
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				<ref bean="taste1"/>
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea4" class="domain.WateringArea">
+		<property name="name" value="Naranjo" />
+		<property name="place" value="Valencia" />
+		<property name="description" value="Naranjas valencianas" />
+		<property name="pictures">
+			<list> 
+				
+			</list>
+		</property>
+		<property name="visible" value="false" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener3" />
+		<property name="timeTables">
+			<list>
+			
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+		
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant4" />
+		<property name="comments">
+			<list>
+				<ref bean="comment2"/>
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				<ref bean="taste2"/>
+			</list>
+		</property>
+	</bean> 
+	
+	<!-- Taste -->
+	<bean id="taste1" class="domain.Taste">
+		<property name="like" value="true" />
+		<property name="gardener" ref="gardener1" />
+		<property name="wateringArea" ref="wateringArea3" />
+	</bean>	
+	
+	<bean id="taste2" class="domain.Taste">
+		<property name="like" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="wateringArea" ref="wateringArea4" />
+	</bean>	
+	
+	<!-- Comment -->
+	<bean id="comment1" class="domain.Comment">
+		<property name="title" value="Buenas" />
+		<property name="description" value="El juego me gusta mucho" />
+		<property name="moment" value="03/04/2017 19:00" />
+		<property name="gardener" ref="gardener1" />
+		<property name="wateringArea" ref="wateringArea1" />
+	</bean>
+	
+	<bean id="comment2" class="domain.Comment">
+		<property name="title" value="Hola" />
+		<property name="description" value="No esta mal" />
+		<property name="moment" value="03/02/2017 19:00" />
+		<property name="gardener" ref="gardener1" />
+		<property name="wateringArea" ref="wateringArea2" />
+	</bean>
+	
+	<!-- TimeTable -->
+	<bean id="timetable1" class="domain.TimeTable">
+		<property name="activationMoment" value="10/11/2018 19:00" />
+		<property name="deactivationMoment" value="10/11/2018 21:00" />
+		<property name="wateringArea" ref="wateringArea1" />
+	</bean>
+	
+	<bean id="timetable2" class="domain.TimeTable">
+		<property name="activationMoment" value="11/11/2018 19:00" />
+		<property name="deactivationMoment" value="11/11/2018 21:00" />
+		<property name="wateringArea" ref="wateringArea1" />
+	</bean>
+	
+	<bean id="timetable3" class="domain.TimeTable">
+		<property name="activationMoment" value="11/11/2018 19:00" />
+		<property name="deactivationMoment" value="11/11/2018 21:00" />
+		<property name="wateringArea" ref="wateringArea3" />
+	</bean>
+	
+	<!-- Prediction -->
+	<bean id="prediction1" class="domain.Prediction">
+		<property name="place" value="Sevilla" />
+		<property name="moment" value="03/04/2018 19:00" />
+		<property name="precipitation" value="80.0" />
+	</bean>
+	
+	<!-- Prediction -->
+	<bean id="prediction2" class="domain.Prediction">
+		<property name="place" value="Sevilla" />
+		<property name="moment" value="03/03/2018 19:00" />
+		<property name="precipitation" value="60.0" />
+	</bean>
+	
+	<!-- Event -->
+	<bean id="event1" class="domain.Event">
+		<property name="name" value="Tomatera - intrusión" />
+		<property name="description" value="Se ha detectado una intrusión en la zona de riego" />
+		<property name="moment" value="02/02/2018 19:00" />
+		<property name="wateringArea" ref="wateringArea1" />
+	</bean>
+	
+	<bean id="event2" class="domain.Event">
+		<property name="name" value="Tomatera - falta de agua" />
+		<property name="description" value="El depósito no tiene suficiente agua" />
+		<property name="moment" value="02/02/2018 19:00" />
+		<property name="wateringArea" ref="wateringArea1" />
+	</bean>
+	
+	<bean id="event3" class="domain.Event">
+		<property name="name" value="Tomatera - necesita fertilizante" />
+		<property name="description" value="Se necesita fertilizante" />
+		<property name="moment" value="02/02/2018 19:00" />
+		<property name="wateringArea" ref="wateringArea1" />
+	</bean>
+	
+	<bean id="event4" class="domain.Event">
+		<property name="name" value="Naranjo - intrusión" />
+		<property name="description" value="Se ha detectado una intrusión en la zona de riego" />
+		<property name="moment" value="02/02/2018 19:00" />
+		<property name="wateringArea" ref="wateringArea4" />
+	</bean>
+	
+	<!-- Measurement -->
+	
+	<bean id="measurement1" class="domain.Measurement">
+		<property name="moisture" value="30.0" />
+		<property name="humidity" value="20.0" />
+		<property name="temperature" value="21.0" />
+		<property name="light" value="70.0" />
+		<property name="pH" value="7.0" />
+		<property name="nitrogen" value="25.0" />
+		<property name="phosphorus" value="10.0" />
+		<property name="potassium" value="7.0" />
+		<property name="moment" value="02/02/2018 19:00" />
+		<property name="wateringArea" ref="wateringArea1" />
+	</bean>
+	
+	<bean id="measurement2" class="domain.Measurement">
+		<property name="moisture" value="30.0" />
+		<property name="humidity" value="20.0" />
+		<property name="temperature" value="21.0" />
+		<property name="light" value="70.0" />
+		<property name="pH" value="7.0" />
+		<property name="nitrogen" value="25.0" />
+		<property name="phosphorus" value="10.0" />
+		<property name="potassium" value="7.0" />
+		<property name="moment" value="02/01/2018 19:00" />
+		<property name="wateringArea" ref="wateringArea1" />
+	</bean>
+	
+	<bean id="measurement3" class="domain.Measurement">
+		<property name="moisture" value="30.0" />
+		<property name="humidity" value="20.0" />
+		<property name="temperature" value="21.0" />
+		<property name="light" value="70.0" />
+		<property name="pH" value="7.0" />
+		<property name="nitrogen" value="25.0" />
+		<property name="phosphorus" value="10.0" />
+		<property name="potassium" value="7.0" />
+		<property name="moment" value="01/30/2018 19:00" />
+		<property name="wateringArea" ref="wateringArea1" />
+	</bean>
+	
+	<!-- MessageEmail -->
+	
+	<bean id="message1" class="domain.MessageEmail">
+		<property name="subject" value="message1" />
+		<property name="text" value="message1 text" />
+		<property name="moment" value="01/30/2018 19:00" />
+		<property name="deletedForSender" value="false" />
+		<property name="deletedForRecipient" value="false" />
+		<property name="sender" ref="gardener1" />
+		<property name="recipient" ref="gardener2" />
+	</bean>
+	
+	<bean id="message2" class="domain.MessageEmail">
+		<property name="subject" value="message2" />
+		<property name="text" value="message2 text" />
+		<property name="moment" value="02/1/2018 19:00" />
+		<property name="deletedForSender" value="false" />
+		<property name="deletedForRecipient" value="false" />
+		<property name="sender" ref="gardener2" />
+		<property name="recipient" ref="gardener1" />
+	</bean>
+	
+	<bean id="message3" class="domain.MessageEmail">
+		<property name="subject" value="message3" />
+		<property name="text" value="message3 text" />
+		<property name="moment" value="01/30/2018 19:00" />
+		<property name="deletedForSender" value="false" />
+		<property name="deletedForRecipient" value="false" />
+		<property name="sender" ref="administrator1" />
+		<property name="recipient" ref="administrator2" />
+	</bean>
+
 </beans>

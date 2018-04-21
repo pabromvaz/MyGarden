@@ -6,8 +6,10 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
@@ -60,20 +62,21 @@ public class Prediction extends DomainEntity {
 		this.precipitation = precipitation;
 	}
 
+
 	//	// Relationships ----------------------------------------------------------	
-	//
-	//	private WateringArea	wateringArea;
-	//
-	//
-	//	@Valid
-	//	@NotNull
-	//	@ManyToOne(optional = false)
-	//	public WateringArea getWateringArea() {
-	//		return this.wateringArea;
-	//	}
-	//
-	//	public void setWateringArea(final WateringArea wateringArea) {
-	//		this.wateringArea = wateringArea;
-	//	}
+
+	private WateringArea	wateringArea;
+
+
+	@Valid
+	@NotNull
+	@ManyToOne(optional = false)
+	public WateringArea getWateringArea() {
+		return this.wateringArea;
+	}
+
+	public void setWateringArea(final WateringArea wateringArea) {
+		this.wateringArea = wateringArea;
+	}
 
 }

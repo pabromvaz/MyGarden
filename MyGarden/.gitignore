@@ -1,40 +1,59 @@
-.metadata
-bin/
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
+#
+# Project specific excludes
+#
+
+tomcat
+
+#
+# Default excludes
+#
+
+# Binaries
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.war
+*.ear
+*.sar
+*.class
+
+# Maven 
+target/
+
+# IntelliJ project files 
+*.iml
+*.iws
+*.ipr
+.idea/
+
+# eclipse project file
 .settings/
-.loadpath
-.recommenders
+.classpath
+.project
 
-# External tool builders
-.externalToolBuilders/
+# NetBeans specific
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
 
-# Locally stored "Eclipse launch configurations"
-*.launch
 
-# PyDev specific (Python IDE for Eclipse)
-*.pydevproject
+# OS
+.DS_Store
 
-# CDT-specific (C/C++ Development Tooling)
-.cproject
-
-# CDT- autotools 
-.autotools
-
-# Java annotation processor (APT)
-.factorypath
-
-# PDT-specific (PHP Development Tools)
-.buildpath
-
-# sbteclipse plugin
-.target
-
-# Tern plugin
+# Misc
+*.swp
+release.properties
+pom.xml.releaseBackup
+pom.xml.tag
 .tern-project
 
 # TeXlipse plugin

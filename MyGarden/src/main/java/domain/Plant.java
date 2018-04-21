@@ -81,11 +81,11 @@ public class Plant extends DomainEntity {
 
 	@NotNull
 	@Range(min = 1, max = 14)
-	public Double getpH() {
+	public Double getPH() {
 		return this.pH;
 	}
 
-	public void setpH(final Double pH) {
+	public void setPH(final Double pH) {
 		this.pH = pH;
 	}
 

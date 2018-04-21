@@ -42,7 +42,7 @@ public class AbstractTest {
 
 	// Supporting methods ---------------------------------
 
-	public void authenticate(String username) {
+	public void authenticate(final String username) {
 		UserDetails userDetails;
 		TestingAuthenticationToken authenticationToken;
 		SecurityContext context;
@@ -50,7 +50,7 @@ public class AbstractTest {
 		if (username == null)
 			authenticationToken = null;
 		else {
-			userDetails = loginService.loadUserByUsername(username);
+			userDetails = this.loginService.loadUserByUsername(username);
 			authenticationToken = new TestingAuthenticationToken(userDetails, null);
 		}
 
@@ -59,7 +59,16 @@ public class AbstractTest {
 	}
 
 	public void unauthenticate() {
-		authenticate(null);
+		this.authenticate(null);
+	}
+
+	public void checkExceptions(final Class<?> expected, final Class<?> caught) {
+		if (expected != null && caught == null)
+			throw new RuntimeException(expected.getName() + " was expected");
+		else if (expected == null && caught != null)
+			throw new RuntimeException(caught.getName() + " was unexpected");
+		else if (expected != null && caught != null && !expected.equals(caught))
+			throw new RuntimeException(expected.getName() + " was expected, but " + caught.getName() + " was thrown");
 	}
 
 }

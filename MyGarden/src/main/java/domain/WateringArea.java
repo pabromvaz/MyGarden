@@ -95,6 +95,7 @@ public class WateringArea extends DomainEntity {
 	private Plant					plant;
 	private Collection<Taste>		tastes;
 	private Collection<Comment>		comments;
+	private Collection<Prediction>	predictions;
 
 
 	@Valid
@@ -172,5 +173,16 @@ public class WateringArea extends DomainEntity {
 
 	public void setComments(final Collection<Comment> comments) {
 		this.comments = comments;
+	}
+
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "wateringArea")
+	public Collection<Prediction> getPredictions() {
+		return this.predictions;
+	}
+
+	public void setPredictions(final Collection<Prediction> predictions) {
+		this.predictions = predictions;
 	}
 }

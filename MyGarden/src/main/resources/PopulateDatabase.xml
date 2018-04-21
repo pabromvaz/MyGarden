@@ -352,6 +352,11 @@
 				
 			</list>
 		</property>
+		<property name="predictions">
+			<list>
+			
+			</list>
+		</property>
 	</bean> 
 	
 	<bean id="wateringArea2" class="domain.WateringArea">
@@ -390,6 +395,11 @@
 		<property name="tastes">
 			<list>
 				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+			
 			</list>
 		</property>
 	</bean> 
@@ -432,6 +442,12 @@
 				<ref bean="taste1"/>
 			</list>
 		</property>
+		<property name="predictions">
+			<list>
+				<ref bean="prediction1"/>
+				<ref bean="prediction2"/>
+			</list>
+		</property>
 	</bean> 
 	
 	<bean id="wateringArea4" class="domain.WateringArea">
@@ -470,6 +486,11 @@
 		<property name="tastes">
 			<list>
 				<ref bean="taste2"/>
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+			
 			</list>
 		</property>
 	</bean> 
@@ -528,6 +549,7 @@
 		<property name="place" value="Sevilla" />
 		<property name="moment" value="03/04/2018 19:00" />
 		<property name="precipitation" value="80.0" />
+		<property name="wateringArea" ref="wateringArea3" />
 	</bean>
 	
 	<!-- Prediction -->
@@ -535,6 +557,7 @@
 		<property name="place" value="Sevilla" />
 		<property name="moment" value="03/03/2018 19:00" />
 		<property name="precipitation" value="60.0" />
+		<property name="wateringArea" ref="wateringArea3" />
 	</bean>
 	
 	<!-- Event -->

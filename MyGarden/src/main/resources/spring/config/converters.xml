@@ -21,7 +21,37 @@
 		<!-- 
 			Add your own converters using entries of the following form: 
 			<bean class="converters.Class1ToClass2" /> 
+			
 		-->
+		
+		<bean class="converters.ActorToStringConverter" />
+		<bean class="converters.AdministratorToStringConverter" />
+		<bean class="converters.CommentToStringConverter" />
+		<bean class="converters.EventToStringConverter" />
+		<bean class="converters.FertilizerToStringConverter" />
+		<bean class="converters.GardenerToStringConverter" />
+		<bean class="converters.MeasurementToStringConverter" />
+		<bean class="converters.MessageEmailToStringConverter" />
+		<bean class="converters.PlantToStringConverter" />
+		<bean class="converters.PredictionToStringConverter" />
+		<bean class="converters.TasteToStringConverter" />
+		<bean class="converters.TimeTableToStringConverter" />
+		<bean class="converters.WateringAreaToStringConverter" />
+		
+		<bean class="converters.StringToActorConverter" /> 
+		<bean class="converters.StringToAdministratorConverter" /> 
+		<bean class="converters.StringToCommentConverter" /> 
+		<bean class="converters.StringToEventConverter" /> 
+		<bean class="converters.StringToFertilizerConverter" /> 
+		<bean class="converters.StringToGardenerConverter" /> 
+		<bean class="converters.StringToMeasurementConverter" /> 
+		<bean class="converters.StringToMessageEmailConverter" /> 
+		<bean class="converters.StringToPlantConverter" /> 
+		<bean class="converters.StringToPredictionConverter" /> 
+		<bean class="converters.StringToTasteConverter" /> 
+		<bean class="converters.StringToTimeTableConverter" /> 
+		<bean class="converters.StringToWateringAreaConverter" /> 
+
 	</util:list>
 	
 </beans>

@@ -41,10 +41,20 @@
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
+			<li><a class="fNiv" href="gardener/create.do"><spring:message code="master.page.register" /></a>
+				
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
+			<li><a class="fNiv"><spring:message	code="master.page.messageEmails" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="messageEmail/listIn.do"><spring:message code="master.page.messageEmails.received" /></a></li>
+					<li><a href="messageEmail/listOut.do"><spring:message code="master.page.messageEmails.sent" /></a></li>
+					<li><a href="messageEmail/listArchived.do"><spring:message code="master.page.messageEmails.archived" /></a></li>
+				</ul>
+			</li>
 			<li>
 				<a class="fNiv"> 
 					<spring:message code="master.page.profile" /> 
@@ -52,6 +62,7 @@
 				</a>
 				<ul>
 					<li class="arrow"></li>
+					<li><a href="profile/myProfile.do"><spring:message code="master.page.profile.myProfile" /></a></li>
 					<li><a href="profile/action-1.do"><spring:message code="master.page.profile.action.1" /></a></li>
 					<li><a href="profile/action-2.do"><spring:message code="master.page.profile.action.2" /></a></li>
 					<li><a href="profile/action-3.do"><spring:message code="master.page.profile.action.3" /></a></li>					

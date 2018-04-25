@@ -10,41 +10,79 @@
 
 package controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import security.Authority;
+import services.ActorService;
+import domain.Actor;
 
 @Controller
 @RequestMapping("/profile")
 public class ProfileController extends AbstractController {
 
-	// Action-1 ---------------------------------------------------------------		
+	// Service ---------------------------------------------------------------
+	@Autowired
+	private ActorService	actorService;
 
-	@RequestMapping("/action-1")
-	public ModelAndView action1() {
+
+	// MyProfile ---------------------------------------------------------------		
+
+	@RequestMapping(value = "/myProfile", method = RequestMethod.GET)
+	public ModelAndView displayMyProfile() {
 		ModelAndView result;
+		Actor actor;
+		Boolean isGardener = false;
+		String account = "";
+		final Boolean sameActor = true;
 
-		result = new ModelAndView("profile/action-1");
+		actor = this.actorService.findByPrincipal();
+
+		result = new ModelAndView("profile/display");
+
+		isGardener = this.actorService.checkAuthority(actor, Authority.GARDENER);
+		if (isGardener)
+			account = "gardener";
+
+		result.addObject("profile", actor);
+		result.addObject("account", account);
+		result.addObject("sameActor", sameActor);
+		result.addObject("requestURI", "profile/display");
 
 		return result;
 	}
 
-	// Action-2 ---------------------------------------------------------------		
+	// Display ---------------------------------------------------------------		
 
-	@RequestMapping("/action-2")
-	public ModelAndView action2() {
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int actorId) {
 		ModelAndView result;
+		Actor actor;
+		Boolean isGardener;
+		String account = "";
+		Boolean sameActor = false;
 
-		result = new ModelAndView("profile/action-2");
+		actor = this.actorService.findOne(actorId);
+
+		result = new ModelAndView("profile/display");
+
+		if (actor.equals(this.actorService.findByPrincipal()))
+			sameActor = true;
+
+		isGardener = this.actorService.checkAuthority(actor, Authority.GARDENER);
+		if (isGardener)
+			account = "gardener";
+
+		result.addObject("profile", actor);
+		result.addObject("account", account);
+		result.addObject("sameActor", sameActor);
+		result.addObject("requestURI", "profile/display");
 
 		return result;
-	}
-
-	// Action-2 ---------------------------------------------------------------		
-
-	@RequestMapping("/action-3")
-	public ModelAndView action3() {
-		throw new RuntimeException("Oops! An *expected* exception was thrown. This is normal behaviour.");
 	}
 
 }

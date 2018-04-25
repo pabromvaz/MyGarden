@@ -33,8 +33,9 @@ public class EventTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 	// FUNCTIONAL REQUIREMENTS
-	//-	Un actor autenticado como cliente debe ser capaz de:
-	//	Añadir comentarios a los juegos.
+	//-	Un actor autenticado como gardener debe ser capaz de:
+	//	Ver las incidencias de sus zonas de riego.
+	//  Listar las incidencias
 
 	//El primer test negativo es causado porque no nos hemos logueado correctamente como customer, el segundo de
 	//ellos se produce porque le ponemos un score fuera del rango 0-10 y el tercero es provocado porque le

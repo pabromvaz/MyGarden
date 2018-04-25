@@ -24,7 +24,8 @@
 		<value>/views/welcome/messages</value>
 		
 		<value>/views/administrator/messages</value>
-		<value>/views/customer/messages</value>
+		<value>/views/gardener/messages</value>
+		<value>/views/messageEmail/messages</value>
 		<value>/views/profile/messages</value>
 	</util:list>
 

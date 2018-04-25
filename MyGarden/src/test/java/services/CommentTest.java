@@ -33,12 +33,11 @@ public class CommentTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 	// FUNCTIONAL REQUIREMENTS
-	//-	Un actor autenticado como cliente debe ser capaz de:
-	//	Añadir comentarios a los juegos.
+	//-	Un actor autenticado como responsable del huerto debe ser capaz de:
+	//	Añadir comentarios a las zonas de riego.
 
-	//El primer test negativo es causado porque no nos hemos logueado correctamente como customer, el segundo de
-	//ellos se produce porque le ponemos un score fuera del rango 0-10 y el tercero es provocado porque le
-	//pasamos un id de game que no existe.
+	//El test negativo es causado porque no nos hemos logueado correctamente como gardener.
+
 	@Test
 	public void driverAddCommentToAWateringArea() {
 		final Object testingData[][] = {

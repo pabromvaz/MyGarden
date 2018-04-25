@@ -68,6 +68,8 @@ public class MessageEmailService {
 		result.setSender(actor);
 		result.setDeletedForRecipient(false);
 		result.setDeletedForSender(false);
+		result.setArchivedForSender(false);
+		result.setArchivedForRecipient(false);
 
 		return result;
 	}
@@ -90,6 +92,8 @@ public class MessageEmailService {
 		result.setRecipient(recipient);
 		result.setDeletedForRecipient(false);
 		result.setDeletedForSender(false);
+		result.setArchivedForSender(false);
+		result.setArchivedForRecipient(false);
 		return result;
 	}
 
@@ -113,7 +117,7 @@ public class MessageEmailService {
 		} else if (messageEmail.getSender().equals(actor) && messageEmail.getDeletedForRecipient() == false) {
 			messageEmail.setDeletedForSender(true);
 			this.messageEmailRepository.save(messageEmail);
-		} else
+		} else if ((messageEmail.getSender().equals(actor) || messageEmail.getRecipient().equals(actor)) && messageEmail.getDeletedForRecipient() == false && messageEmail.getDeletedForSender() == false)
 			this.messageEmailRepository.delete(messageEmail);
 	}
 
@@ -146,6 +150,50 @@ public class MessageEmailService {
 
 		return result;
 
+	}
+
+	public Collection<MessageEmail> findMessageEmailsArchivedAndSentByActorId(final int actorId) {
+
+		Collection<MessageEmail> result;
+
+		result = this.messageEmailRepository.findMessagesArchivedAndSentByActorId(actorId);
+
+		return result;
+
+	}
+
+	public Collection<MessageEmail> findMessageEmailsArchivedAndReceivedByActorId(final int actorId) {
+
+		Collection<MessageEmail> result;
+
+		result = this.messageEmailRepository.findMessagesArchivedAndReceivedByActorId(actorId);
+
+		return result;
+
+	}
+
+	public Collection<MessageEmail> findArchivedMessageEmailsByActorId(final int actorId) {
+		Collection<MessageEmail> result;
+		Collection<MessageEmail> aux;
+
+		result = this.messageEmailRepository.findMessagesArchivedAndSentByActorId(actorId);
+		aux = this.messageEmailRepository.findMessagesArchivedAndReceivedByActorId(actorId);
+		result.addAll(aux);
+		return result;
+	}
+
+	public void change(final MessageEmail messageEmail, final boolean archived) {
+		Assert.notNull(messageEmail);
+		Assert.isTrue((messageEmail.getSender().equals(this.actorService.findByPrincipal()) && messageEmail.getDeletedForSender() == false)
+			|| (messageEmail.getRecipient().equals(this.actorService.findByPrincipal()) && messageEmail.getDeletedForRecipient() == false));
+
+		if (messageEmail.getSender().equals(this.actorService.findByPrincipal()) && messageEmail.getDeletedForSender() == false) {
+			messageEmail.setArchivedForSender(archived);
+			this.messageEmailRepository.save(messageEmail);
+		} else if (messageEmail.getRecipient().equals(this.actorService.findByPrincipal()) && messageEmail.getDeletedForRecipient() == false) {
+			messageEmail.setArchivedForRecipient(archived);
+			this.messageEmailRepository.save(messageEmail);
+		}
 	}
 
 }

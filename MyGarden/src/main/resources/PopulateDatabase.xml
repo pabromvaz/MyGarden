@@ -638,6 +638,8 @@
 		<property name="moment" value="01/30/2018 19:00" />
 		<property name="deletedForSender" value="false" />
 		<property name="deletedForRecipient" value="false" />
+		<property name="archivedForSender" value="false" />
+		<property name="archivedForRecipient" value="false" />
 		<property name="sender" ref="gardener1" />
 		<property name="recipient" ref="gardener2" />
 	</bean>
@@ -648,6 +650,8 @@
 		<property name="moment" value="02/1/2018 19:00" />
 		<property name="deletedForSender" value="false" />
 		<property name="deletedForRecipient" value="false" />
+		<property name="archivedForSender" value="false" />
+		<property name="archivedForRecipient" value="false" />
 		<property name="sender" ref="gardener2" />
 		<property name="recipient" ref="gardener1" />
 	</bean>
@@ -658,6 +662,8 @@
 		<property name="moment" value="01/30/2018 19:00" />
 		<property name="deletedForSender" value="false" />
 		<property name="deletedForRecipient" value="false" />
+		<property name="archivedForSender" value="false" />
+		<property name="archivedForRecipient" value="false" />
 		<property name="sender" ref="administrator1" />
 		<property name="recipient" ref="administrator2" />
 	</bean>

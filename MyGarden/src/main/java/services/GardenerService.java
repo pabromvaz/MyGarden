@@ -99,6 +99,14 @@ public class GardenerService {
 		return result;
 	}
 
+	public Gardener saveRegister(final Gardener gardener) {
+		Assert.notNull(gardener);
+		Gardener result;
+
+		result = this.gardenerRepository.save(gardener);
+		return result;
+	}
+
 	// Other business methods -------------------------------------------------
 	public Gardener findByPrincipal() {
 		Gardener result;
@@ -131,7 +139,7 @@ public class GardenerService {
 
 		Assert.isTrue(createGardenerForm.getPassword().equals(createGardenerForm.getConfirmPassword()));
 
-		//Creo uno nuevo vacio para meterle los datos del formulario a dicho chorbi
+		//Creo uno nuevo vacio para meterle los datos del formulario a dicho responsable del huerto
 		if (type.equals("create")) {
 			gardener = this.create();
 			Assert.isTrue(createGardenerForm.getIsAgree());

@@ -166,4 +166,10 @@ public class WateringAreaService {
 
 	// Other business methods -------------------------------------------------
 
+	public Collection<WateringArea> findByGardenerId(final Integer gardenerId) {
+		Collection<WateringArea> result;
+		result = this.wateringAreaRepository.findByGardenerId(gardenerId);
+		return result;
+	}
+
 }

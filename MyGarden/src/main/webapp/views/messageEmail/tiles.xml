@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles.xml
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+
+	<definition name="messageEmail/display" extends="master.page">	
+		<put-attribute name="title" value="Message" />
+		<put-attribute name="body" value="/views/messageEmail/display.jsp" />
+	</definition>
+	
+	<definition name="messageEmail/create" extends="master.page">	
+		<put-attribute name="title" value="Create message" />
+		<put-attribute name="body" value="/views/messageEmail/create.jsp" />
+	</definition>
+	
+	<definition name="messageEmail/list" extends="master.page">	
+		<put-attribute name="title" value="List messages" />
+		<put-attribute name="body" value="/views/messageEmail/list.jsp" />
+	</definition>
+	
+	<definition name="messageEmail/forward" extends="master.page">	
+		<put-attribute name="title" value="Archive" />
+		<put-attribute name="body" value="/views/messageEmail/forward.jsp" />
+	</definition>
+	
+</tiles-definitions>

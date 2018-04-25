@@ -32,6 +32,8 @@ public class MessageEmail extends DomainEntity {
 	private Date	moment;
 	private Boolean	deletedForSender;
 	private Boolean	deletedForRecipient;
+	private Boolean	archivedForSender;
+	private Boolean	archivedForRecipient;
 
 
 	@NotBlank
@@ -78,6 +80,22 @@ public class MessageEmail extends DomainEntity {
 
 	public void setDeletedForRecipient(final Boolean deletedForRecipient) {
 		this.deletedForRecipient = deletedForRecipient;
+	}
+
+	public Boolean getArchivedForSender() {
+		return this.archivedForSender;
+	}
+
+	public void setArchivedForSender(final Boolean archivedForSender) {
+		this.archivedForSender = archivedForSender;
+	}
+
+	public Boolean getArchivedForRecipient() {
+		return this.archivedForRecipient;
+	}
+
+	public void setArchivedForRecipient(final Boolean archivedForRecipient) {
+		this.archivedForRecipient = archivedForRecipient;
 	}
 
 

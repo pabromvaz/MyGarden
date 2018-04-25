@@ -18,4 +18,10 @@ public interface MessageEmailRepository extends JpaRepository<MessageEmail, Inte
 	@Query("select me from MessageEmail me where me.recipient.id=?1 and me.deletedForRecipient=false")
 	Collection<MessageEmail> findMessagesReceivedByActorId(int actorId);
 
+	@Query("select me from MessageEmail me where me.sender.id=?1 and me.deletedForSender=false and me.archivedForSender=true")
+	Collection<MessageEmail> findMessagesArchivedAndSentByActorId(int actorId);
+
+	@Query("select me from MessageEmail me where me.recipient.id=?1 and me.deletedForRecipient=false and me.archivedForRecipient=true")
+	Collection<MessageEmail> findMessagesArchivedAndReceivedByActorId(int actorId);
+
 }

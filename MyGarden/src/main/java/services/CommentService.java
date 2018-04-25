@@ -102,4 +102,9 @@ public class CommentService {
 
 	// Other business methods -------------------------------------------------
 
+	public Collection<Comment> findAllOfAWateringArea(final Integer wateringAreaId) {
+		Collection<Comment> result;
+		result = this.commentRepository.findAllOfAWateringArea(wateringAreaId);
+		return result;
+	}
 }

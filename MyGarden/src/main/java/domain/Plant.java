@@ -29,7 +29,7 @@ public class Plant extends DomainEntity {
 	private Double	minTemperature;
 	private Double	maxTemperature;
 	private Double	moisture;
-	private Double	pH;
+	private Double	ph;
 
 
 	@NotBlank
@@ -81,12 +81,12 @@ public class Plant extends DomainEntity {
 
 	@NotNull
 	@Range(min = 1, max = 14)
-	public Double getPH() {
-		return this.pH;
+	public Double getPh() {
+		return this.ph;
 	}
 
-	public void setPH(final Double pH) {
-		this.pH = pH;
+	public void setPh(final Double ph) {
+		this.ph = ph;
 	}
 
 

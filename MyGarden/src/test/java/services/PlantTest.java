@@ -63,7 +63,7 @@ public class PlantTest extends AbstractTest {
 			final Plant plant = this.plantService.create();
 			plant.setName(name);
 			plant.setDescription(description);
-			plant.setPH(pH);
+			plant.setPh(pH);
 			plant.setMoisture(moisture);
 			plant.setMinTemperature(minTemperature);
 			plant.setMaxTemperature(maxTemperature);
@@ -107,7 +107,7 @@ public class PlantTest extends AbstractTest {
 			final Plant plant = this.plantService.findOne(plantId);
 			plant.setName(name);
 			plant.setDescription(description);
-			plant.setPH(pH);
+			plant.setPh(pH);
 			plant.setMinTemperature(minTemperature);
 			plant.setMaxTemperature(maxTemperature);
 			plant.setMoisture(moisture);

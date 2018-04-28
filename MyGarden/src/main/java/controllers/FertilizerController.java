@@ -15,9 +15,7 @@ import services.AdministratorService;
 import services.FertilizerService;
 import services.GardenerService;
 import domain.Actor;
-import domain.Administrator;
 import domain.Fertilizer;
-import domain.Gardener;
 
 @Controller
 @RequestMapping("/fertilizer")
@@ -51,17 +49,15 @@ public class FertilizerController extends AbstractController {
 		Collection<Fertilizer> fertilizers;
 
 		final Actor actor = this.actorService.findByPrincipal();
-		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
-		final Administrator administrator = this.administratorService.findByUserAccount(actor.getUserAccount());
 
 		fertilizers = this.fertilizerService.findAll();
 
 		result = new ModelAndView("fertilizer/list");
 		result.addObject("fertilizers", fertilizers);
-		if (gardener != null)
-			result.addObject("principal", gardener);
-		else if (administrator != null)
-			result.addObject("principal", administrator);
+		//		if (gardener != null)
+		//			result.addObject("principal", gardener);
+		//		else if (administrator != null)
+		//			result.addObject("principal", administrator);
 		return result;
 	}
 
@@ -90,13 +86,11 @@ public class FertilizerController extends AbstractController {
 		Fertilizer fertilizer;
 
 		final Actor actor = this.actorService.findByPrincipal();
-		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+
 		fertilizer = this.fertilizerService.findOne(fertilizerId);
 
 		result = new ModelAndView("fertilizer/display");
 		result.addObject("fertilizer", fertilizer);
-		result.addObject("actor", actor);
-		result.addObject("requestURI", "fertilizer/display.do");
 
 		return result;
 	}

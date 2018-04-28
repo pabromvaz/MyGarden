@@ -239,7 +239,7 @@
 		<property name="minTemperature" value="2.0" />
 		<property name="maxTemperature" value="25.0" />
 		<property name="moisture" value="10.0" />
-		<property name="pH" value="7.0" />
+		<property name="ph" value="7.0" />
 		<property name="wateringAreas">
 			<list> 
 				<ref bean="wateringArea1"/>
@@ -253,7 +253,7 @@
 		<property name="minTemperature" value="2.0" />
 		<property name="maxTemperature" value="25.0" />
 		<property name="moisture" value="10.0" />
-		<property name="pH" value="7.0" />
+		<property name="ph" value="7.0" />
 		<property name="wateringAreas">
 			<list> 
 				<ref bean="wateringArea2"/>
@@ -267,7 +267,7 @@
 		<property name="minTemperature" value="2.0" />
 		<property name="maxTemperature" value="25.0" />
 		<property name="moisture" value="10.0" />
-		<property name="pH" value="7.0" />
+		<property name="ph" value="7.0" />
 		<property name="wateringAreas">
 			<list> 
 				<ref bean="wateringArea3"/>
@@ -281,7 +281,7 @@
 		<property name="minTemperature" value="2.0" />
 		<property name="maxTemperature" value="25.0" />
 		<property name="moisture" value="10.0" />
-		<property name="pH" value="7.0" />
+		<property name="ph" value="7.0" />
 		<property name="wateringAreas">
 			<list> 
 				<ref bean="wateringArea4"/>
@@ -294,7 +294,7 @@
 	<bean id="fertilizer1" class="domain.Fertilizer">
 		<property name="name" value="Fertilizante1" />
 		<property name="description" value="Descripcion del fertilizante1" />
-		<property name="pH" value="7.0" />
+		<property name="ph" value="7.0" />
 		<property name="nitrogen" value="25.0" />
 		<property name="phosphorus" value="10.0" />
 		<property name="potassium" value="7.0" />
@@ -303,7 +303,7 @@
 	<bean id="fertilizer2" class="domain.Fertilizer">
 		<property name="name" value="Fertilizante2" />
 		<property name="description" value="Descripcion del fertilizante2" />
-		<property name="pH" value="7.0" />
+		<property name="ph" value="7.0" />
 		<property name="nitrogen" value="25.0" />
 		<property name="phosphorus" value="10.0" />
 		<property name="potassium" value="7.0" />
@@ -596,7 +596,7 @@
 		<property name="humidity" value="20.0" />
 		<property name="temperature" value="21.0" />
 		<property name="light" value="70.0" />
-		<property name="pH" value="7.0" />
+		<property name="ph" value="7.0" />
 		<property name="nitrogen" value="25.0" />
 		<property name="phosphorus" value="10.0" />
 		<property name="potassium" value="7.0" />
@@ -609,7 +609,7 @@
 		<property name="humidity" value="20.0" />
 		<property name="temperature" value="21.0" />
 		<property name="light" value="70.0" />
-		<property name="pH" value="7.0" />
+		<property name="ph" value="7.0" />
 		<property name="nitrogen" value="25.0" />
 		<property name="phosphorus" value="10.0" />
 		<property name="potassium" value="7.0" />
@@ -622,7 +622,7 @@
 		<property name="humidity" value="20.0" />
 		<property name="temperature" value="21.0" />
 		<property name="light" value="70.0" />
-		<property name="pH" value="7.0" />
+		<property name="ph" value="7.0" />
 		<property name="nitrogen" value="25.0" />
 		<property name="phosphorus" value="10.0" />
 		<property name="potassium" value="7.0" />

@@ -55,6 +55,10 @@
 					<li><a href="messageEmail/listArchived.do"><spring:message code="master.page.messageEmails.archived" /></a></li>
 				</ul>
 			</li>
+			
+			<li><a href="plant/list.do"><spring:message code="master.page.plant.list" /></a></li>
+			<li><a href="fertilizer/list.do"><spring:message code="master.page.fertilizer.list" /></a></li>
+			
 			<li>
 				<a class="fNiv"> 
 					<spring:message code="master.page.profile" /> 

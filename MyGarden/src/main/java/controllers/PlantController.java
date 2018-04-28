@@ -15,8 +15,6 @@ import services.AdministratorService;
 import services.GardenerService;
 import services.PlantService;
 import domain.Actor;
-import domain.Administrator;
-import domain.Gardener;
 import domain.Plant;
 
 @Controller
@@ -51,17 +49,15 @@ public class PlantController extends AbstractController {
 		Collection<Plant> plants;
 
 		final Actor actor = this.actorService.findByPrincipal();
-		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
-		final Administrator administrator = this.administratorService.findByUserAccount(actor.getUserAccount());
 
 		plants = this.plantService.findAll();
 
 		result = new ModelAndView("plant/list");
 		result.addObject("plants", plants);
-		if (gardener != null)
-			result.addObject("principal", gardener);
-		else if (administrator != null)
-			result.addObject("principal", administrator);
+		//		if (gardener != null)
+		//			result.addObject("principal", gardener);
+		//		else if (administrator != null)
+		//			result.addObject("principal", administrator);
 		return result;
 	}
 
@@ -90,13 +86,10 @@ public class PlantController extends AbstractController {
 		Plant plant;
 
 		final Actor actor = this.actorService.findByPrincipal();
-		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
 		plant = this.plantService.findOne(plantId);
 
 		result = new ModelAndView("plant/display");
 		result.addObject("plant", plant);
-		result.addObject("actor", actor);
-		result.addObject("requestURI", "plant/display.do");
 
 		return result;
 	}

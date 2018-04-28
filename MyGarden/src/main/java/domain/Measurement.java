@@ -30,7 +30,7 @@ public class Measurement extends DomainEntity {
 	private Double	humidity;
 	private Double	temperature;
 	private Double	light;
-	private Double	pH;
+	private Double	ph;
 	private Double	nitrogen;
 	private Double	phosphorus;
 	private Double	potassium;
@@ -74,12 +74,12 @@ public class Measurement extends DomainEntity {
 	}
 
 	@NotNull
-	public Double getPH() {
-		return this.pH;
+	public Double getPh() {
+		return this.ph;
 	}
 
-	public void setPH(final Double pH) {
-		this.pH = pH;
+	public void setPh(final Double ph) {
+		this.ph = ph;
 	}
 
 	@NotNull

@@ -20,7 +20,7 @@ import domain.Administrator;
 import domain.Plant;
 
 @Controller
-@RequestMapping("/administrator/plant")
+@RequestMapping("/plant/administrator")
 public class PlantAdministratorController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
@@ -57,11 +57,31 @@ public class PlantAdministratorController extends AbstractController {
 
 		plant = this.plantService.create();
 
-		result = this.createEditModelAndView(plant);
+		result = this.createModelAndView(plant);
 
 		return result;
 	}
 
+	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveCreate(@Valid final Plant plant, final BindingResult binding) {
+
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createModelAndView(plant);
+		else
+			try {
+				this.plantService.save(plant);
+				result = new ModelAndView("redirect:../../plant/list.do");
+
+			} catch (final Throwable oops) {
+				result = this.createModelAndView(plant, "plant.commit.error");
+
+			}
+		return result;
+	}
+
+	// Edit ----------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int plantId) {
 		ModelAndView result;
@@ -76,7 +96,7 @@ public class PlantAdministratorController extends AbstractController {
 		if (administrator == null)
 			return result = new ModelAndView("redirect:../../welcome/index.do");
 
-		result = this.createEditModelAndView(plant);
+		result = this.editModelAndView(plant);
 
 		return result;
 	}
@@ -86,7 +106,7 @@ public class PlantAdministratorController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(plant);
+			result = this.editModelAndView(plant);
 		else
 			try {
 				if (plant.getId() != 0)
@@ -97,19 +117,18 @@ public class PlantAdministratorController extends AbstractController {
 				//this.plantService.select(plant.getCategories(), plant);
 				result = new ModelAndView("redirect:../../plant/list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(plant, "plant.commit.error");
+				result = this.editModelAndView(plant, "plant.commit.error");
 			}
 
 		return result;
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@Valid final int plantId) {
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@Valid final Plant plant, final BindingResult binding) {
 		ModelAndView result;
-		Plant plant;
+
 		Actor actor;
 		Administrator administrator;
-		plant = this.plantService.findOne(plantId);
 
 		actor = this.actorService.findByPrincipal();
 		administrator = this.administratorService.findByUserAccount(actor.getUserAccount());
@@ -117,36 +136,54 @@ public class PlantAdministratorController extends AbstractController {
 		if (administrator == null)
 			return result = new ModelAndView("redirect:../../welcome/index.do");
 
-		this.plantService.delete(plant);
-		result = new ModelAndView("redirect:../../plant/list.do");
+		try {
+
+			this.plantService.delete(plant);
+			result = new ModelAndView("redirect:../../plant/list.do");
+
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:../plant/list.do");
+		}
 
 		return result;
 	}
 
 	// Ancillary methods ------------------------------------------------------
-
-	//Create
-	protected ModelAndView createEditModelAndView(final Plant plant) {
+	protected ModelAndView createModelAndView(final Plant plant) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(plant, null);
+		result = this.createModelAndView(plant, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Plant plant, final String message) {
+	protected ModelAndView createModelAndView(final Plant plant, final String message) {
 		ModelAndView result;
 
-		if (plant.getId() != 0)
-			result = new ModelAndView("plant/edit");
-		else
-			result = new ModelAndView("plant/create");
+		result = new ModelAndView("plant/create");
+		result.addObject("plant", plant);
+		result.addObject("requestURI", "plant/administrator/create.do");
+		result.addObject("message", message);
 
+		return result;
+	}
+
+	protected ModelAndView editModelAndView(final Plant plant) {
+		ModelAndView result;
+
+		result = this.editModelAndView(plant, null);
+
+		return result;
+	}
+
+	protected ModelAndView editModelAndView(final Plant plant, final String message) {
+		ModelAndView result;
+
+		result = new ModelAndView("plant/edit");
 		result.addObject("plant", plant);
 		result.addObject("requestURI", "plant/administrator/edit.do");
 		result.addObject("message", message);
 
 		return result;
 	}
-
 }

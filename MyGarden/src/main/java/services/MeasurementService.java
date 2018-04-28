@@ -74,7 +74,7 @@ public class MeasurementService {
 		result.setTemperature(temperature);
 		result.setLight(light);
 		result.setNitrogen(nitrogen);
-		result.setPH(pH);
+		result.setPh(pH);
 		result.setPhosphorus(phosphorus);
 		result.setPotassium(potassium);
 		result.setMoment(calendar.getTime());

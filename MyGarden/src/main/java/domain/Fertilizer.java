@@ -21,7 +21,7 @@ public class Fertilizer extends DomainEntity {
 	// Attributes -------------------------------------------------------------
 	private String	name;
 	private String	description;
-	private Double	pH;
+	private Double	ph;
 	private Double	nitrogen;
 	private Double	phosphorus;
 	private Double	potassium;
@@ -46,12 +46,12 @@ public class Fertilizer extends DomainEntity {
 	}
 
 	@NotNull
-	public Double getPH() {
-		return this.pH;
+	public Double getPh() {
+		return this.ph;
 	}
 
-	public void setPH(final Double pH) {
-		this.pH = pH;
+	public void setPh(final Double ph) {
+		this.ph = ph;
 	}
 
 	@NotNull

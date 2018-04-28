@@ -67,7 +67,7 @@ public class FertilizerTest extends AbstractTest {
 			final Fertilizer fertilizer = this.fertilizerService.create();
 			fertilizer.setName(name);
 			fertilizer.setDescription(description);
-			fertilizer.setPH(pH);
+			fertilizer.setPh(pH);
 			fertilizer.setNitrogen(nitrogen);
 			fertilizer.setPhosphorus(phosphorus);
 			fertilizer.setPotassium(potassium);
@@ -111,7 +111,7 @@ public class FertilizerTest extends AbstractTest {
 			final Fertilizer fertilizer = this.fertilizerService.findOne(fertilizerId);
 			fertilizer.setName(name);
 			fertilizer.setDescription(description);
-			fertilizer.setPH(pH);
+			fertilizer.setPh(pH);
 			fertilizer.setNitrogen(nitrogen);
 			fertilizer.setPhosphorus(phosphorus);
 			fertilizer.setPotassium(potassium);

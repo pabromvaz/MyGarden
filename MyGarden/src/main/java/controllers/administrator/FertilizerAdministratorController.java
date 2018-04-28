@@ -20,7 +20,7 @@ import domain.Administrator;
 import domain.Fertilizer;
 
 @Controller
-@RequestMapping("/administrator/fertilizer")
+@RequestMapping("/fertilizer/administrator")
 public class FertilizerAdministratorController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
@@ -62,6 +62,26 @@ public class FertilizerAdministratorController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveCreate(@Valid final Fertilizer fertilizer, final BindingResult binding) {
+
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(fertilizer);
+		else
+			try {
+				this.fertilizerService.save(fertilizer);
+				result = new ModelAndView("redirect:../../fertilizer/list.do");
+
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(fertilizer, "fertilizer.commit.error");
+
+			}
+		return result;
+	}
+
+	// Edit ----------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int fertilizerId) {
 		ModelAndView result;
@@ -103,13 +123,11 @@ public class FertilizerAdministratorController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@Valid final int fertilizerId) {
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@Valid final Fertilizer fertilizer, final BindingResult binding) {
 		ModelAndView result;
-		Fertilizer fertilizer;
 		Actor actor;
 		Administrator administrator;
-		fertilizer = this.fertilizerService.findOne(fertilizerId);
 
 		actor = this.actorService.findByPrincipal();
 		administrator = this.administratorService.findByUserAccount(actor.getUserAccount());
@@ -117,8 +135,12 @@ public class FertilizerAdministratorController extends AbstractController {
 		if (administrator == null)
 			return result = new ModelAndView("redirect:../../welcome/index.do");
 
-		this.fertilizerService.delete(fertilizer);
-		result = new ModelAndView("redirect:../../fertilizer/list.do");
+		try {
+			this.fertilizerService.delete(fertilizer);
+			result = new ModelAndView("redirect:../../fertilizer/list.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:../fertilizer/list.do");
+		}
 
 		return result;
 	}
@@ -137,13 +159,15 @@ public class FertilizerAdministratorController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Fertilizer fertilizer, final String message) {
 		ModelAndView result;
 
-		if (fertilizer.getId() != 0)
+		if (fertilizer.getId() != 0) {
 			result = new ModelAndView("fertilizer/edit");
-		else
+			result.addObject("requestURI", "fertilizer/administrator/edit.do");
+		} else {
 			result = new ModelAndView("fertilizer/create");
+			result.addObject("requestURI", "fertilizer/administrator/create.do");
+		}
 
 		result.addObject("fertilizer", fertilizer);
-		result.addObject("requestURI", "fertilizer/administrator/edit.do");
 		result.addObject("message", message);
 
 		return result;

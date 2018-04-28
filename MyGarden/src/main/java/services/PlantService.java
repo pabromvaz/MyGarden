@@ -80,7 +80,7 @@ public class PlantService {
 	public void delete(final Plant plant) {
 		Assert.notNull(plant);
 		Assert.notNull(this.administratorService.findByPrincipal());
-		//Assert.isTrue(plant.getWateringAreas().isEmpty());
+		Assert.isTrue(plant.getWateringAreas().isEmpty());
 		this.plantRepository.delete(plant);
 	}
 

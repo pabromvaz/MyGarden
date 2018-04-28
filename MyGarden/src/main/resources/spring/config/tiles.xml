@@ -24,8 +24,10 @@
 		<value>/views/welcome/tiles.xml</value>
 		
 		<value>/views/administrator/tiles.xml</value>
+		<value>/views/fertilizer/tiles.xml</value>
 		<value>/views/gardener/tiles.xml</value>
 		<value>/views/messageEmail/tiles.xml</value>
+		<value>/views/plant/tiles.xml</value>
 		<value>/views/profile/tiles.xml</value>
 	</util:list>
 

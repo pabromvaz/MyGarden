@@ -45,13 +45,13 @@ public class TimeTableTest extends AbstractTest {
 	public void driverAddTimeTableToAWateringArea() {
 		final Object testingData[][] = {
 			{
-				"gardener1", 17, "11/10/2018 19:00", "11/10/2018 21:00", null
+				"gardener1", 20, "11/10/2018 19:00", "11/10/2018 21:00", null
 			}, {
-				"gardener2", 19, "11/10/2018 19:00", "11/10/2018 21:00", null
+				"gardener2", 22, "11/10/2018 19:00", "11/10/2018 21:00", null
 			}, {
-				"gardener3", 20, "11/10/2018 19:00", "11/10/2018 21:00", null
+				"gardener3", 23, "11/10/2018 19:00", "11/10/2018 21:00", null
 			}, {
-				"gardenerNoExist", 17, "11/10/2018 19:00", "11/10/2018 21:00", IllegalArgumentException.class
+				"gardenerNoExist", 20, "11/10/2018 19:00", "11/10/2018 21:00", IllegalArgumentException.class
 			}
 		};
 
@@ -103,13 +103,13 @@ public class TimeTableTest extends AbstractTest {
 	public void driverEditTimeTable() {
 		final Object testingData[][] = {
 			{
-				"gardener1", 25, "11/10/2018 19:00", "11/10/2018 21:00", null
+				"gardener1", 28, "11/10/2018 19:00", "11/10/2018 21:00", null
 			}, {
-				"gardener2", 26, "11/10/2018 19:00", "11/10/2018 21:00", null
+				"gardener2", 29, "11/10/2018 19:00", "11/10/2018 21:00", null
 			}, {
-				"gardener3", 27, "11/10/2018 19:00", "11/10/2018 21:00", null
+				"gardener3", 30, "11/10/2018 19:00", "11/10/2018 21:00", null
 			}, {
-				"gardenerNoExist", 17, "11/10/2018 19:00", "11/10/2018 21:00", IllegalArgumentException.class
+				"gardenerNoExist", 20, "11/10/2018 19:00", "11/10/2018 21:00", IllegalArgumentException.class
 			}
 		};
 
@@ -160,13 +160,13 @@ public class TimeTableTest extends AbstractTest {
 	public void driverDeleteTimeTable() {
 		final Object testingData[][] = {
 			{
-				"gardener1", 25, null
+				"gardener1", 28, null
 			}, {
-				"gardener2", 26, null
+				"gardener2", 29, null
 			}, {
-				"gardener3", 27, null
+				"gardener3", 30, null
 			}, {
-				"gardenerNoExist", 17, IllegalArgumentException.class
+				"gardenerNoExist", 20, IllegalArgumentException.class
 			}
 		};
 

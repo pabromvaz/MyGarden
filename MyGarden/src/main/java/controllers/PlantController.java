@@ -14,6 +14,7 @@ import services.ActorService;
 import services.AdministratorService;
 import services.GardenerService;
 import services.PlantService;
+import services.WateringAreaService;
 import domain.Actor;
 import domain.Plant;
 
@@ -34,6 +35,9 @@ public class PlantController extends AbstractController {
 
 	@Autowired
 	private GardenerService			gardenerService;
+
+	@Autowired
+	private WateringAreaService		wateringAreaService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -60,24 +64,6 @@ public class PlantController extends AbstractController {
 		//			result.addObject("principal", administrator);
 		return result;
 	}
-
-	// ListMyPlants ----------------------------------------------------------------
-	//	@RequestMapping(value = "/listMyPlants", method = RequestMethod.GET)
-	//	public ModelAndView listMyPlants() {
-	//		ModelAndView result;
-	//		Collection<Plant> plants;
-	//
-	//		final Actor actor = this.actorService.findByPrincipal();
-	//
-	//		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
-	//		plants = this.plantService.findByGardenerId(gardener.getId());
-	//
-	//		result = new ModelAndView("plant/list");
-	//		result.addObject("plants", plants);
-	//		result.addObject("principal", actor);
-	//
-	//		return result;
-	//	}
 
 	// Display ----------------------------------------------------------------
 	@RequestMapping(value = "/display", method = RequestMethod.GET)

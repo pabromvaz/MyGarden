@@ -15,6 +15,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Comment;
+import domain.Configuration;
 import domain.Gardener;
 import domain.MessageEmail;
 import domain.Taste;
@@ -27,10 +28,13 @@ public class GardenerService {
 
 	// Managed repository -----------------------------------------------------
 	@Autowired
-	private GardenerRepository	gardenerRepository;
-
+	private GardenerRepository		gardenerRepository;
 
 	// Supporting services ----------------------------------------------------
+
+	@Autowired
+	private ConfigurationService	configurationService;
+
 
 	// Constructors------------------------------------------------------------
 	public GardenerService() {
@@ -86,7 +90,8 @@ public class GardenerService {
 		result.setAnimalDetectionEventActivated(true);
 		result.setUseOfFertilizerEventActivated(true);
 		result.setWaterTankEventActivated(true);
-
+		final Configuration configuration = this.configurationService.create();
+		result.setConfiguration(configuration);
 		return result;
 	}
 
@@ -102,7 +107,9 @@ public class GardenerService {
 	public Gardener saveRegister(final Gardener gardener) {
 		Assert.notNull(gardener);
 		Gardener result;
-
+		Configuration configuration = this.configurationService.create();
+		configuration = this.configurationService.saveRegister(configuration);
+		gardener.setConfiguration(configuration);
 		result = this.gardenerRepository.save(gardener);
 		return result;
 	}

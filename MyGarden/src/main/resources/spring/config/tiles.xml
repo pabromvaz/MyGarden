@@ -24,11 +24,18 @@
 		<value>/views/welcome/tiles.xml</value>
 		
 		<value>/views/administrator/tiles.xml</value>
+		<value>/views/configuration/tiles.xml</value>
+		<value>/views/comment/tiles.xml</value>
+		<value>/views/event/tiles.xml</value>
 		<value>/views/fertilizer/tiles.xml</value>
 		<value>/views/gardener/tiles.xml</value>
+		<value>/views/measurement/tiles.xml</value>
 		<value>/views/messageEmail/tiles.xml</value>
 		<value>/views/plant/tiles.xml</value>
+		<value>/views/prediction/tiles.xml</value>
 		<value>/views/profile/tiles.xml</value>
+		<value>/views/timeTable/tiles.xml</value>
+		<value>/views/wateringArea/tiles.xml</value>
 	</util:list>
 
 </beans>

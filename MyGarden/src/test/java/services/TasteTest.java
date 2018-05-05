@@ -43,15 +43,15 @@ public class TasteTest extends AbstractTest {
 	public void driverLikeToAWateringArea() {
 		final Object testingData[][] = {
 			{
-				"gardener1", 19, null
+				"gardener1", 22, null
 			}, {
-				"gardener2", 17, null
+				"gardener2", 20, null
 			}, {
-				"gardener3", 18, null
+				"gardener3", 21, null
 			}, {
-				"gardenerNoExist", 20, IllegalArgumentException.class
+				"gardenerNoExist", 23, IllegalArgumentException.class
 			}, {
-				"admin", 20, IllegalArgumentException.class
+				"admin", 23, IllegalArgumentException.class
 			}, {
 				"gardener3", 0, IllegalArgumentException.class
 			}
@@ -88,11 +88,11 @@ public class TasteTest extends AbstractTest {
 	public void driverDislikeToAWateringArea() {
 		final Object testingData[][] = {
 			{
-				"gardener1", 20, null
+				"gardener1", 23, null
 			}, {
-				"gardener2", 17, null
+				"gardener2", 20, null
 			}, {
-				"gardener3", 19, null
+				"gardener3", 22, null
 			}, {
 				"gardenerNoExist", 94, IllegalArgumentException.class
 			}, {
@@ -130,13 +130,13 @@ public class TasteTest extends AbstractTest {
 	public void driverCambiarLikeODislike() {
 		final Object testingData[][] = {
 			{
-				"gardener1", 21, false, null
+				"gardener1", 24, false, null
 			}, {
-				"gardener1", 22, true, null
+				"gardener1", 25, true, null
 			}, {
-				"gardenerNoExist", 21, false, IllegalArgumentException.class
+				"gardenerNoExist", 24, false, IllegalArgumentException.class
 			}, {
-				"admin", 22, true, IllegalArgumentException.class
+				"admin", 25, true, IllegalArgumentException.class
 			}, {
 				"gardener2", 0, true, IllegalArgumentException.class
 			}

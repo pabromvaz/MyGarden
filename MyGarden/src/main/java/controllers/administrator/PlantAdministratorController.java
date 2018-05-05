@@ -75,7 +75,10 @@ public class PlantAdministratorController extends AbstractController {
 				result = new ModelAndView("redirect:../../plant/list.do");
 
 			} catch (final Throwable oops) {
-				result = this.createModelAndView(plant, "plant.commit.error");
+				if (!(plant.getMinTemperature() <= plant.getMaxTemperature()))
+					result = this.editModelAndView(plant, "plant.commit.error.temperature");
+				else
+					result = this.createModelAndView(plant, "plant.commit.error");
 
 			}
 		return result;
@@ -110,14 +113,13 @@ public class PlantAdministratorController extends AbstractController {
 		else
 			try {
 				if (plant.getId() != 0)
-					//this.plantService.select(plant.getPlant(), plant);
 					plant = this.plantService.save(plant);
-				else
-					plant = this.plantService.save(plant);
-				//this.plantService.select(plant.getCategories(), plant);
 				result = new ModelAndView("redirect:../../plant/list.do");
 			} catch (final Throwable oops) {
-				result = this.editModelAndView(plant, "plant.commit.error");
+				if (!(plant.getMinTemperature() <= plant.getMaxTemperature()))
+					result = this.editModelAndView(plant, "plant.commit.error.temperature");
+				else
+					result = this.editModelAndView(plant, "plant.commit.error");
 			}
 
 		return result;

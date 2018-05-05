@@ -6,13 +6,12 @@ import javax.transaction.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Gardener;
+import forms.CreateGardenerForm;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -37,43 +36,37 @@ public class GardenerTest extends AbstractTest {
 	public void driverRegisterGardener() {
 		final Object testingData[][] = {
 			{
-				"gardener5", "gardener5", "gardener5", "nameGardener5", "surnameGardener5", "gardener5@gmail.com", "http://web.com/imagen.jpg", true, true, true, null
+				"gardener5", "gardener5", "gardener5", "nameGardener5", "surnameGardener5", "gardener5@gmail.com", "http://web.com/imagen.jpg", true, null
 			}, {
-				"gardener5", "gardener5", "gardener4", "nameGardener5", "surnameGardener5", "gardener5@gmail.com", "http://web.com/imagen.jpg", true, true, true, IllegalArgumentException.class
+				"gardener6", "gardener7", "gardener6", "nameGardener6", "surnameGardener6", "gardener6@gmail.com", "http://web.com/imagen.jpg", true, IllegalArgumentException.class
 			}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
 			this.RegisterGardener((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (String) testingData[i][5], (String) testingData[i][6],
-				(Boolean) testingData[i][7], (Boolean) testingData[i][8], (Boolean) testingData[i][9], (Class<?>) testingData[i][10]);
+				(Boolean) testingData[i][7], (Class<?>) testingData[i][8]);
 	}
 
-	protected void RegisterGardener(final String username, final String password, final String confirmPassword, final String name, final String surname, final String email, final String picture, final Boolean animalDetectionEventActivated,
-		final Boolean useOfFertilizerEventActivated, final Boolean waterTankEventActivated, final Class<?> expected) {
+	protected void RegisterGardener(final String username, final String password, final String confirmPassword, final String name, final String surname, final String email, final String picture, final Boolean isAgree, final Class<?> expected) {
 
 		Class<?> caught = null;
 
-		Md5PasswordEncoder encoder;
-		String passwordEncoded;
-
 		try {
-			final Gardener gardener = this.gardenerService.create();
-			gardener.getUserAccount().setUsername(username);
 
-			Assert.isTrue(password.equals(confirmPassword));
-			encoder = new Md5PasswordEncoder();
-			passwordEncoded = encoder.encodePassword(password, null);
-			gardener.getUserAccount().setPassword(passwordEncoded);
+			final CreateGardenerForm createGardenerForm = new CreateGardenerForm();
 
-			gardener.setName(name);
-			gardener.setSurname(surname);
-			gardener.setEmail(email);
-			gardener.setPicture(picture);
-			gardener.setAnimalDetectionEventActivated(animalDetectionEventActivated);
-			gardener.setWaterTankEventActivated(waterTankEventActivated);
-			gardener.setUseOfFertilizerEventActivated(useOfFertilizerEventActivated);
+			createGardenerForm.setUsername(username);
+			createGardenerForm.setPassword(password);
+			createGardenerForm.setConfirmPassword(confirmPassword);
+			createGardenerForm.setIsAgree(true);
 
-			this.gardenerService.save(gardener);
+			createGardenerForm.setName(name);
+			createGardenerForm.setSurname(surname);
+			createGardenerForm.setEmail(email);
+			createGardenerForm.setPicture(picture);
+			final Gardener gardener = this.gardenerService.reconstructProfile(createGardenerForm, "create");
+
+			this.gardenerService.saveRegister(gardener);
 			this.gardenerService.findAll();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
@@ -86,41 +79,35 @@ public class GardenerTest extends AbstractTest {
 	public void driverEditGardener() {
 		final Object testingData[][] = {
 			{
-				"gardener1", "gardener1", "gardener1", "nameGardener1", "surnameGardener1", "gardener1@gmail.com", "http://web.com/imagen.jpg", true, true, true, null
+				"gardener1", "gardener1", "gardener1", "nameGardener1", "surnameGardener1", "gardener1@gmail.com", "http://web.com/imagen.jpg", null
 			}, {
-				"gardener1", "gardener1", "gardener4", "nameGardener1", "surnameGardener1", "gardener1@gmail.com", "http://web.com/imagen.jpg", true, true, true, IllegalArgumentException.class
+				"gardener1", "gardener1", "gardener4", "nameGardener1", "surnameGardener1", "gardener1@gmail.com", "http://web.com/imagen.jpg", IllegalArgumentException.class
 			}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
-			this.editGardener((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (String) testingData[i][5], (String) testingData[i][6], (Boolean) testingData[i][7],
-				(Boolean) testingData[i][8], (Boolean) testingData[i][9], (Class<?>) testingData[i][10]);
+			this.editGardener((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (String) testingData[i][5], (String) testingData[i][6], (Class<?>) testingData[i][7]);
 	}
 
-	protected void editGardener(final String username, final String password, final String confirmPassword, final String name, final String surname, final String email, final String picture, final Boolean animalDetectionEventActivated,
-		final Boolean useOfFertilizerEventActivated, final Boolean waterTankEventActivated, final Class<?> expected) {
+	protected void editGardener(final String username, final String password, final String confirmPassword, final String name, final String surname, final String email, final String picture, final Class<?> expected) {
 
 		Class<?> caught = null;
-		Md5PasswordEncoder encoder;
-		String passwordEncoded;
 
 		try {
 			this.authenticate("gardener1");
 
-			final Gardener gardener = this.gardenerService.findByPrincipal();
+			Gardener gardener = this.gardenerService.findByPrincipal();
+			final CreateGardenerForm createGardenerForm = this.gardenerService.constructProfile(gardener);
 
-			Assert.isTrue(password.equals(confirmPassword));
-			encoder = new Md5PasswordEncoder();
-			passwordEncoded = encoder.encodePassword(password, null);
-			gardener.getUserAccount().setPassword(passwordEncoded);
+			createGardenerForm.setUsername(username);
+			createGardenerForm.setPassword(password);
+			createGardenerForm.setConfirmPassword(confirmPassword);
 
-			gardener.setName(name);
-			gardener.setSurname(surname);
-			gardener.setEmail(email);
-			gardener.setPicture(picture);
-			gardener.setAnimalDetectionEventActivated(animalDetectionEventActivated);
-			gardener.setWaterTankEventActivated(waterTankEventActivated);
-			gardener.setUseOfFertilizerEventActivated(useOfFertilizerEventActivated);
+			createGardenerForm.setName(name);
+			createGardenerForm.setSurname(surname);
+			createGardenerForm.setEmail(email);
+
+			gardener = this.gardenerService.reconstructProfile(createGardenerForm, "edit");
 
 			this.gardenerService.save(gardener);
 			this.gardenerService.findAll();

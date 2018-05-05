@@ -15,6 +15,7 @@
 	<form:hidden path="wateringAreas" />
 
 	<acme:input code="plant.name" path="name" />
+	<acme:input code="plant.picture" path="picture" />
 	<acme:textarea code="plant.description" path="description" />
 	<acme:input code="plant.minTemperature" path="minTemperature" />
 	<acme:input code="plant.maxTemperature" path="maxTemperature" />

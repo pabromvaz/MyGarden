@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles.xml
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+
+	<definition name="timeTable/display" extends="master.page">	
+		<put-attribute name="title" value="TimeTable" />
+		<put-attribute name="body" value="/views/timeTable/display.jsp" />
+	</definition>
+	
+	<definition name="timeTable/create" extends="master.page">	
+		<put-attribute name="title" value="Create timeTable" />
+		<put-attribute name="body" value="/views/timeTable/edit.jsp" />
+	</definition>
+	
+	<definition name="timeTable/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit timeTable" />
+		<put-attribute name="body" value="/views/timeTable/edit.jsp" />
+	</definition>
+	
+	<definition name="timeTable/list" extends="master.page">	
+		<put-attribute name="title" value="List timeTables" />
+		<put-attribute name="body" value="/views/timeTable/list.jsp" />
+	</definition>
+		
+</tiles-definitions>

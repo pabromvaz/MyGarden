@@ -97,7 +97,6 @@ public class WateringAreaService {
 		final Collection<Taste> tastes = new ArrayList<Taste>();
 		final Collection<Comment> comments = new ArrayList<Comment>();
 		final Collection<Event> events = new ArrayList<Event>();
-		final Collection<String> pictures = new ArrayList<String>();
 		final Collection<Prediction> predictions = new ArrayList<Prediction>();
 
 		result.setComments(comments);
@@ -106,7 +105,6 @@ public class WateringAreaService {
 		result.setTastes(tastes);
 		result.setTimeTables(timeTables);
 		result.setPredictions(predictions);
-		result.setPictures(pictures);
 		result.setValveActivated(false);
 		return result;
 	}
@@ -170,6 +168,24 @@ public class WateringAreaService {
 		Collection<WateringArea> result;
 		result = this.wateringAreaRepository.findByGardenerId(gardenerId);
 		return result;
+	}
+
+	public void activateValve(final WateringArea wateringArea) {
+		Assert.notNull(wateringArea);
+		Assert.isTrue(this.gardenerService.findByPrincipal().equals(wateringArea.getGardener()));
+
+		wateringArea.setValveActivated(true);
+		this.wateringAreaRepository.save(wateringArea);
+
+	}
+
+	public void deactivateValve(final WateringArea wateringArea) {
+		Assert.notNull(wateringArea);
+		Assert.isTrue(this.gardenerService.findByPrincipal().equals(wateringArea.getGardener()));
+
+		wateringArea.setValveActivated(false);
+		this.wateringAreaRepository.save(wateringArea);
+
 	}
 
 }

@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -13,6 +12,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -25,12 +25,12 @@ public class WateringArea extends DomainEntity {
 
 
 	// Attributes -------------------------------------------------------------
-	private String				name;
-	private String				place;
-	private String				description;
-	private Collection<String>	pictures;
-	private Boolean				visible;
-	private Boolean				valveActivated;
+	private String	name;
+	private String	place;
+	private String	description;
+	private String	picture;
+	private Boolean	visible;
+	private Boolean	valveActivated;
 
 
 	@NotBlank
@@ -61,13 +61,13 @@ public class WateringArea extends DomainEntity {
 	}
 
 	@NotNull
-	@ElementCollection
-	public Collection<String> getPictures() {
-		return this.pictures;
+	@URL
+	public String getPicture() {
+		return this.picture;
 	}
 
-	public void setPictures(final Collection<String> pictures) {
-		this.pictures = pictures;
+	public void setPicture(final String picture) {
+		this.picture = picture;
 	}
 
 	public Boolean getVisible() {

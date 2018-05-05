@@ -44,21 +44,21 @@ public class EventTest extends AbstractTest {
 	public void driverAddEventToAWateringArea() {
 		final Object testingData[][] = {
 			{
-				"gardener1", 17, "eventName1", "Description1", null
+				"gardener1", 20, "eventName1", "Description1", "Intrusion", null
 			}, {
-				"gardener2", 19, "eventName2", "Description2", null
+				"gardener2", 22, "eventName2", "Description2", "Fertilizer", null
 			}, {
-				"gardener3", 20, "eventName3", "Description3", null
+				"gardener3", 23, "eventName3", "Description3", "Tank", null
 			}, {
-				"gardenerNoExist", 20, "eventName4", "Description4", IllegalArgumentException.class
+				"gardenerNoExist", 20, "eventName4", "Description4", "Intrusion", IllegalArgumentException.class
 			}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
-			this.AddEventToAWateringArea((String) testingData[i][0], (int) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (Class<?>) testingData[i][4]);
+			this.AddEventToAWateringArea((String) testingData[i][0], (int) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (Class<?>) testingData[i][5]);
 	}
 
-	protected void AddEventToAWateringArea(final String username, final int wateringAreaId, final String name, final String description, final Class<?> expected) {
+	protected void AddEventToAWateringArea(final String username, final int wateringAreaId, final String name, final String description, final String type, final Class<?> expected) {
 		Class<?> caught;
 
 		caught = null;
@@ -66,7 +66,7 @@ public class EventTest extends AbstractTest {
 			this.authenticate(username);
 
 			final WateringArea wateringArea = this.wateringAreaService.findOne(wateringAreaId);
-			final Event event = this.eventService.create(wateringArea, name, description);
+			final Event event = this.eventService.create(wateringArea, name, description, type);
 			this.eventService.save(event);
 
 			this.eventService.findAll();

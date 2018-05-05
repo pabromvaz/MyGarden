@@ -79,6 +79,7 @@ public class TimeTableService {
 	public TimeTable save(final TimeTable timeTable) {
 		//Assert.isTrue(this.gardenerService.findByPrincipal().equals(comment.getGardener()));
 		Assert.notNull(timeTable);
+		Assert.isTrue(timeTable.getActivationMoment().before(timeTable.getDeactivationMoment()));
 
 		TimeTable result;
 

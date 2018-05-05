@@ -17,8 +17,8 @@ import domain.Taste;
 import domain.WateringArea;
 
 @Controller
-@RequestMapping("/gardener/taste")
-public class TasteController extends AbstractController {
+@RequestMapping("/taste/gardener")
+public class TasteGardenerController extends AbstractController {
 
 	// Service ---------------------------------------------------------------
 	@Autowired
@@ -32,7 +32,7 @@ public class TasteController extends AbstractController {
 
 
 	// Constructors -----------------------------------------------------------
-	public TasteController() {
+	public TasteGardenerController() {
 		super();
 	}
 

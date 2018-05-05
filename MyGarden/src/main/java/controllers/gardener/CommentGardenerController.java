@@ -19,8 +19,8 @@ import domain.Comment;
 import domain.WateringArea;
 
 @Controller
-@RequestMapping("/gardener/comment")
-public class CommentController extends AbstractController {
+@RequestMapping("/comment/gardener")
+public class CommentGardenerController extends AbstractController {
 
 	// Service ---------------------------------------------------------------
 	@Autowired
@@ -34,7 +34,7 @@ public class CommentController extends AbstractController {
 
 
 	// Constructors -----------------------------------------------------------
-	public CommentController() {
+	public CommentGardenerController() {
 		super();
 	}
 

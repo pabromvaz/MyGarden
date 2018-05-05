@@ -13,18 +13,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.EventService;
 import services.GardenerService;
 import services.WateringAreaService;
 import controllers.AbstractController;
+import domain.Actor;
 import domain.Event;
+import domain.Gardener;
 import domain.WateringArea;
 
 @Controller
-@RequestMapping("/gardener/event")
-public class EventController extends AbstractController {
+@RequestMapping("/event/wateringArea")
+public class EventWateringAreaController extends AbstractController {
 
 	// Service ---------------------------------------------------------------
+
+	@Autowired
+	private ActorService		actorService;
+
 	@Autowired
 	private GardenerService		gardenerService;
 
@@ -36,7 +43,7 @@ public class EventController extends AbstractController {
 
 
 	// Constructors -----------------------------------------------------------
-	public EventController() {
+	public EventWateringAreaController() {
 		super();
 	}
 
@@ -51,7 +58,8 @@ public class EventController extends AbstractController {
 
 		result = new ModelAndView("event/list");
 		result.addObject("events", events);
-		result.addObject("requestURI", "gardener/event/list.do");
+		result.addObject("wateringArea", wateringArea);
+		result.addObject("requestURI", "event/wateringArea/list.do");
 
 		return result;
 	}
@@ -64,22 +72,29 @@ public class EventController extends AbstractController {
 
 		event = this.eventService.findOne(eventId);
 
+		final Actor actor = this.actorService.findByPrincipal();
+		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		Boolean isOwner = false;
+		if (event.getWateringArea().getGardener().equals(gardener))
+			isOwner = true;
+
 		result = new ModelAndView("event/display");
 		result.addObject("event", event);
-		result.addObject("requestURI", "gardener/event/display.do");
+		result.addObject("isOwner", isOwner);
+		result.addObject("requestURI", "event/wateringArea/display.do");
 
 		return result;
 	}
 
 	// Create -------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final Integer wateringAreaId, final String name, final String description) {
+	public ModelAndView create(@RequestParam final Integer wateringAreaId, final String name, final String description, final String type) {
 		ModelAndView result;
 		WateringArea wateringArea;
 		Event event;
 
 		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
-		event = this.eventService.create(wateringArea, name, description);
+		event = this.eventService.create(wateringArea, name, description, type);
 
 		result = this.createEditModelAndView(event);
 
@@ -106,17 +121,20 @@ public class EventController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@Valid final int eventId) {
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@Valid final Event event, final BindingResult binding) {
 		ModelAndView result;
-		final Event event;
-		final WateringArea wateringArea;
+		Actor actor;
+		Gardener gardener;
 
-		event = this.eventService.findOne(eventId);
-		wateringArea = event.getWateringArea();
+		actor = this.actorService.findByPrincipal();
+		gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+
+		if (gardener == null || !event.getWateringArea().getGardener().equals(gardener))
+			return result = new ModelAndView("redirect:../../welcome/index.do");
 
 		this.eventService.delete(event);
-		result = new ModelAndView("redirect:/wateringArea/display.do?wateringAreaId=" + wateringArea.getId());
+		result = new ModelAndView("redirect:../../event/wateringArea/list.do?wateringAreaId" + event.getWateringArea().getId());
 
 		return result;
 	}

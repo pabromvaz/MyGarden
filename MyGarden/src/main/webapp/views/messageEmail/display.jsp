@@ -42,11 +42,11 @@
 
 <jstl:if test="${isRecipient==true}">
 	<div>
-		<a href="messageEmail/reply.do?messageEmailId=${messageEmail.id}"><spring:message
-				code="messageEmail.reply" /></a>
+		<acme:button url="messageEmail/reply.do?messageEmailId=${messageEmail.id}" code="messageEmail.reply"/>
 	</div>
 </jstl:if>
 
+<jstl:if test="${canBeArchived==true}">
 <form:form method="post" action="messageEmail/archive.do" modelAttribute="messageEmail" >
 
 	<form:hidden path="id" />
@@ -67,7 +67,7 @@
 			value="<spring:message code="messageEmail.archive" />" />&nbsp;
 	</jstl:if>
 </form:form>
-
+</jstl:if>
 
 <form:form method="post" action="messageEmail/delete.do" modelAttribute="messageEmail" >
 

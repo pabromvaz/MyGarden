@@ -42,11 +42,11 @@ public class CommentTest extends AbstractTest {
 	public void driverAddCommentToAWateringArea() {
 		final Object testingData[][] = {
 			{
-				"gardener1", 17, "Titulo", "Descripcion", null
+				"gardener1", 20, "Titulo", "Descripcion", null
 			}, {
-				"gardener2", 19, "Titulo", "Descripcion", null
+				"gardener2", 22, "Titulo", "Descripcion", null
 			}, {
-				"gardener3", 20, "Titulo", "Descripcion", null
+				"gardener3", 23, "Titulo", "Descripcion", null
 			}, {
 				"gardenerNoExist", 20, "Titulo", "Descripcion", IllegalArgumentException.class
 			}

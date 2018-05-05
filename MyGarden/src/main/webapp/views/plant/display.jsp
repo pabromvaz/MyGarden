@@ -45,7 +45,7 @@
 	
 </div>
 
-
+<li>
 <security:authorize access="hasAnyRole('ADMIN')">
 <form:form method="post" action="plant/administrator/delete.do" modelAttribute="plant" >
 
@@ -73,3 +73,7 @@
 		<acme:button url="plant/administrator/edit.do?plantId=${plant.id}" code="plant.edit"/>
 	</div>
 </security:authorize>
+
+<acme:button code="plant.back" url="plant/list.do"/>
+
+</li>

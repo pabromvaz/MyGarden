@@ -12,6 +12,7 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
@@ -32,6 +33,7 @@ public class Event extends DomainEntity {
 	private String	name;
 	private String	description;
 	private Date	moment;
+	private String	type;
 
 
 	@NotBlank
@@ -65,9 +67,20 @@ public class Event extends DomainEntity {
 		this.moment = moment;
 	}
 
+	@NotBlank
+	@Pattern(regexp = "(Tank||Fertilizer||Intrusion)")
+	public String getType() {
+		return this.type;
+	}
+
+	public void setType(final String type) {
+		this.type = type;
+	}
+
 
 	// Relationships ----------------------------------------------------------
 	private WateringArea	wateringArea;
+	private Configuration	configuration;
 
 
 	@Valid
@@ -80,4 +93,16 @@ public class Event extends DomainEntity {
 	public void setWateringArea(final WateringArea wateringArea) {
 		this.wateringArea = wateringArea;
 	}
+
+	@Valid
+	@NotNull
+	@ManyToOne(optional = false)
+	public Configuration getConfiguration() {
+		return this.configuration;
+	}
+
+	public void setConfiguration(final Configuration configuration) {
+		this.configuration = configuration;
+	}
+
 }

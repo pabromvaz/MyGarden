@@ -129,6 +129,7 @@
 		<property name="animalDetectionEventActivated" value="true"/>
 		<property name="useOfFertilizerEventActivated" value="true"/>
 		<property name="waterTankEventActivated" value="true"/>
+		<property name="configuration" ref="configuration1"/>
 		<property name="sentMessages">
 			<list>
 				<ref bean="message1"/>
@@ -168,6 +169,7 @@
 		<property name="animalDetectionEventActivated" value="false"/>
 		<property name="useOfFertilizerEventActivated" value="false"/>
 		<property name="waterTankEventActivated" value="false"/>
+		<property name="configuration" ref="configuration2"/>
 		<property name="sentMessages">
 			<list>
 				<ref bean="message2"/>
@@ -204,6 +206,7 @@
 		<property name="animalDetectionEventActivated" value="true"/>
 		<property name="useOfFertilizerEventActivated" value="false"/>
 		<property name="waterTankEventActivated" value="true"/>
+		<property name="configuration" ref="configuration3"/>
 		<property name="sentMessages">
 			<list>
 			
@@ -231,14 +234,56 @@
 		</property>
 	</bean>
 	
+	<!-- Configuration -->	
+	<bean id="configuration1" class="domain.Configuration">
+		<property name="manualWatering" value="true"/>
+		<property name="automaticWatering" value="false"/>
+		<property name="intrusionWarningActivated" value="true"/>
+		<property name="fertilizerWarningActivated" value="true"/>
+		<property name="tankWarningActivated" value="true"/>
+		<property name="events">
+			<list>
+				<ref bean="event1" />
+				<ref bean="event2" />
+				<ref bean="event3" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="configuration2" class="domain.Configuration">
+		<property name="manualWatering" value="true"/>
+		<property name="automaticWatering" value="false"/>
+		<property name="intrusionWarningActivated" value="true"/>
+		<property name="fertilizerWarningActivated" value="true"/>
+		<property name="tankWarningActivated" value="true"/>
+		<property name="events">
+			<list>
+	
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="configuration3" class="domain.Configuration">
+		<property name="manualWatering" value="true"/>
+		<property name="automaticWatering" value="false"/>
+		<property name="intrusionWarningActivated" value="true"/>
+		<property name="fertilizerWarningActivated" value="true"/>
+		<property name="tankWarningActivated" value="true"/>
+		<property name="events">
+			<list>
+				<ref bean="event4" />
+			</list>
+		</property>
+	</bean>
 	<!-- Plant -->
 	
 	<bean id="plant1" class="domain.Plant">
 		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
 		<property name="description" value="Tomate clásico" />
 		<property name="minTemperature" value="2.0" />
 		<property name="maxTemperature" value="25.0" />
-		<property name="moisture" value="10.0" />
+		<property name="moisture" value="15.0" />
 		<property name="ph" value="7.0" />
 		<property name="wateringAreas">
 			<list> 
@@ -249,10 +294,11 @@
 	
 	<bean id="plant2" class="domain.Plant">
 		<property name="name" value="Cerezo" />
+		<property name="picture" value="http://www.todohusqvarna.com/blog/wp-content/uploads/2017/10/cerezo-poda-producci%C3%B3n.jpg" />
 		<property name="description" value="Árbol famoso en Japón" />
-		<property name="minTemperature" value="2.0" />
-		<property name="maxTemperature" value="25.0" />
-		<property name="moisture" value="10.0" />
+		<property name="minTemperature" value="6.0" />
+		<property name="maxTemperature" value="22.0" />
+		<property name="moisture" value="17.0" />
 		<property name="ph" value="7.0" />
 		<property name="wateringAreas">
 			<list> 
@@ -263,9 +309,10 @@
 	
 	<bean id="plant3" class="domain.Plant">
 		<property name="name" value="Fresa" />
+		<property name="picture" value="https://www.hogarmania.com/archivos/201410/brico_jardin_577_como-reproducir-fresas-668x400x80xX.jpg" />
 		<property name="description" value="Fresa clásica" />
-		<property name="minTemperature" value="2.0" />
-		<property name="maxTemperature" value="25.0" />
+		<property name="minTemperature" value="17.0" />
+		<property name="maxTemperature" value="18.0" />
 		<property name="moisture" value="10.0" />
 		<property name="ph" value="7.0" />
 		<property name="wateringAreas">
@@ -277,10 +324,11 @@
 	
 	<bean id="plant4" class="domain.Plant">
 		<property name="name" value="Naranja valenciana" />
+		<property name="picture" value="https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg" />
 		<property name="description" value="Naranja clásica" />
-		<property name="minTemperature" value="2.0" />
+		<property name="minTemperature" value="20.0" />
 		<property name="maxTemperature" value="25.0" />
-		<property name="moisture" value="10.0" />
+		<property name="moisture" value="12.0" />
 		<property name="ph" value="7.0" />
 		<property name="wateringAreas">
 			<list> 
@@ -293,6 +341,7 @@
 	
 	<bean id="fertilizer1" class="domain.Fertilizer">
 		<property name="name" value="Fertilizante1" />
+		<property name="picture" value="https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg" />
 		<property name="description" value="Descripcion del fertilizante1" />
 		<property name="ph" value="7.0" />
 		<property name="nitrogen" value="25.0" />
@@ -302,6 +351,7 @@
 	
 	<bean id="fertilizer2" class="domain.Fertilizer">
 		<property name="name" value="Fertilizante2" />
+		<property name="picture" value="https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg" />
 		<property name="description" value="Descripcion del fertilizante2" />
 		<property name="ph" value="7.0" />
 		<property name="nitrogen" value="25.0" />
@@ -313,13 +363,9 @@
 	
 	<bean id="wateringArea1" class="domain.WateringArea">
 		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
 		<property name="place" value="Sevilla" />
 		<property name="description" value="Mi nueva tomatera" />
-		<property name="pictures">
-			<list> 
-				
-			</list>
-		</property>
 		<property name="visible" value="false" />
 		<property name="valveActivated" value="false" />
 		<property name="gardener" ref="gardener1" />
@@ -354,20 +400,17 @@
 		</property>
 		<property name="predictions">
 			<list>
-			
+				<ref bean="prediction1"/>
+				<ref bean="prediction2"/>
 			</list>
 		</property>
 	</bean> 
 	
 	<bean id="wateringArea2" class="domain.WateringArea">
 		<property name="name" value="Cerezos" />
+		<property name="picture" value="http://www.todohusqvarna.com/blog/wp-content/uploads/2017/10/cerezo-poda-producci%C3%B3n.jpg" />
 		<property name="place" value="Sevilla" />
 		<property name="description" value="Mis nuevos cerezos" />
-		<property name="pictures">
-			<list> 
-				
-			</list>
-		</property>
 		<property name="visible" value="true" />
 		<property name="valveActivated" value="false" />
 		<property name="gardener" ref="gardener1" />
@@ -406,13 +449,9 @@
 	
 	<bean id="wateringArea3" class="domain.WateringArea">
 		<property name="name" value="Fresas" />
+		<property name="picture" value="https://www.hogarmania.com/archivos/201410/brico_jardin_577_como-reproducir-fresas-668x400x80xX.jpg" />
 		<property name="place" value="Madrid" />
 		<property name="description" value="¡Fresas a tutiplén!" />
-		<property name="pictures">
-			<list> 
-				
-			</list>
-		</property>
 		<property name="visible" value="true" />
 		<property name="valveActivated" value="false" />
 		<property name="gardener" ref="gardener2" />
@@ -444,21 +483,16 @@
 		</property>
 		<property name="predictions">
 			<list>
-				<ref bean="prediction1"/>
-				<ref bean="prediction2"/>
+	
 			</list>
 		</property>
 	</bean> 
 	
 	<bean id="wateringArea4" class="domain.WateringArea">
 		<property name="name" value="Naranjo" />
+		<property name="picture" value="https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg" />
 		<property name="place" value="Valencia" />
 		<property name="description" value="Naranjas valencianas" />
-		<property name="pictures">
-			<list> 
-				
-			</list>
-		</property>
 		<property name="visible" value="false" />
 		<property name="valveActivated" value="false" />
 		<property name="gardener" ref="gardener3" />
@@ -547,17 +581,16 @@
 	<!-- Prediction -->
 	<bean id="prediction1" class="domain.Prediction">
 		<property name="place" value="Sevilla" />
-		<property name="moment" value="03/04/2018 19:00" />
+		<property name="moment" value="04/08/2018 19:00" />
 		<property name="precipitation" value="80.0" />
-		<property name="wateringArea" ref="wateringArea3" />
+		<property name="wateringArea" ref="wateringArea1" />
 	</bean>
 	
-	<!-- Prediction -->
 	<bean id="prediction2" class="domain.Prediction">
 		<property name="place" value="Sevilla" />
-		<property name="moment" value="03/03/2018 19:00" />
+		<property name="moment" value="04/09/2018 19:00" />
 		<property name="precipitation" value="60.0" />
-		<property name="wateringArea" ref="wateringArea3" />
+		<property name="wateringArea" ref="wateringArea1" />
 	</bean>
 	
 	<!-- Event -->
@@ -565,28 +598,36 @@
 		<property name="name" value="Tomatera - intrusión" />
 		<property name="description" value="Se ha detectado una intrusión en la zona de riego" />
 		<property name="moment" value="02/02/2018 19:00" />
+		<property name="type" value="Intrusion"/>
 		<property name="wateringArea" ref="wateringArea1" />
+		<property name="configuration" ref="configuration1" />
 	</bean>
 	
 	<bean id="event2" class="domain.Event">
 		<property name="name" value="Tomatera - falta de agua" />
 		<property name="description" value="El depósito no tiene suficiente agua" />
 		<property name="moment" value="02/02/2018 19:00" />
+		<property name="type" value="Tank"/>
 		<property name="wateringArea" ref="wateringArea1" />
+		<property name="configuration" ref="configuration1" />
 	</bean>
 	
 	<bean id="event3" class="domain.Event">
 		<property name="name" value="Tomatera - necesita fertilizante" />
 		<property name="description" value="Se necesita fertilizante" />
 		<property name="moment" value="02/02/2018 19:00" />
+		<property name="type" value="Fertilizer"/>
 		<property name="wateringArea" ref="wateringArea1" />
+		<property name="configuration" ref="configuration1" />
 	</bean>
 	
 	<bean id="event4" class="domain.Event">
 		<property name="name" value="Naranjo - intrusión" />
 		<property name="description" value="Se ha detectado una intrusión en la zona de riego" />
 		<property name="moment" value="02/02/2018 19:00" />
+		<property name="type" value="Intrusion"/>
 		<property name="wateringArea" ref="wateringArea4" />
+		<property name="configuration" ref="configuration3" />
 	</bean>
 	
 	<!-- Measurement -->

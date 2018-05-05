@@ -7,6 +7,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -70,6 +71,7 @@ public class Gardener extends Actor {
 	private Collection<WateringArea>	wateringAreas;
 	private Collection<Taste>			tastes;
 	private Collection<Comment>			comments;
+	private Configuration				configuration;
 
 
 	@Valid
@@ -103,5 +105,15 @@ public class Gardener extends Actor {
 
 	public void setComments(final Collection<Comment> comments) {
 		this.comments = comments;
+	}
+
+	@Valid
+	@OneToOne(optional = true)
+	public Configuration getConfiguration() {
+		return this.configuration;
+	}
+
+	public void setConfiguration(final Configuration configuration) {
+		this.configuration = configuration;
 	}
 }

@@ -39,21 +39,22 @@ public class PlantTest extends AbstractTest {
 	public void driverCreatePlant() {
 		final Object testingData[][] = {
 			{
-				"admin", "plantName", "Description1", 7.0, 20.0, 20.0, 7.0, null
+				"admin", "plantName", "Description1", 7.0, 20.0, 20.0, 7.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", null
 			}, {
-				"admin", "plantName", "Description2", 7.0, 20.0, 20.0, 7.0, null
+				"admin", "plantName", "Description2", 7.0, 20.0, 20.0, 7.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", null
 			}, {
-				"admin", "plantName", "Description3", 7.0, 20.0, 20.0, 7.0, null
+				"admin", "plantName", "Description3", 7.0, 20.0, 20.0, 7.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", null
 			}, {
-				"adminNoExist", "plantName", "Description4", 7.0, 20.0, 20.0, 7.0, IllegalArgumentException.class
+				"adminNoExist", "plantName", "Description4", 7.0, 20.0, 20.0, 7.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", IllegalArgumentException.class
 			}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
-			this.CreatePlant((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (Double) testingData[i][3], (Double) testingData[i][4], (Double) testingData[i][5], (Double) testingData[i][6], (Class<?>) testingData[i][7]);
+			this.CreatePlant((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (Double) testingData[i][3], (Double) testingData[i][4], (Double) testingData[i][5], (Double) testingData[i][6], (String) testingData[i][7],
+				(Class<?>) testingData[i][8]);
 	}
 
-	protected void CreatePlant(final String username, final String name, final String description, final Double minTemperature, final Double maxTemperature, final Double moisture, final Double pH, final Class<?> expected) {
+	protected void CreatePlant(final String username, final String name, final String description, final Double minTemperature, final Double maxTemperature, final Double moisture, final Double pH, final String picture, final Class<?> expected) {
 		Class<?> caught;
 
 		caught = null;
@@ -62,6 +63,7 @@ public class PlantTest extends AbstractTest {
 
 			final Plant plant = this.plantService.create();
 			plant.setName(name);
+			plant.setPicture(picture);
 			plant.setDescription(description);
 			plant.setPh(pH);
 			plant.setMoisture(moisture);
@@ -84,20 +86,21 @@ public class PlantTest extends AbstractTest {
 	public void driverEditPlant() {
 		final Object testingData[][] = {
 			{
-				"admin", 11, "plantName1", "Description1", 20.0, 25.0, 20.0, 7.0, null
+				"admin", 14, "plantName1", "Description1", 20.0, 25.0, 20.0, 7.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", null
 			}, {
-				"admin", 12, "plantName1", "Description2", 20.0, 25.0, 20.0, 7.0, null
+				"admin", 15, "plantName1", "Description2", 20.0, 25.0, 20.0, 7.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", null
 			}, {
-				"adminNoExist", 11, "plantName1", "Description4", 20.0, 25.0, 20.0, 7.0, IllegalArgumentException.class
+				"adminNoExist", 16, "plantName1", "Description4", 20.0, 25.0, 20.0, 7.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", IllegalArgumentException.class
 			}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
 			this.EditPlant((String) testingData[i][0], (Integer) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (Double) testingData[i][4], (Double) testingData[i][5], (Double) testingData[i][6], (Double) testingData[i][7],
-				(Class<?>) testingData[i][8]);
+				(String) testingData[i][8], (Class<?>) testingData[i][9]);
 	}
 
-	protected void EditPlant(final String username, final Integer plantId, final String name, final String description, final Double minTemperature, final Double maxTemperature, final Double moisture, final Double pH, final Class<?> expected) {
+	protected void EditPlant(final String username, final Integer plantId, final String name, final String description, final Double minTemperature, final Double maxTemperature, final Double moisture, final Double pH, final String picture,
+		final Class<?> expected) {
 		Class<?> caught;
 
 		caught = null;
@@ -106,6 +109,7 @@ public class PlantTest extends AbstractTest {
 
 			final Plant plant = this.plantService.findOne(plantId);
 			plant.setName(name);
+			plant.setPicture(picture);
 			plant.setDescription(description);
 			plant.setPh(pH);
 			plant.setMinTemperature(minTemperature);
@@ -128,11 +132,11 @@ public class PlantTest extends AbstractTest {
 	public void driverDeletePlant() {
 		final Object testingData[][] = {
 			{
-				"admin", 11, null
+				"admin", 14, null
 			}, {
-				"admin", 12, null
+				"admin", 15, null
 			}, {
-				"adminNoExist", 12, IllegalArgumentException.class
+				"adminNoExist", 15, IllegalArgumentException.class
 			}
 		};
 

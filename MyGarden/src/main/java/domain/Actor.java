@@ -106,4 +106,5 @@ public class Actor extends DomainEntity {
 
 		return masked;
 	}
+
 }

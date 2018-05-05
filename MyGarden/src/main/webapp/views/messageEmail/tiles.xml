@@ -31,6 +31,21 @@
 		<put-attribute name="body" value="/views/messageEmail/list.jsp" />
 	</definition>
 	
+	<definition name="messageEmail/listOut" extends="master.page">	
+		<put-attribute name="title" value="Outbox" />
+		<put-attribute name="body" value="/views/messageEmail/list.jsp" />
+	</definition>
+	
+	<definition name="messageEmail/listIn" extends="master.page">	
+		<put-attribute name="title" value="Inbox" />
+		<put-attribute name="body" value="/views/messageEmail/list.jsp" />
+	</definition>
+	
+	<definition name="messageEmail/listArchived" extends="master.page">	
+		<put-attribute name="title" value="Archived messages" />
+		<put-attribute name="body" value="/views/messageEmail/list.jsp" />
+	</definition>
+	
 	<definition name="messageEmail/forward" extends="master.page">	
 		<put-attribute name="title" value="Archive" />
 		<put-attribute name="body" value="/views/messageEmail/forward.jsp" />

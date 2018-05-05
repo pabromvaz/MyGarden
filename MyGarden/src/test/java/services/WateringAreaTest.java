@@ -1,9 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 
@@ -46,15 +43,15 @@ public class WateringAreaTest extends AbstractTest {
 	public void driverCreateWateringArea() {
 		final Object testingData[][] = {
 			{
-				"gardener1", "Name1", "Place1", "Description1", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 11, null
+				"gardener1", "Name1", "Place1", "Description1", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, null
 			}, {
-				"gardener2", "Name2", "Place2", "Description2", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 11, null
+				"gardener2", "Name2", "Place2", "Description2", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, null
 			}, {
-				"gardener3", "Name3", "Place3", "Description3", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 11, null
+				"gardener3", "Name3", "Place3", "Description3", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, null
 			}, {
-				"admin", "Name4", "Place1", "Descripcion4", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 11, IllegalArgumentException.class
+				"admin", "Name4", "Place1", "Descripcion4", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, IllegalArgumentException.class
 			}, {
-				"gardener1", "Name5", "Place4", "", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 11, ConstraintViolationException.class
+				"gardener1", "Name5", "Place4", "", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, ConstraintViolationException.class
 			}
 		};
 
@@ -69,15 +66,12 @@ public class WateringAreaTest extends AbstractTest {
 			this.authenticate(username);
 
 			WateringArea wateringArea;
-			final WateringArea auxWateringArea;
 
 			wateringArea = this.wateringAreaService.create();
 			wateringArea.setName(name);
 			wateringArea.setPlace(place);
 			wateringArea.setDescription(description);
-			final Collection<String> pictures = new ArrayList<String>();
-			pictures.add(picture);
-			wateringArea.setPictures(pictures);
+			wateringArea.setPicture(picture);
 
 			final Plant plant = this.plantService.findOne(plantId);
 			//categories.add(category);
@@ -101,15 +95,15 @@ public class WateringAreaTest extends AbstractTest {
 	public void driverEditWateringArea() {
 		final Object testingData[][] = {
 			{
-				"gardener1", "Name1", "Place1", "Description1", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 11, 17, null
+				"gardener1", "Name1", "Place1", "Description1", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, 20, null
 			}, {
-				"gardener2", "Name2", "Place2", "Description2", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 11, 19, null
+				"gardener2", "Name2", "Place2", "Description2", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, 22, null
 			}, {
-				"gardener3", "Name3", "Place3", "Description3", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 11, 20, null
+				"gardener3", "Name3", "Place3", "Description3", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, 23, null
 			}, {
-				"admin", "Name4", "Place1", "Descripcion4", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 11, 17, IllegalArgumentException.class
+				"admin", "Name4", "Place1", "Descripcion4", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, 20, IllegalArgumentException.class
 			}, {
-				"gardener1", "Name5", "Place4", "", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 11, 17, ConstraintViolationException.class
+				"gardener1", "Name5", "Place4", "", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, 20, ConstraintViolationException.class
 			}
 		};
 
@@ -125,15 +119,12 @@ public class WateringAreaTest extends AbstractTest {
 			this.authenticate(username);
 
 			WateringArea wateringArea;
-			final WateringArea auxWateringArea;
 
 			wateringArea = this.wateringAreaService.findOne(wateringAreaId);
 			wateringArea.setName(name);
 			wateringArea.setPlace(place);
 			wateringArea.setDescription(description);
-			final Collection<String> pictures = new ArrayList<String>();
-			pictures.add(picture);
-			wateringArea.setPictures(pictures);
+			wateringArea.setPicture(picture);
 
 			final Plant plant = this.plantService.findOne(plantId);
 			//categories.add(category);
@@ -157,15 +148,15 @@ public class WateringAreaTest extends AbstractTest {
 	public void driverDeleteWateringArea() {
 		final Object testingData[][] = {
 			{
-				"gardener1", 17, null
+				"gardener1", 20, null
 			}, {
-				"gardener2", 19, null
+				"gardener2", 22, null
 			}, {
-				"gardener3", 20, null
+				"gardener3", 23, null
 			}, {
-				"admin", 17, IllegalArgumentException.class
+				"admin", 20, IllegalArgumentException.class
 			}, {
-				"gardener1", 17, IllegalArgumentException.class
+				"gardener1", 20, IllegalArgumentException.class
 			}
 		};
 

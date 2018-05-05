@@ -69,3 +69,5 @@
 		<acme:button url="fertilizer/administrator/edit.do?fertilizerId=${fertilizer.id}" code="fertilizer.edit"/>
 	</div>
 </security:authorize>
+
+<acme:button code="fertilizer.back" url="fertilizer/list.do"/>

@@ -42,22 +42,22 @@ public class FertilizerTest extends AbstractTest {
 	public void driverCreateFertilizer() {
 		final Object testingData[][] = {
 			{
-				"admin", "fertilizerName1", "Description1", 7.0, 20.0, 20.0, 20.0, null
+				"admin", "fertilizerName1", "Description1", 7.0, 20.0, 20.0, 20.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", null
 			}, {
-				"admin", "fertilizerName1", "Description2", 7.0, 20.0, 20.0, 20.0, null
+				"admin", "fertilizerName1", "Description2", 7.0, 20.0, 20.0, 20.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", null
 			}, {
-				"admin", "fertilizerName1", "Description3", 7.0, 20.0, 20.0, 20.0, null
+				"admin", "fertilizerName1", "Description3", 7.0, 20.0, 20.0, 20.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", null
 			}, {
-				"adminNoExist", "fertilizerName1", "Description4", 7.0, 20.0, 20.0, 20.0, IllegalArgumentException.class
+				"adminNoExist", "fertilizerName1", "Description4", 7.0, 20.0, 20.0, 20.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", IllegalArgumentException.class
 			}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
 			this.CreateFertilizer((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (Double) testingData[i][3], (Double) testingData[i][4], (Double) testingData[i][5], (Double) testingData[i][6],
-				(Class<?>) testingData[i][7]);
+				(String) testingData[i][7], (Class<?>) testingData[i][8]);
 	}
 
-	protected void CreateFertilizer(final String username, final String name, final String description, final Double pH, final Double nitrogen, final Double phosphorus, final Double potassium, final Class<?> expected) {
+	protected void CreateFertilizer(final String username, final String name, final String description, final Double pH, final Double nitrogen, final Double phosphorus, final Double potassium, final String picture, final Class<?> expected) {
 		Class<?> caught;
 
 		caught = null;
@@ -66,6 +66,7 @@ public class FertilizerTest extends AbstractTest {
 
 			final Fertilizer fertilizer = this.fertilizerService.create();
 			fertilizer.setName(name);
+			fertilizer.setPicture(picture);
 			fertilizer.setDescription(description);
 			fertilizer.setPh(pH);
 			fertilizer.setNitrogen(nitrogen);
@@ -88,20 +89,21 @@ public class FertilizerTest extends AbstractTest {
 	public void driverEditFertilizer() {
 		final Object testingData[][] = {
 			{
-				"admin", 15, "fertilizerName1", "Description1", 7.0, 20.0, 20.0, 20.0, null
+				"admin", 15, "fertilizerName1", "Description1", 7.0, 20.0, 20.0, 20.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", null
 			}, {
-				"admin", 16, "fertilizerName1", "Description2", 7.0, 20.0, 20.0, 20.0, null
+				"admin", 16, "fertilizerName1", "Description2", 7.0, 20.0, 20.0, 20.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", null
 			}, {
-				"adminNoExist", 16, "fertilizerName1", "Description4", 7.0, 20.0, 20.0, 20.0, IllegalArgumentException.class
+				"adminNoExist", 16, "fertilizerName1", "Description4", 7.0, 20.0, 20.0, 20.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", IllegalArgumentException.class
 			}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
 			this.EditFertilizer((String) testingData[i][0], (Integer) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (Double) testingData[i][4], (Double) testingData[i][5], (Double) testingData[i][6],
-				(Double) testingData[i][7], (Class<?>) testingData[i][8]);
+				(Double) testingData[i][7], (String) testingData[i][8], (Class<?>) testingData[i][9]);
 	}
 
-	protected void EditFertilizer(final String username, final Integer fertilizerId, final String name, final String description, final Double pH, final Double nitrogen, final Double phosphorus, final Double potassium, final Class<?> expected) {
+	protected void EditFertilizer(final String username, final Integer fertilizerId, final String name, final String description, final Double pH, final Double nitrogen, final Double phosphorus, final Double potassium, final String picture,
+		final Class<?> expected) {
 		Class<?> caught;
 
 		caught = null;
@@ -110,6 +112,7 @@ public class FertilizerTest extends AbstractTest {
 
 			final Fertilizer fertilizer = this.fertilizerService.findOne(fertilizerId);
 			fertilizer.setName(name);
+			fertilizer.setPicture(picture);
 			fertilizer.setDescription(description);
 			fertilizer.setPh(pH);
 			fertilizer.setNitrogen(nitrogen);

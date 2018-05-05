@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -25,6 +26,7 @@ public class Plant extends DomainEntity {
 
 	// Attributes -------------------------------------------------------------
 	private String	name;
+	private String	picture;
 	private String	description;
 	private Double	minTemperature;
 	private Double	maxTemperature;
@@ -39,6 +41,16 @@ public class Plant extends DomainEntity {
 
 	public void setName(final String name) {
 		this.name = name;
+	}
+
+	@NotBlank
+	@URL
+	public String getPicture() {
+		return this.picture;
+	}
+
+	public void setPicture(final String picture) {
+		this.picture = picture;
 	}
 
 	@NotBlank

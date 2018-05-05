@@ -13,18 +13,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.GardenerService;
 import services.MeasurementService;
 import services.WateringAreaService;
 import controllers.AbstractController;
+import domain.Actor;
+import domain.Gardener;
 import domain.Measurement;
 import domain.WateringArea;
 
 @Controller
-@RequestMapping("/gardener/measurement")
-public class MeasurementController extends AbstractController {
+@RequestMapping("measurement/wateringArea")
+public class MeasurementWateringAreaController extends AbstractController {
 
 	// Service ---------------------------------------------------------------
+
+	@Autowired
+	private ActorService		actorService;
+
 	@Autowired
 	private GardenerService		gardenerService;
 
@@ -36,7 +43,7 @@ public class MeasurementController extends AbstractController {
 
 
 	// Constructors -----------------------------------------------------------
-	public MeasurementController() {
+	public MeasurementWateringAreaController() {
 		super();
 	}
 
@@ -51,7 +58,8 @@ public class MeasurementController extends AbstractController {
 
 		result = new ModelAndView("measurement/list");
 		result.addObject("measurements", measurements);
-		result.addObject("requestURI", "gardener/measurement/list.do");
+		result.addObject("wateringArea", wateringArea);
+		result.addObject("requestURI", "measurement/wateringArea/list.do");
 
 		return result;
 	}
@@ -64,9 +72,16 @@ public class MeasurementController extends AbstractController {
 
 		measurement = this.measurementService.findOne(measurementId);
 
+		final Actor actor = this.actorService.findByPrincipal();
+		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		Boolean isOwner = false;
+		if (measurement.getWateringArea().getGardener().equals(gardener))
+			isOwner = true;
+
 		result = new ModelAndView("measurement/display");
 		result.addObject("measurement", measurement);
-		result.addObject("requestURI", "gardener/measurement/display.do");
+		result.addObject("isOwner", isOwner);
+		result.addObject("requestURI", "measurement/wateringArea/display.do");
 
 		return result;
 	}
@@ -106,17 +121,20 @@ public class MeasurementController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@Valid final int measurementId) {
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@Valid final Measurement measurement, final BindingResult binding) {
 		ModelAndView result;
-		final Measurement measurement;
-		final WateringArea wateringArea;
+		Actor actor;
+		Gardener gardener;
 
-		measurement = this.measurementService.findOne(measurementId);
-		wateringArea = measurement.getWateringArea();
+		actor = this.actorService.findByPrincipal();
+		gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+
+		if (gardener == null || !measurement.getWateringArea().getGardener().equals(gardener))
+			return result = new ModelAndView("redirect:../../welcome/index.do");
 
 		this.measurementService.delete(measurement);
-		result = new ModelAndView("redirect:/wateringArea/display.do?wateringAreaId=" + wateringArea.getId());
+		result = new ModelAndView("redirect:../../measurement/wateringArea/list.do?wateringAreaId=" + measurement.getWateringArea().getId());
 
 		return result;
 	}

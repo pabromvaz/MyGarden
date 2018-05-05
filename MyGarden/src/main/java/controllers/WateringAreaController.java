@@ -18,7 +18,9 @@ import services.TasteService;
 import services.WateringAreaService;
 import domain.Actor;
 import domain.Comment;
+import domain.Configuration;
 import domain.Gardener;
+import domain.Taste;
 import domain.WateringArea;
 
 @Controller
@@ -94,22 +96,27 @@ public class WateringAreaController extends AbstractController {
 		ModelAndView result;
 		WateringArea wateringArea;
 		Collection<Comment> comments;
+		Configuration configuration;
 		Boolean isOwner = false;
-
 		final Actor actor = this.actorService.findByPrincipal();
 		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
 		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
+
+		final Collection<Taste> tastes = this.tasteService.findAll();
 
 		if (gardener != null && wateringArea.getGardener().equals(gardener))
 			isOwner = true;
 
 		comments = this.commentService.findAllOfAWateringArea(wateringAreaId);
+		configuration = gardener.getConfiguration();
 
 		result = new ModelAndView("wateringArea/display");
 		result.addObject("wateringArea", wateringArea);
 		result.addObject("comments", comments);
 		result.addObject("isOwner", isOwner);
 		result.addObject("actor", actor);
+		result.addObject("tastes", tastes);
+		result.addObject("configuration", configuration);
 		result.addObject("requestURI", "wateringArea/display.do");
 
 		return result;

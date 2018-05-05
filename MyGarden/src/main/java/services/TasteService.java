@@ -122,6 +122,11 @@ public class TasteService {
 		this.tasteRepository.delete(taste);
 	}
 
+	public Taste findTasteWithWateringAreaAndGardener(final Integer wateringAreaId, final Integer gardenerId) {
+		final Taste result = this.tasteRepository.findTasteWithWateringAreaAndGardener(wateringAreaId, gardenerId);
+		return result;
+	}
+
 	// Other business methods -------------------------------------------------
 
 }

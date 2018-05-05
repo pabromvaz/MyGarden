@@ -14,38 +14,105 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.CommentService;
+import services.ConfigurationService;
 import services.GardenerService;
 import services.PlantService;
+import services.TasteService;
 import services.WateringAreaService;
 import controllers.AbstractController;
 import domain.Actor;
+import domain.Comment;
 import domain.Gardener;
 import domain.Plant;
+import domain.Taste;
 import domain.WateringArea;
 
 @Controller
-@RequestMapping("/gardener/wateringArea")
+@RequestMapping("/wateringArea/gardener")
 public class WateringAreaGardenerController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private WateringAreaService	wateringAreaService;
+	private WateringAreaService		wateringAreaService;
 
 	@Autowired
-	private PlantService		plantService;
+	private PlantService			plantService;
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private GardenerService		gardenerService;
+	private GardenerService			gardenerService;
+
+	@Autowired
+	private TasteService			tasteService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
+
+	@Autowired
+	private CommentService			commentService;
 
 
 	// Constructors -----------------------------------------------------------
 
 	public WateringAreaGardenerController() {
 		super();
+	}
+
+	// Activate valve ---------------------------------------------------------------
+
+	@RequestMapping(value = "/activateValve", method = RequestMethod.GET)
+	public ModelAndView activateValve(@RequestParam final Integer wateringAreaId) {
+		ModelAndView result;
+		WateringArea wateringArea;
+		Collection<Comment> comments;
+		Boolean isOwner = false;
+		final Actor actor = this.actorService.findByPrincipal();
+		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
+
+		final Collection<Taste> tastes = this.tasteService.findAll();
+
+		if (gardener != null && wateringArea.getGardener().equals(gardener))
+			isOwner = true;
+
+		comments = this.commentService.findAllOfAWateringArea(wateringAreaId);
+
+		this.wateringAreaService.activateValve(wateringArea);
+
+		result = new ModelAndView("redirect:/wateringArea/display.do?wateringAreaId=" + wateringArea.getId());
+		return result;
+
+	}
+
+	// Deactivate valve ---------------------------------------------------------------
+
+	@RequestMapping(value = "/deactivateValve", method = RequestMethod.GET)
+	public ModelAndView deactivateValve(@RequestParam final Integer wateringAreaId) {
+		ModelAndView result;
+		WateringArea wateringArea;
+		Collection<Comment> comments;
+		Boolean isOwner = false;
+		final Actor actor = this.actorService.findByPrincipal();
+		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
+
+		final Collection<Taste> tastes = this.tasteService.findAll();
+
+		if (gardener != null && wateringArea.getGardener().equals(gardener))
+			isOwner = true;
+
+		comments = this.commentService.findAllOfAWateringArea(wateringAreaId);
+
+		this.wateringAreaService.deactivateValve(wateringArea);
+
+		result = new ModelAndView("redirect:/wateringArea/display.do?wateringAreaId=" + wateringArea.getId());
+
+		return result;
+
 	}
 
 	// Create, Edit and Delete ---------------------------------------------------------------
@@ -64,8 +131,27 @@ public class WateringAreaGardenerController extends AbstractController {
 
 		wateringArea = this.wateringAreaService.create();
 
-		result = this.createEditModelAndView(wateringArea);
+		result = this.createModelAndView(wateringArea);
 
+		return result;
+	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveCreate(@Valid final WateringArea wateringArea, final BindingResult binding) {
+
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createModelAndView(wateringArea);
+		else
+			try {
+				this.wateringAreaService.save(wateringArea);
+				result = new ModelAndView("redirect:../../wateringArea/list.do");
+
+			} catch (final Throwable oops) {
+				result = this.createModelAndView(wateringArea, "wateringArea.commit.error");
+
+			}
 		return result;
 	}
 
@@ -83,7 +169,7 @@ public class WateringAreaGardenerController extends AbstractController {
 		if (gardener == null || !wateringArea.getGardener().equals(gardener))
 			return result = new ModelAndView("redirect:../../welcome/index.do");
 
-		result = this.createEditModelAndView(wateringArea);
+		result = this.editModelAndView(wateringArea);
 
 		return result;
 	}
@@ -93,30 +179,24 @@ public class WateringAreaGardenerController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(wateringArea);
+			result = this.editModelAndView(wateringArea);
 		else
 			try {
 				if (wateringArea.getId() != 0)
-					//this.plantService.select(wateringArea.getPlant(), wateringArea);
 					wateringArea = this.wateringAreaService.save(wateringArea);
-				else
-					wateringArea = this.wateringAreaService.save(wateringArea);
-				//this.plantService.select(wateringArea.getCategories(), wateringArea);
 				result = new ModelAndView("redirect:../../wateringArea/list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(wateringArea, "wateringArea.commit.error");
+				result = this.editModelAndView(wateringArea, "wateringArea.commit.error");
 			}
 
 		return result;
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@Valid final int wateringAreaId) {
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@Valid final WateringArea wateringArea, final BindingResult binding) {
 		ModelAndView result;
-		WateringArea wateringArea;
 		Actor actor;
 		Gardener gardener;
-		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
 
 		actor = this.actorService.findByPrincipal();
 		gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
@@ -133,27 +213,48 @@ public class WateringAreaGardenerController extends AbstractController {
 	// Ancillary methods ------------------------------------------------------
 
 	//Create
-	protected ModelAndView createEditModelAndView(final WateringArea wateringArea) {
+	protected ModelAndView createModelAndView(final WateringArea wateringArea) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(wateringArea, null);
+		result = this.createModelAndView(wateringArea, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final WateringArea wateringArea, final String message) {
+	protected ModelAndView createModelAndView(final WateringArea wateringArea, final String message) {
 		ModelAndView result;
 
 		Collection<Plant> plants;
 		plants = this.plantService.findAll();
-		if (wateringArea.getId() != 0)
-			result = new ModelAndView("wateringArea/edit");
-		else
-			result = new ModelAndView("wateringArea/create");
 
+		result = new ModelAndView("wateringArea/create");
+		result.addObject("requestURI", "wateringArea/gardener/create.do");
 		result.addObject("wateringArea", wateringArea);
 		result.addObject("plants", plants);
+		result.addObject("message", message);
+
+		return result;
+	}
+
+	//Edit
+	protected ModelAndView editModelAndView(final WateringArea wateringArea) {
+		ModelAndView result;
+
+		result = this.editModelAndView(wateringArea, null);
+
+		return result;
+	}
+
+	protected ModelAndView editModelAndView(final WateringArea wateringArea, final String message) {
+		ModelAndView result;
+
+		Collection<Plant> plants;
+		plants = this.plantService.findAll();
+
+		result = new ModelAndView("wateringArea/edit");
 		result.addObject("requestURI", "wateringArea/gardener/edit.do");
+		result.addObject("wateringArea", wateringArea);
+		result.addObject("plants", plants);
 		result.addObject("message", message);
 
 		return result;

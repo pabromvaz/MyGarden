@@ -27,6 +27,7 @@
 		<bean class="converters.ActorToStringConverter" />
 		<bean class="converters.AdministratorToStringConverter" />
 		<bean class="converters.CommentToStringConverter" />
+		<bean class="converters.ConfigurationToStringConverter" />
 		<bean class="converters.EventToStringConverter" />
 		<bean class="converters.FertilizerToStringConverter" />
 		<bean class="converters.GardenerToStringConverter" />
@@ -41,6 +42,7 @@
 		<bean class="converters.StringToActorConverter" /> 
 		<bean class="converters.StringToAdministratorConverter" /> 
 		<bean class="converters.StringToCommentConverter" /> 
+		<bean class="converters.StringToConfigurationConverter" /> 
 		<bean class="converters.StringToEventConverter" /> 
 		<bean class="converters.StringToFertilizerConverter" /> 
 		<bean class="converters.StringToGardenerConverter" /> 

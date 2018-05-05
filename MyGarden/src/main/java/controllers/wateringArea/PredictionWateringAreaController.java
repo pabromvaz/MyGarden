@@ -14,18 +14,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.GardenerService;
 import services.PredictionService;
 import services.WateringAreaService;
 import controllers.AbstractController;
+import domain.Actor;
+import domain.Gardener;
 import domain.Prediction;
 import domain.WateringArea;
 
 @Controller
-@RequestMapping("/gardener/prediction")
-public class PredictionController extends AbstractController {
+@RequestMapping("/prediction/wateringArea")
+public class PredictionWateringAreaController extends AbstractController {
 
 	// Service ---------------------------------------------------------------
+
+	@Autowired
+	private ActorService		actorService;
+
 	@Autowired
 	private GardenerService		gardenerService;
 
@@ -37,7 +44,7 @@ public class PredictionController extends AbstractController {
 
 
 	// Constructors -----------------------------------------------------------
-	public PredictionController() {
+	public PredictionWateringAreaController() {
 		super();
 	}
 
@@ -52,7 +59,8 @@ public class PredictionController extends AbstractController {
 
 		result = new ModelAndView("prediction/list");
 		result.addObject("predictions", predictions);
-		result.addObject("requestURI", "gardener/prediction/list.do");
+		result.addObject("wateringArea", wateringArea);
+		result.addObject("requestURI", "prediction/wateringArea/list.do");
 
 		return result;
 	}
@@ -65,9 +73,16 @@ public class PredictionController extends AbstractController {
 
 		prediction = this.predictionService.findOne(predictionId);
 
+		final Actor actor = this.actorService.findByPrincipal();
+		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		Boolean isOwner = false;
+		if (prediction.getWateringArea().getGardener().equals(gardener))
+			isOwner = true;
+
 		result = new ModelAndView("prediction/display");
 		result.addObject("prediction", prediction);
-		result.addObject("requestURI", "gardener/prediction/display.do");
+		result.addObject("isOwner", isOwner);
+		result.addObject("requestURI", "prediction/wateringArea/display.do");
 
 		return result;
 	}
@@ -117,7 +132,7 @@ public class PredictionController extends AbstractController {
 		wateringArea = prediction.getWateringArea();
 
 		this.predictionService.delete(prediction);
-		result = new ModelAndView("redirect:/wateringArea/display.do?wateringAreaId=" + wateringArea.getId());
+		result = new ModelAndView("redirect:../../prediction/wateringArea/list.do?wateringAreaId=" + prediction.getWateringArea().getId());
 
 		return result;
 	}

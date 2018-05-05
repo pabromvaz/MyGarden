@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.EventRepository;
+import domain.Configuration;
 import domain.Event;
 import domain.Gardener;
 import domain.WateringArea;
@@ -20,17 +21,20 @@ public class EventService {
 
 	// Managed repository -----------------------------------------------------
 	@Autowired
-	private EventRepository		eventRepository;
+	private EventRepository			eventRepository;
 
 	// Supporting services ----------------------------------------------------
 	@Autowired
-	private GardenerService		gardenerService;
+	private GardenerService			gardenerService;
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private WateringAreaService	wateringAreaService;
+	private WateringAreaService		wateringAreaService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -56,13 +60,13 @@ public class EventService {
 		return result;
 	}
 
-	public Event create(final WateringArea wateringArea, final String name, final String description) {
+	public Event create(final WateringArea wateringArea, final String name, final String description, final String type) {
 		Assert.notNull(wateringArea);
 		Gardener gardener;
 		Event result;
 		Calendar calendar;
-
 		gardener = this.gardenerService.findByPrincipal();
+		final Configuration configuration = gardener.getConfiguration();
 		Assert.notNull(gardener);
 
 		calendar = Calendar.getInstance();
@@ -73,10 +77,11 @@ public class EventService {
 		result.setDescription(description);
 		result.setMoment(calendar.getTime());
 		result.setWateringArea(wateringArea);
+		result.setType(type);
+		result.setConfiguration(configuration);
 
 		return result;
 	}
-
 	public Event save(final Event event) {
 		//Assert.isTrue(this.gardenerService.findByPrincipal().equals(comment.getGardener()));
 		Assert.notNull(event);

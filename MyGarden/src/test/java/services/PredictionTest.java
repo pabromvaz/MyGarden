@@ -43,11 +43,11 @@ public class PredictionTest extends AbstractTest {
 	public void driverCreatePrediction() {
 		final Object testingData[][] = {
 			{
-				"gardener1", "01/02/2018 19:00", 32.0, 17, null
+				"gardener1", "01/02/2018 19:00", 32.0, 20, null
 			}, {
-				"gardener2", "01/02/2018 19:00", 32.0, 19, null
+				"gardener2", "01/02/2018 19:00", 32.0, 21, null
 			}, {
-				"gardener3", "01/02/2018 19:00", 32.0, 20, null
+				"gardener3", "01/02/2018 19:00", 32.0, 23, null
 			}, {
 				"gardenerNoExist", "01/02/2018 19:00", 32.0, 17, IllegalArgumentException.class
 			}
@@ -93,9 +93,9 @@ public class PredictionTest extends AbstractTest {
 	public void driverDeletePrediction() {
 		final Object testingData[][] = {
 			{
-				"gardener1", 28, null
+				"gardener1", 31, null
 			}, {
-				"gardener2", 29, null
+				"gardener2", 32, null
 			}, {
 				"gardenerNoExist", 12, IllegalArgumentException.class
 			}

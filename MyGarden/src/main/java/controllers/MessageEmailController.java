@@ -46,7 +46,7 @@ public class MessageEmailController extends AbstractController {
 
 		messageEmails = this.messageEmailService.findMessageEmailsSentByActorId(actor.getId());
 
-		result = new ModelAndView("messageEmail/list");
+		result = new ModelAndView("messageEmail/listOut");
 		result.addObject("messageEmails", messageEmails);
 
 		return result;
@@ -60,7 +60,7 @@ public class MessageEmailController extends AbstractController {
 
 		messageEmails = this.messageEmailService.findMessageEmailsReceivedByActorId(actor.getId());
 
-		result = new ModelAndView("messageEmail/list");
+		result = new ModelAndView("messageEmail/listIn");
 		result.addObject("messageEmails", messageEmails);
 
 		return result;
@@ -74,7 +74,7 @@ public class MessageEmailController extends AbstractController {
 		final Actor actor = this.actorService.findByPrincipal();
 		messageEmails = this.messageEmailService.findArchivedMessageEmailsByActorId(actor.getId());
 
-		result = new ModelAndView("messageEmail/list");
+		result = new ModelAndView("messageEmail/listArchived");
 		result.addObject("messageEmails", messageEmails);
 
 		return result;
@@ -86,6 +86,7 @@ public class MessageEmailController extends AbstractController {
 		ModelAndView result;
 		MessageEmail messageEmail;
 		Boolean isRecipient = false;
+		Boolean canBeArchived = false;
 		final Actor actor = this.actorService.findByPrincipal();
 
 		messageEmail = this.messageEmailService.findOne(messageEmailId);
@@ -100,10 +101,13 @@ public class MessageEmailController extends AbstractController {
 		else {
 			if (messageEmail.getRecipient().equals(actor))
 				isRecipient = true;
-
+			//Compruebo si se puede archivar.
+			if ((messageEmail.getRecipient().equals(actor) && messageEmail.getArchivedForRecipient() == false) || (messageEmail.getSender().equals(actor) && messageEmail.getArchivedForSender() == false))
+				canBeArchived = true;
 			result = new ModelAndView("messageEmail/display");
 			result.addObject("messageEmail", messageEmail);
 			result.addObject("isRecipient", isRecipient);
+			result.addObject("canBeArchived", canBeArchived);
 		}
 		return result;
 	}
@@ -195,7 +199,10 @@ public class MessageEmailController extends AbstractController {
 				else
 					result = new ModelAndView("redirect:../messageEmail/listOut.do");
 			} catch (final Throwable oops) {
-				result = new ModelAndView("redirect:../messageEmail/listIn.do");
+				if (messageEmail.getRecipient().equals(actor))
+					result = new ModelAndView("redirect:../messageEmail/listIn.do");
+				else
+					result = new ModelAndView("redirect:../messageEmail/listOut.do");
 			}
 		return result;
 	}

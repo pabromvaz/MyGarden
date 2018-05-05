@@ -43,11 +43,11 @@ public class MeasurementTest extends AbstractTest {
 	public void driverAddEventToAWateringArea() {
 		final Object testingData[][] = {
 			{
-				"gardener1", 17, 10.0, 10.0, 20.0, 40.0, 7.0, 20.0, 20.0, 20.0, null
+				"gardener1", 20, 10.0, 10.0, 20.0, 40.0, 7.0, 20.0, 20.0, 20.0, null
 			}, {
-				"gardener2", 19, 10.0, 10.0, 20.0, 40.0, 7.0, 20.0, 20.0, 20.0, null
+				"gardener2", 22, 10.0, 10.0, 20.0, 40.0, 7.0, 20.0, 20.0, 20.0, null
 			}, {
-				"gardener3", 20, 10.0, 10.0, 20.0, 40.0, 7.0, 20.0, 20.0, 20.0, null
+				"gardener3", 23, 10.0, 10.0, 20.0, 40.0, 7.0, 20.0, 20.0, 20.0, null
 			}, {
 				"gardenerNoExist", 20, 10.0, 10.0, 20.0, 40.0, 7.0, 20.0, 20.0, 20.0, IllegalArgumentException.class
 			}

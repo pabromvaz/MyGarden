@@ -88,19 +88,63 @@ public class EventWateringAreaController extends AbstractController {
 
 	// Create -------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final Integer wateringAreaId, final String name, final String description, final String type) {
-		ModelAndView result;
+	public void create(@RequestParam final Integer wateringAreaId, final String name, final String description, final String type) {
+		final ModelAndView result;
 		WateringArea wateringArea;
 		Event event;
 
 		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
 		event = this.eventService.create(wateringArea, name, description, type);
+		this.eventService.save(event);
+		//result = this.createEditModelAndView(event);
 
-		result = this.createEditModelAndView(event);
+		//return result;
+	}
+
+	// Create EventDetection-------------------------------------------------------------------
+	@RequestMapping(value = "/createDetectionWarning", method = RequestMethod.GET)
+	public ModelAndView createDetectionWarning(@RequestParam final Integer wateringAreaId) {
+		final ModelAndView result;
+		WateringArea wateringArea;
+		Event event;
+
+		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
+		event = this.eventService.create(wateringArea, "Intrusión en" + wateringArea.getName(), "Se ha detectado una intrusión en la zona de riego" + wateringArea.getName(), "Intrusion");
+		this.eventService.save(event);
+		result = new ModelAndView("redirect:../../welcome/index.do");
 
 		return result;
 	}
 
+	// Create -------------------------------------------------------------------
+	@RequestMapping(value = "/createTankWarning", method = RequestMethod.POST)
+	public void createTankWarning(@RequestParam final Integer wateringAreaId) {
+		final ModelAndView result;
+		WateringArea wateringArea;
+		Event event;
+
+		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
+		event = this.eventService.create(wateringArea, "Agua insuficiente en" + wateringArea.getName(), "La zona de riego" + wateringArea.getName() + "tiene insuficiente agua en el depósito", "Tank");
+		this.eventService.save(event);
+		//result = this.createEditModelAndView(event);
+
+		//return result;
+	}
+
+	// Create -------------------------------------------------------------------
+	@RequestMapping(value = "/createFertilizerWarning", method = RequestMethod.POST)
+	public void createFertilizerWarning(@RequestParam final Integer wateringAreaId) {
+		final ModelAndView result;
+		WateringArea wateringArea;
+		Event event;
+
+		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
+		event = this.eventService.create(wateringArea, "Usar fertilizante en" + wateringArea.getName(), "La zona de riego" + wateringArea.getName() + "requiere fertilizante", "Fertilizer");
+		this.eventService.save(event);
+		//result = this.createEditModelAndView(event);
+
+		//return result;
+	}
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Event event, final BindingResult binding) {
 		ModelAndView result;
@@ -134,7 +178,7 @@ public class EventWateringAreaController extends AbstractController {
 			return result = new ModelAndView("redirect:../../welcome/index.do");
 
 		this.eventService.delete(event);
-		result = new ModelAndView("redirect:../../event/wateringArea/list.do?wateringAreaId" + event.getWateringArea().getId());
+		result = new ModelAndView("redirect:../../event/wateringArea/list.do?wateringAreaId=" + event.getWateringArea().getId());
 
 		return result;
 	}

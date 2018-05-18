@@ -65,7 +65,9 @@ public class EventService {
 		Gardener gardener;
 		Event result;
 		Calendar calendar;
-		gardener = this.gardenerService.findByPrincipal();
+		gardener = wateringArea.getGardener();
+
+		//gardener = this.gardenerService.findByPrincipal();
 		final Configuration configuration = gardener.getConfiguration();
 		Assert.notNull(gardener);
 
@@ -74,6 +76,9 @@ public class EventService {
 
 		result = new Event();
 		result.setName(name);
+		//if(type.equalsIgnoreCase("Intrusion")){
+
+		//}
 		result.setDescription(description);
 		result.setMoment(calendar.getTime());
 		result.setWateringArea(wateringArea);

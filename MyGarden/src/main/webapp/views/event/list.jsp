@@ -10,6 +10,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
+<div class="table-responsive">
 <display:table name="events" id="event" requestURI="event/list.do" class="displaytag">
 	
 
@@ -26,7 +27,7 @@
 	</security:authorize>
 	
 </display:table>
-
+</div>
 <acme:button code="event.back" url="wateringArea/display.do?wateringAreaId=${wateringArea.id}"/>
 
 

@@ -1,9 +1,13 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -28,6 +32,8 @@ public class Fertilizer extends DomainEntity {
 	private Double	phosphorus;
 	private Double	potassium;
 
+
+	//	private String	type;
 
 	@NotBlank
 	public String getName() {
@@ -93,6 +99,33 @@ public class Fertilizer extends DomainEntity {
 		this.potassium = potassium;
 	}
 
-	// Relationships ----------------------------------------------------------
 
+	//	@NotBlank
+	//	@Pattern(regexp = "(Humic acid||Chemical||Slow release||Liquid||Amino acid)")
+	//	public String getType() {
+	//		return this.type;
+	//	}
+	//
+	//	public void setType(final String type) {
+	//		this.type = type;
+	//	}
+
+	// Relationships ----------------------------------------------------------
+	private Collection<Plant>	plants;
+
+
+	@Valid
+	@NotNull
+	@ManyToMany()
+	public Collection<Plant> getPlants() {
+		return this.plants;
+	}
+
+	public void setPlants(final Collection<Plant> plants) {
+		this.plants = plants;
+	}
+
+	public void addPlant(final Plant plant) {
+		this.plants.add(plant);
+	}
 }

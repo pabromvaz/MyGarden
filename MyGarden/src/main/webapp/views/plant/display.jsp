@@ -17,6 +17,11 @@
 		</li>
 		
 		<li>
+			<b><spring:message code="plant.picture" />:</b><br/>
+			<img src="${plant.picture}" style = "max-width: 200 px; max-height: 200px;"/>
+		</li>
+		
+		<li>
 			<b><spring:message code="plant.description"/>:</b>
 			<jstl:out value="${plant.description}"/>
 		</li>
@@ -41,26 +46,36 @@
 			<jstl:out value="${plant.ph}" />
 		</li>
 		
+		<li>
+			<jstl:set var="isEmpty" value="${false}"/>
+				<jstl:if test="${plant.wateringAreas.size() == 0}">
+					<jstl:set var="isEmpty" value="${true}"/>
+					<spring:message code="plant.noWateringAreas" />
+			</jstl:if>
+		</li>
 	</ul>
 	
 </div>
 
-<li>
+
+
+
 <security:authorize access="hasAnyRole('ADMIN')">
 <form:form method="post" action="plant/administrator/delete.do" modelAttribute="plant" >
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="name" />
+	<form:hidden path="picture" />
 	<form:hidden path="description" />
 	<form:hidden path="minTemperature" />
 	<form:hidden path="maxTemperature" />
 	<form:hidden path="moisture" />
 	<form:hidden path="ph" />
 	<form:hidden path="wateringAreas" />
+	<form:hidden path="fertilizers" />
 	
-	
-	<jstl:if test="${plant.id != 0}">
+	<jstl:if test="${plant.id != 0 && isEmpty}">
 		<input type="submit" name="delete"
 			value="<spring:message code="plant.delete" />"
 			onclick="return confirm('<spring:message code="plant.confirm.delete" />')" />&nbsp;
@@ -76,4 +91,3 @@
 
 <acme:button code="plant.back" url="plant/list.do"/>
 
-</li>

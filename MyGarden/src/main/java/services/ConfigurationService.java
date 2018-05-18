@@ -66,6 +66,9 @@ public class ConfigurationService {
 		Assert.notNull(configuration);
 		configuration.setAutomaticWatering(false);
 		configuration.setManualWatering(true);
+		configuration.setIntrusionWarningActivated(false);
+		configuration.setFertilizerWarningActivated(false);
+		configuration.setTankWarningActivated(false);
 		return this.configurationRepository.save(configuration);
 	}
 
@@ -123,6 +126,24 @@ public class ConfigurationService {
 		//final Configuration configuration = this.gardenerService.findByPrincipal().getConfiguration();
 		configuration.setManualWatering(false);
 		configuration.setAutomaticWatering(true);
+		this.configurationRepository.save(configuration);
+
+	}
+
+	public void deactivateManualWatering(final Configuration configuration) {
+
+		//final Configuration configuration = this.gardenerService.findByPrincipal().getConfiguration();
+		configuration.setManualWatering(false);
+		configuration.setAutomaticWatering(true);
+		this.configurationRepository.save(configuration);
+
+	}
+
+	public void deactivateAutomaticWatering(final Configuration configuration) {
+
+		//final Configuration configuration = this.gardenerService.findByPrincipal().getConfiguration();
+		configuration.setManualWatering(true);
+		configuration.setAutomaticWatering(false);
 		this.configurationRepository.save(configuration);
 
 	}

@@ -10,6 +10,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
+<div class="table-responsive">
 <security:authorize access="hasAnyRole('ADMIN')">
 	<div>
 		<acme:button url="fertilizer/administrator/create.do" code="fertilizer.create"/>
@@ -32,7 +33,7 @@
 	</security:authorize>
 	
 </display:table>
-
+</div>
 
 
 

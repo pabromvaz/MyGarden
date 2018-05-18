@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 
 import repositories.PlantRepository;
 import domain.Administrator;
+import domain.Fertilizer;
 import domain.Measurement;
 import domain.Plant;
 import domain.WateringArea;
@@ -30,6 +31,9 @@ public class PlantService {
 
 	@Autowired
 	private MeasurementService		measurementService;
+
+	@Autowired
+	private FertilizerService		fertilizerService;
 
 
 	// Constructors------------------------------------------------------------
@@ -59,6 +63,7 @@ public class PlantService {
 		Plant result;
 
 		final Collection<WateringArea> wateringAreas = new ArrayList<WateringArea>();
+		final Collection<Fertilizer> fertilizers = new ArrayList<Fertilizer>();
 
 		Administrator principal;
 		principal = this.administratorService.findByPrincipal();
@@ -66,6 +71,7 @@ public class PlantService {
 
 		result = new Plant();
 		result.setWateringAreas(wateringAreas);
+		result.setFertilizers(fertilizers);
 		return result;
 	}
 
@@ -123,6 +129,11 @@ public class PlantService {
 		Assert.notNull(plant);
 		Assert.notNull(this.administratorService.findByPrincipal());
 		Assert.isTrue(plant.getWateringAreas().isEmpty());
+
+		final Collection<Fertilizer> fertilizers = plant.getFertilizers();
+		for (final Fertilizer fe : fertilizers)
+			this.fertilizerService.deletePlant(fe, plant);
+
 		this.plantRepository.delete(plant);
 	}
 

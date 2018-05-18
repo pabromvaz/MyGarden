@@ -117,6 +117,21 @@ public class ConfigurationGardenerController extends AbstractController {
 
 	}
 
+	@RequestMapping(value = "/deactivateManualWatering", method = RequestMethod.GET)
+	public ModelAndView deactivateManualWatering() {
+		ModelAndView result;
+		Configuration configuration;
+		final Actor actor = this.actorService.findByPrincipal();
+		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		configuration = gardener.getConfiguration();
+
+		this.configurationService.deactivateManualWatering(configuration);
+
+		result = new ModelAndView("redirect:/configuration/gardener/display.do");
+		return result;
+
+	}
+
 	// Activate automatic watering ---------------------------------------------------------------
 
 	@RequestMapping(value = "/activateAutomaticWatering", method = RequestMethod.GET)
@@ -128,6 +143,21 @@ public class ConfigurationGardenerController extends AbstractController {
 		configuration = gardener.getConfiguration();
 
 		this.configurationService.activateAutomaticWatering(configuration);
+
+		result = new ModelAndView("redirect:/configuration/gardener/display.do");
+		return result;
+
+	}
+
+	@RequestMapping(value = "/deactivateAutomaticWatering", method = RequestMethod.GET)
+	public ModelAndView deactivateAutomaticWatering() {
+		ModelAndView result;
+		Configuration configuration;
+		final Actor actor = this.actorService.findByPrincipal();
+		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		configuration = gardener.getConfiguration();
+
+		this.configurationService.deactivateAutomaticWatering(configuration);
 
 		result = new ModelAndView("redirect:/configuration/gardener/display.do");
 		return result;

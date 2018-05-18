@@ -13,22 +13,24 @@
 	<ul>
 		<li>
 			<b><spring:message code="configuration.manualWatering"/>:</b>
-			<jstl:out value="${configuration.manualWatering}" />
 			<jstl:if test="${configuration.manualWatering==false}">
+					<spring:message code="configuration.Deactivated"/>
 					<acme:button url="configuration/gardener/activateManualWatering.do?configurationId=${configuration.id}" code="configuration.activateManualWatering"/>
 				</jstl:if>
 			<jstl:if test="${configuration.manualWatering==true}">
+					<spring:message code="configuration.Activated"/>
 					<acme:button url="configuration/gardener/deactivateManualWatering.do?configurationId=${configuration.id}" code="configuration.deactivateManualWatering"/>
 			</jstl:if>
 		</li>
 		
 		<li>
 			<b><spring:message code="configuration.automaticWatering"/>:</b>
-			<jstl:out value="${configuration.automaticWatering}" />
 			<jstl:if test="${configuration.automaticWatering==false}">
+					<spring:message code="configuration.Deactivated"/>
 					<acme:button url="configuration/gardener/activateAutomaticWatering.do?configurationId=${configuration.id}" code="configuration.activateAutomaticWatering"/>
 				</jstl:if>
 			<jstl:if test="${configuration.automaticWatering==true}">
+					<spring:message code="configuration.Activated"/>
 					<acme:button url="configuration/gardener/deactivateAutomaticWatering.do?configurationId=${configuration.id}" code="configuration.deactivateAutomaticWatering"/>
 			</jstl:if>
 		</li>
@@ -37,17 +39,32 @@
 		
 		<li>
 			<b><spring:message code="configuration.intrusionWarningActivated"/>:</b>
-			<jstl:out value="${configuration.intrusionWarningActivated}" />
+			<jstl:if test="${configuration.intrusionWarningActivated==true}">
+				<spring:message code="configuration.True"/>
+			</jstl:if>
+			<jstl:if test="${configuration.intrusionWarningActivated==false}">
+				<spring:message code="configuration.False"/>
+			</jstl:if>
 		</li>
 		
 		<li>
 			<b><spring:message code="configuration.fertilizerWarningActivated"/>:</b>
-			<jstl:out value="${configuration.fertilizerWarningActivated}"/>
+			<jstl:if test="${configuration.fertilizerWarningActivated==true}">
+				<spring:message code="configuration.True"/>
+			</jstl:if>
+			<jstl:if test="${configuration.fertilizerWarningActivated==false}">
+				<spring:message code="configuration.False"/>
+			</jstl:if>
 		</li>
 		
 		<li>
 			<b><spring:message code="configuration.tankWarningActivated"/>:</b>
-			<jstl:out value="${configuration.tankWarningActivated}"/>
+			<jstl:if test="${configuration.tankWarningActivated==true}">
+				<spring:message code="configuration.True"/>
+			</jstl:if>
+			<jstl:if test="${configuration.tankWarningActivated==false}">
+				<spring:message code="configuration.False"/>
+			</jstl:if>
 		</li>
 	</ul>	
 </div>

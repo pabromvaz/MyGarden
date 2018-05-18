@@ -12,6 +12,7 @@
 	
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+	<form:hidden path="plants"/>
 
 	<acme:input code="fertilizer.name" path="name" />
 	<acme:input code="fertilizer.picture" path="picture" />

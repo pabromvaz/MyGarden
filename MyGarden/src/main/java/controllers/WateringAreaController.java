@@ -63,7 +63,7 @@ public class WateringAreaController extends AbstractController {
 		final Actor actor = this.actorService.findByPrincipal();
 		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
 
-		wateringAreas = this.wateringAreaService.findAll();
+		wateringAreas = this.wateringAreaService.findAllVisible();
 
 		result = new ModelAndView("wateringArea/list");
 		result.addObject("wateringAreas", wateringAreas);

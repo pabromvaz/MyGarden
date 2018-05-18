@@ -12,6 +12,7 @@
 
 <acme:button url="timeTable/wateringArea/create.do?wateringAreaId=${wateringArea.id}" code="timeTable.create"/>
 
+<div class="table-responsive">
 <display:table name="timeTables" id="timeTable" requestURI="timeTable/list.do" class="displaytag">
 	
 
@@ -28,7 +29,7 @@
 	</security:authorize>
 	
 </display:table>
-
+</div>
 <acme:button code="timeTable.back" url="wateringArea/display.do?wateringAreaId=${wateringArea.id}"/>
 
 

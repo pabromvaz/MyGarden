@@ -1,6 +1,8 @@
 
 package controllers.administrator;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.AdministratorService;
+import services.FertilizerService;
 import services.PlantService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Administrator;
+import domain.Fertilizer;
 import domain.Plant;
 
 @Controller
@@ -27,6 +31,9 @@ public class PlantAdministratorController extends AbstractController {
 
 	@Autowired
 	private PlantService			plantService;
+
+	@Autowired
+	private FertilizerService		fertilizerService;
 
 	@Autowired
 	private AdministratorService	administratorService;
@@ -63,7 +70,7 @@ public class PlantAdministratorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveCreate(@Valid final Plant plant, final BindingResult binding) {
+	public ModelAndView saveCreate(@Valid Plant plant, final BindingResult binding) {
 
 		ModelAndView result;
 
@@ -71,7 +78,9 @@ public class PlantAdministratorController extends AbstractController {
 			result = this.createModelAndView(plant);
 		else
 			try {
-				this.plantService.save(plant);
+
+				plant = this.plantService.save(plant);
+				this.fertilizerService.select(plant.getFertilizers(), plant);
 				result = new ModelAndView("redirect:../../plant/list.do");
 
 			} catch (final Throwable oops) {
@@ -113,8 +122,9 @@ public class PlantAdministratorController extends AbstractController {
 		else
 			try {
 				if (plant.getId() != 0)
-					plant = this.plantService.save(plant);
-				result = new ModelAndView("redirect:../../plant/list.do");
+					this.fertilizerService.select(plant.getFertilizers(), plant);
+				plant = this.plantService.save(plant);
+				result = new ModelAndView("redirect:../../plant/display.do?plantId=" + plant.getId());
 			} catch (final Throwable oops) {
 				if (!(plant.getMinTemperature() <= plant.getMaxTemperature()))
 					result = this.editModelAndView(plant, "plant.commit.error.temperature");
@@ -162,8 +172,11 @@ public class PlantAdministratorController extends AbstractController {
 	protected ModelAndView createModelAndView(final Plant plant, final String message) {
 		ModelAndView result;
 
+		final Collection<Fertilizer> fertilizers = this.fertilizerService.findAll();
+
 		result = new ModelAndView("plant/create");
 		result.addObject("plant", plant);
+		result.addObject("fertilizers", fertilizers);
 		result.addObject("requestURI", "plant/administrator/create.do");
 		result.addObject("message", message);
 

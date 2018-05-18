@@ -115,7 +115,7 @@ public class FertilizerAdministratorController extends AbstractController {
 				else
 					fertilizer = this.fertilizerService.save(fertilizer);
 				//this.fertilizerService.select(fertilizer.getCategories(), fertilizer);
-				result = new ModelAndView("redirect:../../fertilizer/list.do");
+				result = new ModelAndView("redirect:../../fertilizer/display.do?fertilizerId=" + fertilizer.getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(fertilizer, "fertilizer.commit.error");
 			}

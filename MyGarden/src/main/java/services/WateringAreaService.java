@@ -77,6 +77,14 @@ public class WateringAreaService {
 		return result;
 	}
 
+	public Collection<WateringArea> findAllVisible() {
+		Collection<WateringArea> result;
+
+		result = this.wateringAreaRepository.findAllVisible();
+
+		return result;
+	}
+
 	public WateringArea create() {
 
 		Gardener gardener;

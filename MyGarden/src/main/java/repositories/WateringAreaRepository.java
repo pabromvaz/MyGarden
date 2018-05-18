@@ -15,4 +15,7 @@ public interface WateringAreaRepository extends JpaRepository<WateringArea, Inte
 	@Query("select wa from WateringArea wa where wa.gardener.id=?1")
 	Collection<WateringArea> findByGardenerId(Integer gardenerId);
 
+	@Query("select wa from WateringArea wa where wa.visible=true")
+	Collection<WateringArea> findAllVisible();
+
 }

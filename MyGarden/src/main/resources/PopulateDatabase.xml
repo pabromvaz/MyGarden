@@ -275,6 +275,41 @@
 			</list>
 		</property>
 	</bean>
+	
+	<!-- Fertilizer -->
+	
+	<bean id="fertilizer1" class="domain.Fertilizer">
+		<property name="name" value="Fertilizante1" />
+		<property name="picture" value="https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg" />
+		<property name="description" value="Descripcion del fertilizante1" />
+		<property name="ph" value="7.0" />
+		<property name="nitrogen" value="25.0" />
+		<property name="phosphorus" value="10.0" />
+		<property name="potassium" value="7.0" />
+		<property name="plants">
+			<list>
+				<ref bean="plant1" />
+				<ref bean="plant2" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="fertilizer2" class="domain.Fertilizer">
+		<property name="name" value="Fertilizante2" />
+		<property name="picture" value="https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg" />
+		<property name="description" value="Descripcion del fertilizante2" />
+		<property name="ph" value="7.0" />
+		<property name="nitrogen" value="25.0" />
+		<property name="phosphorus" value="10.0" />
+		<property name="potassium" value="7.0" />
+		<property name="plants">
+			<list>
+				<ref bean="plant2" />
+				<ref bean="plant3" />
+			</list>
+		</property>
+	</bean>
+	
 	<!-- Plant -->
 	
 	<bean id="plant1" class="domain.Plant">
@@ -288,6 +323,11 @@
 		<property name="wateringAreas">
 			<list> 
 				<ref bean="wateringArea1"/>
+			</list>
+		</property>
+		<property name="fertilizers">
+			<list>
+				<ref bean="fertilizer1" />
 			</list>
 		</property>
 	</bean>
@@ -305,6 +345,12 @@
 				<ref bean="wateringArea2"/>
 			</list>
 		</property>
+		<property name="fertilizers">
+			<list>
+				<ref bean="fertilizer1" />
+				<ref bean="fertilizer2"/>
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="plant3" class="domain.Plant">
@@ -318,6 +364,11 @@
 		<property name="wateringAreas">
 			<list> 
 				<ref bean="wateringArea3"/>
+			</list>
+		</property>
+		<property name="fertilizers">
+			<list>
+				<ref bean="fertilizer2" />
 			</list>
 		</property>
 	</bean>
@@ -335,28 +386,11 @@
 				<ref bean="wateringArea4"/>
 			</list>
 		</property>
-	</bean>
-	
-	<!-- Fertilizer -->
-	
-	<bean id="fertilizer1" class="domain.Fertilizer">
-		<property name="name" value="Fertilizante1" />
-		<property name="picture" value="https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg" />
-		<property name="description" value="Descripcion del fertilizante1" />
-		<property name="ph" value="7.0" />
-		<property name="nitrogen" value="25.0" />
-		<property name="phosphorus" value="10.0" />
-		<property name="potassium" value="7.0" />
-	</bean>
-	
-	<bean id="fertilizer2" class="domain.Fertilizer">
-		<property name="name" value="Fertilizante2" />
-		<property name="picture" value="https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg" />
-		<property name="description" value="Descripcion del fertilizante2" />
-		<property name="ph" value="7.0" />
-		<property name="nitrogen" value="25.0" />
-		<property name="phosphorus" value="10.0" />
-		<property name="potassium" value="7.0" />
+		<property name="fertilizers">
+			<list>
+			
+			</list>
+		</property>
 	</bean>
 	
 	<!-- WateringArea -->

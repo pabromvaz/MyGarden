@@ -22,6 +22,13 @@
 	<acme:input code="plant.moisture" path="moisture" />
 	<acme:input code="plant.ph" path="ph" />
 	
+	<form:label path="fertilizers">
+		<spring:message code="plant.fertilizers"/>
+	</form:label>
+	<jstl:forEach var="fertilizer" items="${fertilizers}">
+		<form:checkbox path ="fertilizers" value="${fertilizer}"/><jstl:out value="${fertilizer.name}"/>
+	</jstl:forEach>
+	<form:errors path="fertilizers" cssClass="error"/>
 	
 	<acme:submit name="save" code="plant.save" />
 	

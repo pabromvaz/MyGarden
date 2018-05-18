@@ -9,32 +9,48 @@
  */
  
 table {
-	border: 1px solid #666;
+	/*border: 1px solid #666;
 	width: 80%;
+	margin: 20px 0 20px 0 !important;*/
+	border: 1px solid #666;
+
 	margin: 20px 0 20px 0 !important;
+	display: inline-block;
+  	overflow-x: auto;
+  	border-radius: 10px 10px 10px 10px;
+  	-webkit-overflow-scrolling: touch;
+  	-ms-overflow-style: -ms-autohiding-scrollbar;
+	border: 0;
 }
 
 th,td {
-	padding: 2px 4px 2px 4px !important;
+	/*padding: 2px 4px 2px 4px !important;
 	text-align: left;
-	vertical-align: top;
+	vertical-align: top;*/
+	padding: 1rem;
+	text-align: left;
 }
 
 thead tr {
-	background-color: #fc0;
+	/*background-color: #fc0;*/
+	background-color: #78C2AD;
+	color: #FFFFFF;
 }
 
 th.sorted {
-	background-color: orange;
+	/*background-color: orange;*/
+	background-color: rgba(255, 255, 255, 0.26);
 }
 
 th a,th a:visited {
-	color: black;
+	/*color: black;*/
+	color: white;
 }
 
 th a:hover {
-	text-decoration: underline;
-	color: black;
+	/*text-decoration: underline;
+	color: black;*/
+	color: white;
 }
 
 th.sorted a,th.sortable a {
@@ -48,18 +64,24 @@ th.sortable a {
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-position: right;	
+	
+	padding-right: 1.7rem;
 }
 
 th.order1 a {
 	background-image: url(../images/arrow_down.png);
 	background-repeat: no-repeat;
-	background-position: right;		
+	background-position: right;	
+	
+	padding-right: 1.3rem;	
 }
 
 th.order2 a {
 	background-image: url(../images/arrow_up.png);
 	background-repeat: no-repeat;
 	background-position: right;	
+	
+	padding-right: 1.3rem;
 }
 
 tr.odd {
@@ -67,7 +89,13 @@ tr.odd {
 }
 
 tr.tableRowEven,tr.even {
-	background-color: #fea
+	/*background-color: #fea*/
+	background-color: rgba(120, 194, 173, 0.07);
+}
+
+tbody tr:hover {
+  background-color: rgba(120, 194, 173, 0.54);
+  color: white;
 }
 
 div.exportlinks {

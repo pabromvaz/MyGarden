@@ -17,68 +17,77 @@
 	<img src="images/logo.png" alt="MyGarden Co., Inc." />
 </div>
 
-<div>
-	<ul id="jMenu">
-		<!-- Do not forget the "fNiv" class for the first level links !! -->
-		<security:authorize access="hasRole('ADMIN')">
-			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="administrator/action-1.do"><spring:message code="master.page.administrator.action.1" /></a></li>
-					<li><a href="administrator/action-2.do"><spring:message code="master.page.administrator.action.2" /></a></li>					
-				</ul>
-			</li>
-		</security:authorize>
-		
-		<security:authorize access="hasRole('GARDENER')">
-			<li><a class="fNiv" href="configuration/gardener/display.do"><spring:message	code="master.page.configuration" /></a>
-			<li><a class="fNiv"><spring:message	code="master.page.gardener" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="wateringArea/list.do"><spring:message code="master.page.gardener.wateringArea.list" /></a></li>
-					<li><a href="wateringArea/listMyWateringAreas.do"><spring:message code="master.page.gardener.wateringArea.myList" /></a></li>
-				</ul>
-			</li>
-		</security:authorize>
-		
-		<security:authorize access="isAnonymous()">
-			<li><a class="fNiv" href="gardener/create.do"><spring:message code="master.page.register" /></a>
-				
-			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
-		</security:authorize>
-		
-		<security:authorize access="isAuthenticated()">
-			<li><a class="fNiv"><spring:message	code="master.page.messageEmails" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="messageEmail/listIn.do"><spring:message code="master.page.messageEmails.received" /></a></li>
-					<li><a href="messageEmail/listOut.do"><spring:message code="master.page.messageEmails.sent" /></a></li>
-					<li><a href="messageEmail/listArchived.do"><spring:message code="master.page.messageEmails.archived" /></a></li>
-				</ul>
-			</li>
-			
-			<li><a href="plant/list.do"><spring:message code="master.page.plant.list" /></a></li>
-			<li><a href="fertilizer/list.do"><spring:message code="master.page.fertilizer.list" /></a></li>
-			
-			<li>
-				<a class="fNiv"> 
-					<spring:message code="master.page.profile" /> 
-			        (<security:authentication property="principal.username" />)
-				</a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="profile/myProfile.do"><spring:message code="master.page.profile.myProfile" /></a></li>
-					<li><a href="profile/action-1.do"><spring:message code="master.page.profile.action.1" /></a></li>
-					<li><a href="profile/action-2.do"><spring:message code="master.page.profile.action.2" /></a></li>
-					<li><a href="profile/action-3.do"><spring:message code="master.page.profile.action.3" /></a></li>					
-					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
-				</ul>
-			</li>
-		</security:authorize>
-	</ul>
-</div>
+   <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">My garden</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+          
+          	<security:authorize access="isAnonymous()">
+            <li class="nav-item active">
+              <a class="nav-link" href="security/login.do"><spring:message code="master.page.login" />
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="gardener/create.do"><spring:message code="master.page.register" /></a>
+            </li>
+          	</security:authorize>  
+          	
+            <security:authorize access="isAuthenticated()">
+            <li class="nav-item active">
+              <a class="nav-link" href="plant/list.do"><spring:message code="master.page.plant.list" /></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="fertilizer/list.do"><spring:message code="master.page.fertilizer.list" /></a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" style="font-size: 16px; padding: 8px; padding-left: 0px" data-toggle="dropdown">
+          		<spring:message	code="master.page.messageEmails" />
+        	  </a>
+        	  <div class="dropdown-menu">
+          	  	<a class="dropdown-item" href="messageEmail/listIn.do"><spring:message code="master.page.messageEmails.received" /></a>
+          	  	<a class="dropdown-item" href="messageEmail/listOut.do"><spring:message code="master.page.messageEmails.sent" /></a>
+          	  	<a class="dropdown-item" href="messageEmail/listArchived.do"><spring:message code="master.page.messageEmails.archived" /></a>
+        	  </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" style="font-size: 16px; padding: 8px; padding-left: 0px" data-toggle="dropdown">
+          		<spring:message	code="master.page.profile" />
+          		(<security:authentication property="principal.username" />)
+        	  </a>
+        	  <div class="dropdown-menu">
+          	  	<a class="dropdown-item" href="profile/myProfile.do"><spring:message code="master.page.profile.myProfile" /></a>
+          	  	<a class="dropdown-item" href="j_spring_security_logout"><spring:message code="master.page.logout" /></a>
+        	  </div>
+            </li>
+             </security:authorize>
+             
+             <security:authorize access="hasRole('GARDENER')">
+             <li class="nav-item dropdown">
+              <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" style="font-size: 16px; padding: 8px; padding-left: 0px" data-toggle="dropdown">
+          		<spring:message	code="master.page.gardener" />
+        	  </a>
+        	  <div class="dropdown-menu">
+          	  	<a class="dropdown-item" href="wateringArea/listMyWateringAreas.do"><spring:message code="master.page.gardener.wateringArea.myList" /></a>
+          	  	<a class="dropdown-item" href="wateringArea/list.do"><spring:message code="master.page.gardener.wateringArea.list" /></a>
+        	  </div>
+             </li>
+             <li class="nav-item active">
+              <a class="nav-link" href="configuration/gardener/display.do"><spring:message code="master.page.configuration" /></a>
+            </li>
+            </security:authorize>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+
 
 <div>
 	<a href="?language=en">en</a> | <a href="?language=es">es</a>
 </div>
-

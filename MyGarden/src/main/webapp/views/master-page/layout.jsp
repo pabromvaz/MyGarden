@@ -28,11 +28,16 @@
 
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/jquery-ui.js"></script>
-<script type="text/javascript" src="scripts/jmenu.js"></script>
+<!-- <script type="text/javascript" src="scripts/jmenu.js"></script> -->
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"></link>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="styles/common.css" type="text/css">
-<link rel="stylesheet" href="styles/jmenu.css" media="screen"
-	type="text/css" />
+<!--  <link rel="stylesheet" href="styles/jmenu.css" media="screen"
+	type="text/css" />-->
 <link rel="stylesheet" href="styles/displaytag.css" type="text/css">
 
 <title><tiles:insertAttribute name="title" ignore="true" /></title>

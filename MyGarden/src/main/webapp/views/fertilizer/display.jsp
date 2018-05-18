@@ -17,6 +17,11 @@
 		</li>
 		
 		<li>
+			<b><spring:message code="fertilizer.picture" />:</b><br/>
+			<img src="${fertilizer.picture}" style = "max-width: 200 px; max-height: 200px;"/>
+		</li>
+		
+		<li>
 			<b><spring:message code="fertilizer.description"/>:</b>
 			<jstl:out value="${fertilizer.description}"/>
 		</li>
@@ -40,6 +45,28 @@
 			<b><spring:message code="fertilizer.potassium" />:</b>
 			<jstl:out value="${fertilizer.potassium}" />
 		</li>
+		
+		<li>
+			<jstl:set var="isEmpty" value="${false}"/>
+			<jstl:if test="${fertilizer.plants.size() == 0}">
+				<jstl:set var="isEmpty" value="${true}"/>
+					<spring:message code="fertilizer.noPlants" />
+			</jstl:if>
+			<jstl:if test="${isEmpty == false}">
+			<b><spring:message code="fertilizer.plants" />:</b>
+			<display:table name="${fertilizer.plants}" id="plant" class="displaytag" pagesize="5" keepStatus="true" requestURI="fertilizer/display.do?fertilizerId=${fertilizer.id}" >
+					
+				<acme:column code="fertilizer.plant.name" property="name" />
+				<acme:column code="fertilizer.plant.description" property="description"/>
+				<acme:column code="fertilizer.plant.minTemperature" property="minTemperature"/>
+				<acme:column code="fertilizer.plant.maxTemperature" property="maxTemperature"/>
+				<acme:column code="fertilizer.plant.moisture" property="moisture"/>
+				<acme:column code="fertilizer.plant.ph" property="ph"/>
+				<acme:button url="plant/display.do?plantId=${plant.id}" code="fertilizer.plant.display"/>
+		
+			</display:table>	
+			</jstl:if>
+		</li>
 	</ul>
 	
 </div>
@@ -50,6 +77,8 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="name" />
+	<form:hidden path="picture" />
+	<form:hidden path="plants" />
 	<form:hidden path="description" />
 	<form:hidden path="ph" />
 	<form:hidden path="nitrogen" />

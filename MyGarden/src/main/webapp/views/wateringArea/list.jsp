@@ -16,7 +16,7 @@
 		<acme:button url="wateringArea/gardener/create.do" code="wateringArea.create"/>
 	</div>
 
-
+<div class="table-responsive">
 <display:table name="wateringAreas" id="wateringArea" requestURI="wateringArea/list.do" class="displaytag">
 	
 
@@ -34,7 +34,7 @@
 	</security:authorize>
 	
 </display:table>
-
+</div>
 </security:authorize>
 
 

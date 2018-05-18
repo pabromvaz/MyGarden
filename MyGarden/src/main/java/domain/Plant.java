@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -104,6 +105,7 @@ public class Plant extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 	private Collection<WateringArea>	wateringAreas;
+	private Collection<Fertilizer>		fertilizers;
 
 
 	@Valid
@@ -115,6 +117,16 @@ public class Plant extends DomainEntity {
 
 	public void setWateringAreas(final Collection<WateringArea> wateringAreas) {
 		this.wateringAreas = wateringAreas;
+	}
+
+	@NotNull
+	@Valid
+	@ManyToMany(mappedBy = "plants")
+	public Collection<Fertilizer> getFertilizers() {
+		return this.fertilizers;
+	}
+	public void setFertilizers(final Collection<Fertilizer> fertilizers) {
+		this.fertilizers = fertilizers;
 	}
 
 }

@@ -34,6 +34,7 @@ public class Event extends DomainEntity {
 	private String	description;
 	private Date	moment;
 	private String	type;
+	private Boolean	readed;
 
 
 	@NotBlank
@@ -75,6 +76,14 @@ public class Event extends DomainEntity {
 
 	public void setType(final String type) {
 		this.type = type;
+	}
+
+	public Boolean getReaded() {
+		return this.readed;
+	}
+
+	public void setReaded(final Boolean readed) {
+		this.readed = readed;
 	}
 
 

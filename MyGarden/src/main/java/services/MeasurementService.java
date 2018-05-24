@@ -108,4 +108,5 @@ public class MeasurementService {
 	}
 
 	// Other business methods -------------------------------------------------
+
 }

@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.EventService;
 import services.GardenerService;
 import services.PlantService;
 import services.WateringAreaService;
 import controllers.AbstractController;
 import domain.Actor;
+import domain.Event;
 import domain.Gardener;
 import domain.Plant;
 import domain.WateringArea;
@@ -38,6 +40,9 @@ public class PlantGardenerController extends AbstractController {
 	@Autowired
 	private WateringAreaService	wateringAreaService;
 
+	@Autowired
+	private EventService		eventService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -54,11 +59,13 @@ public class PlantGardenerController extends AbstractController {
 		final Actor actor = this.actorService.findByPrincipal();
 
 		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
 
 		final WateringArea wateringArea = this.wateringAreaService.findOne(wateringAreaId);
 		plants = this.plantService.findRecommendedPlants(wateringArea);
 
 		result = new ModelAndView("plant/list");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("plants", plants);
 		result.addObject("principal", actor);
 

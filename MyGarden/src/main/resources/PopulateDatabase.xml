@@ -156,6 +156,29 @@
 			<list>
 				 <ref bean="wateringArea1" />
 				 <ref bean="wateringArea2" />
+				 <ref bean="wateringArea5"/>
+				<ref bean="wateringArea6"/>
+				<ref bean="wateringArea7"/>
+				<ref bean="wateringArea8"/>
+				<ref bean="wateringArea9"/>
+				<ref bean="wateringArea10"/>
+				<ref bean="wateringArea11"/>
+				<ref bean="wateringArea12"/>
+				<ref bean="wateringArea13"/>
+				<ref bean="wateringArea14"/>
+				<ref bean="wateringArea15"/>
+				<ref bean="wateringArea16"/>
+				<ref bean="wateringArea17"/>
+				<ref bean="wateringArea18"/>
+				<ref bean="wateringArea19"/>
+				<ref bean="wateringArea20"/>
+				<ref bean="wateringArea21"/>
+				<ref bean="wateringArea22"/>
+				<ref bean="wateringArea23"/>
+				<ref bean="wateringArea24"/>
+				<ref bean="wateringArea25"/>
+				<ref bean="wateringArea26"/>
+				<ref bean="wateringArea27"/>
 			</list>
 		</property>
 	</bean>
@@ -198,7 +221,7 @@
 	</bean>
 	
 	<bean id="gardener3" class="domain.Gardener">
-		<property name="name" value="NameGardener1" />
+		<property name="name" value="NameGardener3" />
 		<property name="surname" value="SurnameGardener3" />
 		<property name="email" value="gardener3@email.com" />
 		<property name="userAccount" ref="userAccount5" />
@@ -319,10 +342,34 @@
 		<property name="minTemperature" value="2.0" />
 		<property name="maxTemperature" value="25.0" />
 		<property name="moisture" value="15.0" />
+		<property name="humidity" value="70.0" />
 		<property name="ph" value="7.0" />
 		<property name="wateringAreas">
 			<list> 
 				<ref bean="wateringArea1"/>
+				<ref bean="wateringArea5"/>
+				<ref bean="wateringArea6"/>
+				<ref bean="wateringArea7"/>
+				<ref bean="wateringArea8"/>
+				<ref bean="wateringArea9"/>
+				<ref bean="wateringArea10"/>
+				<ref bean="wateringArea11"/>
+				<ref bean="wateringArea12"/>
+				<ref bean="wateringArea13"/>
+				<ref bean="wateringArea14"/>
+				<ref bean="wateringArea15"/>
+				<ref bean="wateringArea16"/>
+				<ref bean="wateringArea17"/>
+				<ref bean="wateringArea18"/>
+				<ref bean="wateringArea19"/>
+				<ref bean="wateringArea20"/>
+				<ref bean="wateringArea21"/>
+				<ref bean="wateringArea22"/>
+				<ref bean="wateringArea23"/>
+				<ref bean="wateringArea24"/>
+				<ref bean="wateringArea25"/>
+				<ref bean="wateringArea26"/>
+				<ref bean="wateringArea27"/>
 			</list>
 		</property>
 		<property name="fertilizers">
@@ -340,6 +387,7 @@
 		<property name="maxTemperature" value="22.0" />
 		<property name="moisture" value="17.0" />
 		<property name="ph" value="7.0" />
+		<property name="humidity" value="40.0" />
 		<property name="wateringAreas">
 			<list> 
 				<ref bean="wateringArea2"/>
@@ -361,6 +409,7 @@
 		<property name="maxTemperature" value="18.0" />
 		<property name="moisture" value="10.0" />
 		<property name="ph" value="7.0" />
+		<property name="humidity" value="67.0" />
 		<property name="wateringAreas">
 			<list> 
 				<ref bean="wateringArea3"/>
@@ -381,6 +430,7 @@
 		<property name="maxTemperature" value="25.0" />
 		<property name="moisture" value="12.0" />
 		<property name="ph" value="7.0" />
+		<property name="humidity" value="86.0" />
 		<property name="wateringAreas">
 			<list> 
 				<ref bean="wateringArea4"/>
@@ -563,6 +613,949 @@
 		</property>
 	</bean> 
 	
+	<bean id="wateringArea5" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+			
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+			
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+		
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea6" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+			
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+			
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+		
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea7" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="false" />
+		<property name="valveActivated" value="true" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+			
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+	
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea8" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="false" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+				<ref bean="timetable1"/>
+				<ref bean="timetable2"/>
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+		
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+		
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea9" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+			
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+	
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+			
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea10" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+			
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+			
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+			
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea11" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+		
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+		
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea12" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+	
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+	
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+		
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea13" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+	
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+		
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+		
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea14" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+		
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+	
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+		
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea15" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+				
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea16" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+		
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+	
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+		
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea17" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+		
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+	
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+		
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea18" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+		
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea19" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+	
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+	
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+	
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea20" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+	
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+	
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+			
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea21" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+	
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+	
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea22" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+	
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea23" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+		
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+	
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea24" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+		
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea25" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+		
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea26" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+	
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+		
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="wateringArea27" class="domain.WateringArea">
+		<property name="name" value="Tomatera" />
+		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="place" value="Sevilla" />
+		<property name="description" value="Mi nueva tomatera" />
+		<property name="visible" value="true" />
+		<property name="valveActivated" value="false" />
+		<property name="gardener" ref="gardener1" />
+		<property name="timeTables">
+			<list>
+	
+			</list>
+		</property>
+		<property name="measurements">
+			<list>
+	
+			</list>
+		</property>
+		<property name="events">
+			<list>
+		
+			</list>
+		</property>
+		<property name="plant" ref="plant1" />
+		<property name="comments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="tastes">
+			<list>
+				
+			</list>
+		</property>
+		<property name="predictions">
+			<list>
+			
+			</list>
+		</property>
+	</bean> 
 	<!-- Taste -->
 	<bean id="taste1" class="domain.Taste">
 		<property name="like" value="true" />
@@ -633,6 +1626,7 @@
 		<property name="description" value="Se ha detectado una intrusión en la zona de riego" />
 		<property name="moment" value="02/02/2018 19:00" />
 		<property name="type" value="Intrusion"/>
+		<property name="readed" value="false"/>
 		<property name="wateringArea" ref="wateringArea1" />
 		<property name="configuration" ref="configuration1" />
 	</bean>
@@ -642,6 +1636,7 @@
 		<property name="description" value="El depósito no tiene suficiente agua" />
 		<property name="moment" value="02/02/2018 19:00" />
 		<property name="type" value="Tank"/>
+		<property name="readed" value="true"/>
 		<property name="wateringArea" ref="wateringArea1" />
 		<property name="configuration" ref="configuration1" />
 	</bean>
@@ -651,6 +1646,7 @@
 		<property name="description" value="Se necesita fertilizante" />
 		<property name="moment" value="02/02/2018 19:00" />
 		<property name="type" value="Fertilizer"/>
+		<property name="readed" value="false"/>
 		<property name="wateringArea" ref="wateringArea1" />
 		<property name="configuration" ref="configuration1" />
 	</bean>
@@ -660,6 +1656,7 @@
 		<property name="description" value="Se ha detectado una intrusión en la zona de riego" />
 		<property name="moment" value="02/02/2018 19:00" />
 		<property name="type" value="Intrusion"/>
+		<property name="readed" value="false"/>
 		<property name="wateringArea" ref="wateringArea4" />
 		<property name="configuration" ref="configuration3" />
 	</bean>

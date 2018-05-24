@@ -92,7 +92,7 @@ public class PlantService {
 		Collection<Plant> result = new ArrayList<Plant>();
 		final Collection<Measurement> measurements = wateringArea.getMeasurements();
 		Double moistureAverage = 0.0;
-		//Double humidityAverage = 0.0;
+		Double humidityAverage = 0.0;
 		Double temperatureAverage = 0.0;
 		//Double lightAverage = 0.0;
 		Double phAverage = 0.0;
@@ -102,7 +102,7 @@ public class PlantService {
 
 		for (final Measurement me : measurements) {
 			moistureAverage = moistureAverage + me.getMoisture();
-			//humidityAverage = humidityAverage + me.getHumidity();
+			humidityAverage = humidityAverage + me.getHumidity();
 			temperatureAverage = temperatureAverage + me.getTemperature();
 			//lightAverage = lightAverage + me.getLight();
 			phAverage = phAverage + me.getPh();
@@ -112,15 +112,15 @@ public class PlantService {
 		}
 
 		moistureAverage = moistureAverage / measurements.size();
-		//humidityAverage = humidityAverage / measurements.size();
+		humidityAverage = humidityAverage / measurements.size();
 		temperatureAverage = temperatureAverage / measurements.size();
 		//lightAverage = lightAverage / measurements.size();
 		phAverage = phAverage / measurements.size();
 		//nitrogenAverage = nitrogenAverage / measurements.size();
 		//phosphorusAverage = phosphorusAverage / measurements.size();
 		//potassiumAverage = potassiumAverage / measurements.size();
-
-		result = this.plantRepository.findAll();
+		result = this.plantRepository.findRecommendedPlant(humidityAverage, temperatureAverage);
+		//result = this.plantRepository.findAll();
 
 		return result;
 	}

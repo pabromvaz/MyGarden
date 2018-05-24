@@ -11,7 +11,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <div class="table-responsive">
-<display:table name="measurements" id="measurement" requestURI="measurement/list.do" class="displaytag">
+<display:table name="measurements" id="measurement" pagesize="2" requestURI="${requestURI}" class="displaytag">
 	
 
 	

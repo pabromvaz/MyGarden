@@ -1,6 +1,8 @@
 
 package controllers;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.EventService;
 import services.GardenerService;
+import domain.Event;
 import domain.Gardener;
 import forms.CreateGardenerForm;
 
@@ -21,6 +25,9 @@ public class GardenerController extends AbstractController {
 	// Service ---------------------------------------------------------------
 	@Autowired
 	private GardenerService	gardenerService;
+
+	@Autowired
+	private EventService	eventService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -141,7 +148,10 @@ public class GardenerController extends AbstractController {
 	protected ModelAndView editionEditModelAndView(final CreateGardenerForm createGardenerForm, final String message) {
 		ModelAndView result;
 
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+
 		result = new ModelAndView("gardener/edit");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("createGardenerForm", createGardenerForm);
 		result.addObject("requestURI", "gardener/edit.do");
 		result.addObject("message", message);

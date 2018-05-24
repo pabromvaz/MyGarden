@@ -1,5 +1,5 @@
 
-package controllers.wateringArea;
+package controllers;
 
 import java.util.Collection;
 
@@ -17,15 +17,14 @@ import services.ActorService;
 import services.EventService;
 import services.GardenerService;
 import services.WateringAreaService;
-import controllers.AbstractController;
 import domain.Actor;
 import domain.Event;
 import domain.Gardener;
 import domain.WateringArea;
 
 @Controller
-@RequestMapping("/event/wateringArea")
-public class EventWateringAreaController extends AbstractController {
+@RequestMapping("/event")
+public class EventController extends AbstractController {
 
 	// Service ---------------------------------------------------------------
 
@@ -43,34 +42,36 @@ public class EventWateringAreaController extends AbstractController {
 
 
 	// Constructors -----------------------------------------------------------
-	public EventWateringAreaController() {
+	public EventController() {
 		super();
 	}
 
 	// List -------------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(final int wateringAreaId) {
+	public ModelAndView list() {
 		ModelAndView result;
 		Collection<Event> events;
-		final WateringArea wateringArea = this.wateringAreaService.findOne(wateringAreaId);
 
-		events = wateringArea.getEvents();
+		events = this.eventService.findAllFromGardener();
+
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
 
 		result = new ModelAndView("event/list");
 		result.addObject("events", events);
-		result.addObject("wateringArea", wateringArea);
-		result.addObject("requestURI", "event/wateringArea/list.do");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
+		result.addObject("requestURI", "event/list.do");
 
 		return result;
 	}
 
 	// Display -------------------------------------------------------------------
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(final int eventId) {
+	public ModelAndView display(@RequestParam final int eventId) {
 		ModelAndView result;
 		Event event;
 
 		event = this.eventService.findOne(eventId);
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
 
 		final Actor actor = this.actorService.findByPrincipal();
 		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
@@ -78,14 +79,15 @@ public class EventWateringAreaController extends AbstractController {
 		if (event.getWateringArea().getGardener().equals(gardener))
 			isOwner = true;
 
-		if (event.getReaded() == true) {
+		if (event.getReaded() == false) {
 			event.setReaded(true);
 			this.eventService.save(event);
 		}
 		result = new ModelAndView("event/display");
 		result.addObject("event", event);
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("isOwner", isOwner);
-		result.addObject("requestURI", "event/wateringArea/display.do");
+		result.addObject("requestURI", "event/display.do");
 
 		return result;
 	}
@@ -182,7 +184,8 @@ public class EventWateringAreaController extends AbstractController {
 			return result = new ModelAndView("redirect:../../welcome/index.do");
 
 		this.eventService.delete(event);
-		result = new ModelAndView("redirect:../../event/list.do?wateringAreaId=" + event.getWateringArea().getId());
+		//result = new ModelAndView("redirect:../../event/wateringArea/list.do?wateringAreaId=" + event.getWateringArea().getId());
+		result = new ModelAndView("redirect:../../event/list.do");
 
 		return result;
 	}

@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
 import services.ActorService;
 import services.AdministratorService;
+import services.EventService;
 import services.FertilizerService;
 import services.GardenerService;
 import domain.Actor;
+import domain.Event;
 import domain.Fertilizer;
 
 @Controller
@@ -35,6 +38,9 @@ public class FertilizerController extends AbstractController {
 	@Autowired
 	private GardenerService			gardenerService;
 
+	@Autowired
+	private EventService			eventService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -53,31 +59,16 @@ public class FertilizerController extends AbstractController {
 		fertilizers = this.fertilizerService.findAll();
 
 		result = new ModelAndView("fertilizer/list");
+
+		final Boolean isGardener = this.actorService.checkAuthority(actor, Authority.GARDENER);
+		if (isGardener) {
+			final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+			result.addObject("eventsNotReaded", eventsNotReaded.size());
+		}
+
 		result.addObject("fertilizers", fertilizers);
-		//		if (gardener != null)
-		//			result.addObject("principal", gardener);
-		//		else if (administrator != null)
-		//			result.addObject("principal", administrator);
 		return result;
 	}
-
-	// ListMyFertilizers ----------------------------------------------------------------
-	//	@RequestMapping(value = "/listMyFertilizers", method = RequestMethod.GET)
-	//	public ModelAndView listMyFertilizers() {
-	//		ModelAndView result;
-	//		Collection<Fertilizer> fertilizers;
-	//
-	//		final Actor actor = this.actorService.findByPrincipal();
-	//
-	//		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
-	//		fertilizers = this.fertilizerService.findByGardenerId(gardener.getId());
-	//
-	//		result = new ModelAndView("fertilizer/list");
-	//		result.addObject("fertilizers", fertilizers);
-	//		result.addObject("principal", actor);
-	//
-	//		return result;
-	//	}
 
 	// Display ----------------------------------------------------------------
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
@@ -90,6 +81,13 @@ public class FertilizerController extends AbstractController {
 		fertilizer = this.fertilizerService.findOne(fertilizerId);
 
 		result = new ModelAndView("fertilizer/display");
+
+		final Boolean isGardener = this.actorService.checkAuthority(actor, Authority.GARDENER);
+		if (isGardener) {
+			final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+			result.addObject("eventsNotReaded", eventsNotReaded.size());
+		}
+
 		result.addObject("fertilizer", fertilizer);
 
 		return result;

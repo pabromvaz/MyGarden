@@ -196,4 +196,22 @@ public class WateringAreaService {
 
 	}
 
+	public void deactivateVisibility(final WateringArea wateringArea) {
+		Assert.notNull(wateringArea);
+		Assert.isTrue(this.gardenerService.findByPrincipal().equals(wateringArea.getGardener()));
+
+		wateringArea.setVisible(false);
+		this.wateringAreaRepository.save(wateringArea);
+
+	}
+
+	public void activateVisibility(final WateringArea wateringArea) {
+		Assert.notNull(wateringArea);
+		Assert.isTrue(this.gardenerService.findByPrincipal().equals(wateringArea.getGardener()));
+
+		wateringArea.setVisible(true);
+		this.wateringAreaRepository.save(wateringArea);
+
+	}
+
 }

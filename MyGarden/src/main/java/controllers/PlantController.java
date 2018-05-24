@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
 import services.ActorService;
 import services.AdministratorService;
+import services.EventService;
 import services.GardenerService;
 import services.PlantService;
 import services.WateringAreaService;
 import domain.Actor;
+import domain.Event;
 import domain.Plant;
 
 @Controller
@@ -39,6 +42,9 @@ public class PlantController extends AbstractController {
 	@Autowired
 	private WateringAreaService		wateringAreaService;
 
+	@Autowired
+	private EventService			eventService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -57,11 +63,15 @@ public class PlantController extends AbstractController {
 		plants = this.plantService.findAll();
 
 		result = new ModelAndView("plant/list");
+
+		final Boolean isGardener = this.actorService.checkAuthority(actor, Authority.GARDENER);
+		if (isGardener) {
+			final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+			result.addObject("eventsNotReaded", eventsNotReaded.size());
+		}
+
 		result.addObject("plants", plants);
-		//		if (gardener != null)
-		//			result.addObject("principal", gardener);
-		//		else if (administrator != null)
-		//			result.addObject("principal", administrator);
+
 		return result;
 	}
 
@@ -75,6 +85,13 @@ public class PlantController extends AbstractController {
 		plant = this.plantService.findOne(plantId);
 
 		result = new ModelAndView("plant/display");
+
+		final Boolean isGardener = this.actorService.checkAuthority(actor, Authority.GARDENER);
+		if (isGardener) {
+			final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+			result.addObject("eventsNotReaded", eventsNotReaded.size());
+		}
+
 		result.addObject("plant", plant);
 
 		return result;

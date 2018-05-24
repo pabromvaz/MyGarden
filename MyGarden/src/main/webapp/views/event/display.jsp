@@ -49,4 +49,4 @@
 </form:form>
 </jstl:if>
 
-<acme:button code="event.back" url="event/wateringArea/list.do?wateringAreaId=${event.wateringArea.id}"/>
+<acme:button code="event.back" url="event/list.do?wateringAreaId=${event.wateringArea.id}"/>

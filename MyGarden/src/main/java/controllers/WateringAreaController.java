@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.CommentService;
+import services.EventService;
 import services.GardenerService;
 import services.PlantService;
 import services.TasteService;
@@ -19,6 +20,7 @@ import services.WateringAreaService;
 import domain.Actor;
 import domain.Comment;
 import domain.Configuration;
+import domain.Event;
 import domain.Gardener;
 import domain.Taste;
 import domain.WateringArea;
@@ -47,6 +49,9 @@ public class WateringAreaController extends AbstractController {
 	@Autowired
 	private CommentService		commentService;
 
+	@Autowired
+	private EventService		eventService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -64,9 +69,11 @@ public class WateringAreaController extends AbstractController {
 		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
 
 		wateringAreas = this.wateringAreaService.findAllVisible();
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
 
 		result = new ModelAndView("wateringArea/list");
 		result.addObject("wateringAreas", wateringAreas);
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("principal", actor);
 
 		return result;
@@ -82,9 +89,11 @@ public class WateringAreaController extends AbstractController {
 
 		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
 		wateringAreas = this.wateringAreaService.findByGardenerId(gardener.getId());
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
 
 		result = new ModelAndView("wateringArea/list");
 		result.addObject("wateringAreas", wateringAreas);
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("principal", actor);
 
 		return result;
@@ -101,6 +110,7 @@ public class WateringAreaController extends AbstractController {
 		final Actor actor = this.actorService.findByPrincipal();
 		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
 		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
 
 		final Collection<Taste> tastes = this.tasteService.findAll();
 
@@ -112,6 +122,7 @@ public class WateringAreaController extends AbstractController {
 
 		result = new ModelAndView("wateringArea/display");
 		result.addObject("wateringArea", wateringArea);
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("comments", comments);
 		result.addObject("isOwner", isOwner);
 		result.addObject("actor", actor);

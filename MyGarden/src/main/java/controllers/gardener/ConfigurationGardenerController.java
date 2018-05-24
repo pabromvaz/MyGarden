@@ -1,6 +1,8 @@
 
 package controllers.gardener;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.ConfigurationService;
+import services.EventService;
 import services.GardenerService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Configuration;
+import domain.Event;
 import domain.Gardener;
 
 @Controller
@@ -34,6 +38,9 @@ public class ConfigurationGardenerController extends AbstractController {
 	@Autowired
 	private GardenerService			gardenerService;
 
+	@Autowired
+	private EventService			eventService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -47,6 +54,8 @@ public class ConfigurationGardenerController extends AbstractController {
 		ModelAndView result;
 		Boolean isOwner = false;
 
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+
 		final Actor actor = this.actorService.findByPrincipal();
 		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
 		final Configuration configuration = gardener.getConfiguration();
@@ -54,6 +63,7 @@ public class ConfigurationGardenerController extends AbstractController {
 			isOwner = true;
 
 		result = new ModelAndView("configuration/display");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("configuration", configuration);
 		result.addObject("isOwner", isOwner);
 		result.addObject("requestURI", "configuration/display.do");
@@ -178,7 +188,10 @@ public class ConfigurationGardenerController extends AbstractController {
 	protected ModelAndView editModelAndView(final Configuration configuration, final String message) {
 		ModelAndView result;
 
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+
 		result = new ModelAndView("configuration/edit");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("requestURI", "configuration/gardener/edit.do");
 		result.addObject("configuration", configuration);
 		result.addObject("message", message);

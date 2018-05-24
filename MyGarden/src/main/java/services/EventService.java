@@ -76,6 +76,7 @@ public class EventService {
 
 		result = new Event();
 		result.setName(name);
+		result.setReaded(false);
 		//if(type.equalsIgnoreCase("Intrusion")){
 
 		//}
@@ -106,4 +107,18 @@ public class EventService {
 	}
 
 	// Other business methods -------------------------------------------------
+
+	public Collection<Event> findAllFromGardener() {
+		final Gardener gardener = this.gardenerService.findByPrincipal();
+		Collection<Event> result;
+		result = this.eventRepository.findAllFromGardener(gardener.getId());
+		return result;
+	}
+
+	public Collection<Event> findAllNotReadedFromGardener() {
+		final Gardener gardener = this.gardenerService.findByPrincipal();
+		Collection<Event> result;
+		result = this.eventRepository.findAllNotReadedFromGardener(gardener.getId());
+		return result;
+	}
 }

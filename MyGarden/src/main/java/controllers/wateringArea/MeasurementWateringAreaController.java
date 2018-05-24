@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.EventService;
 import services.GardenerService;
 import services.MeasurementService;
 import services.WateringAreaService;
 import controllers.AbstractController;
 import domain.Actor;
+import domain.Event;
 import domain.Gardener;
 import domain.Measurement;
 import domain.WateringArea;
@@ -41,6 +43,9 @@ public class MeasurementWateringAreaController extends AbstractController {
 	@Autowired
 	private WateringAreaService	wateringAreaService;
 
+	@Autowired
+	private EventService		eventService;
+
 
 	// Constructors -----------------------------------------------------------
 	public MeasurementWateringAreaController() {
@@ -55,8 +60,10 @@ public class MeasurementWateringAreaController extends AbstractController {
 		final WateringArea wateringArea = this.wateringAreaService.findOne(wateringAreaId);
 
 		measurements = wateringArea.getMeasurements();
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
 
 		result = new ModelAndView("measurement/list");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("measurements", measurements);
 		result.addObject("wateringArea", wateringArea);
 		result.addObject("requestURI", "measurement/wateringArea/list.do");
@@ -71,6 +78,7 @@ public class MeasurementWateringAreaController extends AbstractController {
 		Measurement measurement;
 
 		measurement = this.measurementService.findOne(measurementId);
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
 
 		final Actor actor = this.actorService.findByPrincipal();
 		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
@@ -79,6 +87,7 @@ public class MeasurementWateringAreaController extends AbstractController {
 			isOwner = true;
 
 		result = new ModelAndView("measurement/display");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("measurement", measurement);
 		result.addObject("isOwner", isOwner);
 		result.addObject("requestURI", "measurement/wateringArea/display.do");
@@ -151,7 +160,10 @@ public class MeasurementWateringAreaController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Measurement measurement, final String message) {
 		ModelAndView result;
 
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+
 		result = new ModelAndView("measurement/create");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("measurement", measurement);
 		result.addObject("message", message);
 

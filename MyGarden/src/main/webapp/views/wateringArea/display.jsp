@@ -35,19 +35,31 @@
 			<jstl:out value="${wateringArea.description}"/>
 		</li>
 		
+		<jstl:if test="${isOwner==true}">
 		<li>
 			<b><spring:message code="wateringArea.visible" />:</b>
-			<jstl:out value="${wateringArea.visible}" />
+			<!--<jstl:out value="${wateringArea.visible}" />-->
+			<jstl:if test="${wateringArea.visible==false}">
+					<spring:message code="invisible" />
+					<acme:button url="wateringArea/gardener/activateVisibility.do?wateringAreaId=${wateringArea.id}" code="wateringArea.activateVisibility"/>
+				</jstl:if>
+				<jstl:if test="${wateringArea.visible==true}">
+					<spring:message code="visible" />
+					<acme:button url="wateringArea/gardener/deactivateVisibility.do?wateringAreaId=${wateringArea.id}" code="wateringArea.deactivateVisibility"/>
+				</jstl:if>
 		</li>
+		</jstl:if>
 		
 		<jstl:if test="${isOwner==true && configuration.manualWatering==true}">
 		<li>
 			<b><spring:message code="wateringArea.valveActivated" />:</b>
-			<jstl:out value="${wateringArea.valveActivated}" />	
+			<!--<jstl:out value="${wateringArea.valveActivated}" />	-->
 				<jstl:if test="${wateringArea.valveActivated==false}">
+					<spring:message code="valveDeactivated" />
 					<acme:button url="wateringArea/gardener/activateValve.do?wateringAreaId=${wateringArea.id}" code="wateringArea.activateValve"/>
 				</jstl:if>
 				<jstl:if test="${wateringArea.valveActivated==true}">
+					<spring:message code="valveActivated" />
 					<acme:button url="wateringArea/gardener/deactivateValve.do?wateringAreaId=${wateringArea.id}" code="wateringArea.deactivateValve"/>
 				</jstl:if>
 		</li>
@@ -122,7 +134,7 @@
 	</div>
 	
 	<div>
-		<acme:button url="plant/wateringArea/listRecommendedPlants.do?wateringAreaId=${wateringArea.id}" code="wateringArea.listRecommendedPlants"/>
+		<acme:button url="wateringArea/gardener/listRecommendedPlants.do?wateringAreaId=${wateringArea.id}" code="wateringArea.listRecommendedPlants"/>
 	</div>
 	</jstl:if>
 </security:authorize>

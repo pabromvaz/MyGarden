@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.EventService;
 import services.GardenerService;
 import services.TimeTableService;
 import services.WateringAreaService;
 import controllers.AbstractController;
 import domain.Actor;
+import domain.Event;
 import domain.Gardener;
 import domain.TimeTable;
 import domain.WateringArea;
@@ -41,6 +43,9 @@ public class TimeTableWateringAreaController extends AbstractController {
 	@Autowired
 	private WateringAreaService	wateringAreaService;
 
+	@Autowired
+	private EventService		eventService;
+
 
 	// Constructors -----------------------------------------------------------
 	public TimeTableWateringAreaController() {
@@ -55,8 +60,10 @@ public class TimeTableWateringAreaController extends AbstractController {
 		final WateringArea wateringArea = this.wateringAreaService.findOne(wateringAreaId);
 
 		timeTables = wateringArea.getTimeTables();
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
 
 		result = new ModelAndView("timeTable/list");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("timeTables", timeTables);
 		result.addObject("wateringArea", wateringArea);
 		result.addObject("requestURI", "timeTable/wateringArea/list.do");
@@ -71,6 +78,7 @@ public class TimeTableWateringAreaController extends AbstractController {
 		TimeTable timeTable;
 
 		timeTable = this.timeTableService.findOne(timeTableId);
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
 
 		final Actor actor = this.actorService.findByPrincipal();
 		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
@@ -79,6 +87,7 @@ public class TimeTableWateringAreaController extends AbstractController {
 			isOwner = true;
 
 		result = new ModelAndView("timeTable/display");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("timeTable", timeTable);
 		result.addObject("isOwner", isOwner);
 		result.addObject("requestURI", "timeTable/wateringArea/display.do");
@@ -197,7 +206,10 @@ public class TimeTableWateringAreaController extends AbstractController {
 	protected ModelAndView createModelAndView(final TimeTable timeTable, final String message) {
 		ModelAndView result;
 
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+
 		result = new ModelAndView("timeTable/create");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("timeTable", timeTable);
 		result.addObject("message", message);
 		result.addObject("requestURI", "timeTable/wateringArea/create.do");
@@ -217,7 +229,10 @@ public class TimeTableWateringAreaController extends AbstractController {
 	protected ModelAndView editModelAndView(final TimeTable timeTable, final String message) {
 		ModelAndView result;
 
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+
 		result = new ModelAndView("timeTable/edit");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("timeTable", timeTable);
 		result.addObject("message", message);
 		result.addObject("requestURI", "timeTable/wateringArea/edit.do");

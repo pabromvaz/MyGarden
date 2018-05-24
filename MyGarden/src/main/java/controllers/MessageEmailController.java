@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
 import services.ActorService;
+import services.EventService;
 import services.MessageEmailService;
 import domain.Actor;
+import domain.Event;
 import domain.MessageEmail;
 
 @Controller
@@ -29,6 +32,9 @@ public class MessageEmailController extends AbstractController {
 
 	@Autowired
 	private ActorService		actorService;
+
+	@Autowired
+	private EventService		eventService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -47,6 +53,13 @@ public class MessageEmailController extends AbstractController {
 		messageEmails = this.messageEmailService.findMessageEmailsSentByActorId(actor.getId());
 
 		result = new ModelAndView("messageEmail/listOut");
+
+		final Boolean isGardener = this.actorService.checkAuthority(actor, Authority.GARDENER);
+		if (isGardener) {
+			final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+			result.addObject("eventsNotReaded", eventsNotReaded.size());
+		}
+
 		result.addObject("messageEmails", messageEmails);
 
 		return result;
@@ -61,6 +74,13 @@ public class MessageEmailController extends AbstractController {
 		messageEmails = this.messageEmailService.findMessageEmailsReceivedByActorId(actor.getId());
 
 		result = new ModelAndView("messageEmail/listIn");
+
+		final Boolean isGardener = this.actorService.checkAuthority(actor, Authority.GARDENER);
+		if (isGardener) {
+			final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+			result.addObject("eventsNotReaded", eventsNotReaded.size());
+		}
+
 		result.addObject("messageEmails", messageEmails);
 
 		return result;
@@ -75,6 +95,13 @@ public class MessageEmailController extends AbstractController {
 		messageEmails = this.messageEmailService.findArchivedMessageEmailsByActorId(actor.getId());
 
 		result = new ModelAndView("messageEmail/listArchived");
+
+		final Boolean isGardener = this.actorService.checkAuthority(actor, Authority.GARDENER);
+		if (isGardener) {
+			final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+			result.addObject("eventsNotReaded", eventsNotReaded.size());
+		}
+
 		result.addObject("messageEmails", messageEmails);
 
 		return result;
@@ -105,6 +132,13 @@ public class MessageEmailController extends AbstractController {
 			if ((messageEmail.getRecipient().equals(actor) && messageEmail.getArchivedForRecipient() == false) || (messageEmail.getSender().equals(actor) && messageEmail.getArchivedForSender() == false))
 				canBeArchived = true;
 			result = new ModelAndView("messageEmail/display");
+
+			final Boolean isGardener = this.actorService.checkAuthority(actor, Authority.GARDENER);
+			if (isGardener) {
+				final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+				result.addObject("eventsNotReaded", eventsNotReaded.size());
+			}
+
 			result.addObject("messageEmail", messageEmail);
 			result.addObject("isRecipient", isRecipient);
 			result.addObject("canBeArchived", canBeArchived);
@@ -217,16 +251,19 @@ public class MessageEmailController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final MessageEmail messageEmail, final String message) {
 		ModelAndView result;
-		//Actor actor;
-		final Collection<Actor> recipients;
 
-		//actor = this.actorService.findByPrincipal();
-		//recipients = this.actorService.findAll();
-		//recipients.remove(actor);
+		//final Collection<Actor> recipients;
 
 		result = new ModelAndView("messageEmail/create");
+
+		final Boolean isGardener = this.actorService.checkAuthority(this.actorService.findByPrincipal(), Authority.GARDENER);
+		if (isGardener) {
+			final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+			result.addObject("eventsNotReaded", eventsNotReaded.size());
+		}
+
 		result.addObject("messageEmail", messageEmail);
-		//result.addObject("recipients", recipients);
+
 		result.addObject("message", message);
 		return result;
 	}

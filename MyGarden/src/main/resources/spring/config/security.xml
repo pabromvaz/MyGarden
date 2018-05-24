@@ -68,7 +68,7 @@
 		<security:intercept-url pattern="/configuration/gardener/deactivateAutomaticWatering.do" access="hasRole('GARDENER')" /> 
 		<security:intercept-url pattern="/configuration/gardener/deactivateManualWatering.do" access="hasRole('GARDENER')" /> 
 		
-		<security:intercept-url pattern="/plant/gardener/listRecommendedPlants.do" access="hasRole('GARDENER')" /> 
+		<security:intercept-url pattern="/wateringArea/gardener/listRecommendedPlants.do" access="hasRole('GARDENER')" /> 
 		
 		<security:intercept-url pattern="/wateringArea/list.do" access="hasRole('GARDENER')" /> 
 		<security:intercept-url pattern="/wateringArea/listMyWateringAreas.do" access="hasRole('GARDENER')" /> 
@@ -79,6 +79,8 @@
 		<security:intercept-url pattern="/wateringArea/gardener/edit.do" access="hasRole('GARDENER')" />
 		<security:intercept-url pattern="/wateringArea/gardener/deactivateValve.do" access="hasRole('GARDENER')" />
 		<security:intercept-url pattern="/wateringArea/gardener/activateValve.do" access="hasRole('GARDENER')" />
+		<security:intercept-url pattern="/wateringArea/gardener/deactivateVisibility.do" access="hasRole('GARDENER')" />
+		<security:intercept-url pattern="/wateringArea/gardener/activateVisibility.do" access="hasRole('GARDENER')" />
 		
 		<security:intercept-url pattern="/taste/gardener/like.do" access="hasRole('GARDENER')" />
 		<security:intercept-url pattern="/taste/gardener/dislike.do" access="hasRole('GARDENER')" />
@@ -95,6 +97,10 @@
 		<security:intercept-url pattern="/event/wateringArea/list.do" access="hasRole('GARDENER')" /> 
 		<security:intercept-url pattern="/event/wateringArea/display.do" access="hasRole('GARDENER')" />
 		<security:intercept-url pattern="/event/wateringArea/delete.do" access="hasRole('GARDENER')" />
+		<security:intercept-url pattern="/event/list.do" access="hasRole('GARDENER')" /> 
+		<security:intercept-url pattern="/event/display.do" access="hasRole('GARDENER')" />
+		<security:intercept-url pattern="/event/delete.do" access="hasRole('GARDENER')" />
+		
 		
 		<security:intercept-url pattern="/prediction/wateringArea/list.do" access="hasRole('GARDENER')" />
 		<security:intercept-url pattern="/prediction/wateringArea/display.do" access="hasRole('GARDENER')" />

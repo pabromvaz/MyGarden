@@ -12,9 +12,10 @@
 
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div>
-	<img src="images/logo.png" alt="MyGarden Co., Inc." />
+	<img src="images/logo.png" style="max-height: 100px; max-width: 100px" alt="MyGarden Co., Inc." />
 </div>
 
    <!-- Navigation -->
@@ -55,6 +56,30 @@
           	  	<a class="dropdown-item" href="messageEmail/listArchived.do"><spring:message code="master.page.messageEmails.archived" /></a>
         	  </div>
             </li>
+             </security:authorize>
+             
+             <security:authorize access="hasRole('GARDENER')">
+             <li class="nav-item dropdown">
+              <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" style="font-size: 16px; padding: 8px; padding-left: 0px" data-toggle="dropdown">
+          		<spring:message	code="master.page.gardener.wateringArea" />
+        	  </a>
+        	  <div class="dropdown-menu">
+          	  	<a class="dropdown-item" href="wateringArea/listMyWateringAreas.do"><spring:message code="master.page.gardener.wateringArea.myList" /></a>
+          	  	<a class="dropdown-item" href="wateringArea/list.do"><spring:message code="master.page.gardener.wateringArea.list" /></a>
+        	  </div>
+             </li>
+             <li class="nav-item active">
+              <a class="nav-link" href="configuration/gardener/display.do" ><spring:message code="master.page.configuration"  /></a>
+             </li>
+           <li class="nav-item active">
+              <a class="nav-link" href="event/list.do" style="font-size: 18px!important; padding: 8px!important; padding-left: 0px!important">
+              	  
+            	<i class="fa fa-bell" ></i>  
+            	<jstl:if test="${eventsNotReaded>0}">${eventsNotReaded}</jstl:if></a>
+            </li>	
+
+            </security:authorize>
+            <security:authorize access="isAuthenticated()">
             <li class="nav-item dropdown">
               <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" style="font-size: 16px; padding: 8px; padding-left: 0px" data-toggle="dropdown">
           		<spring:message	code="master.page.profile" />
@@ -65,23 +90,7 @@
           	  	<a class="dropdown-item" href="j_spring_security_logout"><spring:message code="master.page.logout" /></a>
         	  </div>
             </li>
-             </security:authorize>
-             
-             <security:authorize access="hasRole('GARDENER')">
-             <li class="nav-item dropdown">
-              <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" style="font-size: 16px; padding: 8px; padding-left: 0px" data-toggle="dropdown">
-          		<spring:message	code="master.page.gardener" />
-        	  </a>
-        	  <div class="dropdown-menu">
-          	  	<a class="dropdown-item" href="wateringArea/listMyWateringAreas.do"><spring:message code="master.page.gardener.wateringArea.myList" /></a>
-          	  	<a class="dropdown-item" href="wateringArea/list.do"><spring:message code="master.page.gardener.wateringArea.list" /></a>
-        	  </div>
-             </li>
-             <li class="nav-item active">
-              <a class="nav-link" href="configuration/gardener/display.do"><spring:message code="master.page.configuration" /></a>
-            </li>
             </security:authorize>
-            
           </ul>
         </div>
       </div>

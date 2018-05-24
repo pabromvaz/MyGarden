@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.EventService;
 import services.GardenerService;
 import services.PredictionService;
 import services.WateringAreaService;
 import controllers.AbstractController;
 import domain.Actor;
+import domain.Event;
 import domain.Gardener;
 import domain.Prediction;
 import domain.WateringArea;
@@ -42,6 +44,9 @@ public class PredictionWateringAreaController extends AbstractController {
 	@Autowired
 	private WateringAreaService	wateringAreaService;
 
+	@Autowired
+	private EventService		eventService;
+
 
 	// Constructors -----------------------------------------------------------
 	public PredictionWateringAreaController() {
@@ -56,8 +61,10 @@ public class PredictionWateringAreaController extends AbstractController {
 		final WateringArea wateringArea = this.wateringAreaService.findOne(wateringAreaId);
 
 		predictions = wateringArea.getPredictions();
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
 
 		result = new ModelAndView("prediction/list");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("predictions", predictions);
 		result.addObject("wateringArea", wateringArea);
 		result.addObject("requestURI", "prediction/wateringArea/list.do");
@@ -72,6 +79,7 @@ public class PredictionWateringAreaController extends AbstractController {
 		Prediction prediction;
 
 		prediction = this.predictionService.findOne(predictionId);
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
 
 		final Actor actor = this.actorService.findByPrincipal();
 		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
@@ -80,6 +88,7 @@ public class PredictionWateringAreaController extends AbstractController {
 			isOwner = true;
 
 		result = new ModelAndView("prediction/display");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("prediction", prediction);
 		result.addObject("isOwner", isOwner);
 		result.addObject("requestURI", "prediction/wateringArea/display.do");
@@ -149,7 +158,10 @@ public class PredictionWateringAreaController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Prediction prediction, final String message) {
 		ModelAndView result;
 
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+
 		result = new ModelAndView("prediction/create");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("prediction", prediction);
 		result.addObject("message", message);
 

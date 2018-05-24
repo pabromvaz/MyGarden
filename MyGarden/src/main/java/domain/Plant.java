@@ -33,6 +33,7 @@ public class Plant extends DomainEntity {
 	private Double	maxTemperature;
 	private Double	moisture;
 	private Double	ph;
+	private Double	humidity;
 
 
 	@NotBlank
@@ -100,6 +101,15 @@ public class Plant extends DomainEntity {
 
 	public void setPh(final Double ph) {
 		this.ph = ph;
+	}
+
+	@NotNull
+	public Double getHumidity() {
+		return this.humidity;
+	}
+
+	public void setHumidity(final Double humidity) {
+		this.humidity = humidity;
 	}
 
 

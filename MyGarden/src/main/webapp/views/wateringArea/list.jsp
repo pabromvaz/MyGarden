@@ -17,7 +17,7 @@
 	</div>
 
 <div class="table-responsive">
-<display:table name="wateringAreas" id="wateringArea" requestURI="wateringArea/list.do" class="displaytag">
+<display:table name="wateringAreas" id="wateringArea" pagesize="5" requestURI="wateringArea/list.do" class="displaytag">
 	
 
 	

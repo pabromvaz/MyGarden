@@ -1,6 +1,8 @@
 
 package controllers.gardener;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CommentService;
+import services.EventService;
 import services.GardenerService;
 import services.WateringAreaService;
 import controllers.AbstractController;
 import domain.Comment;
+import domain.Event;
 import domain.WateringArea;
 
 @Controller
@@ -31,6 +35,9 @@ public class CommentGardenerController extends AbstractController {
 
 	@Autowired
 	private GardenerService		gardenerService;
+
+	@Autowired
+	private EventService		eventService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -100,7 +107,10 @@ public class CommentGardenerController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Comment comment, final String message) {
 		ModelAndView result;
 
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+
 		result = new ModelAndView("comment/create");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("comment", comment);
 		result.addObject("message", message);
 

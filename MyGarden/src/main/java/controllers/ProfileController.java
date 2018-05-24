@@ -10,6 +10,8 @@
 
 package controllers;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +21,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.Authority;
 import services.ActorService;
+import services.EventService;
 import domain.Actor;
+import domain.Event;
 
 @Controller
 @RequestMapping("/profile")
@@ -28,6 +32,9 @@ public class ProfileController extends AbstractController {
 	// Service ---------------------------------------------------------------
 	@Autowired
 	private ActorService	actorService;
+
+	@Autowired
+	private EventService	eventService;
 
 
 	// MyProfile ---------------------------------------------------------------		
@@ -43,11 +50,12 @@ public class ProfileController extends AbstractController {
 		actor = this.actorService.findByPrincipal();
 
 		result = new ModelAndView("profile/display");
-
 		isGardener = this.actorService.checkAuthority(actor, Authority.GARDENER);
-		if (isGardener)
+		if (isGardener) {
+			final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
 			account = "gardener";
-
+			result.addObject("eventsNotReaded", eventsNotReaded.size());
+		}
 		result.addObject("profile", actor);
 		result.addObject("account", account);
 		result.addObject("sameActor", sameActor);
@@ -69,14 +77,15 @@ public class ProfileController extends AbstractController {
 		actor = this.actorService.findOne(actorId);
 
 		result = new ModelAndView("profile/display");
-
 		if (actor.equals(this.actorService.findByPrincipal()))
 			sameActor = true;
 
 		isGardener = this.actorService.checkAuthority(actor, Authority.GARDENER);
-		if (isGardener)
+		if (isGardener) {
+			final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
 			account = "gardener";
-
+			result.addObject("eventsNotReaded", eventsNotReaded.size());
+		}
 		result.addObject("profile", actor);
 		result.addObject("account", account);
 		result.addObject("sameActor", sameActor);

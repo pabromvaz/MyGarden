@@ -14,18 +14,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
-import services.CommentService;
-import services.ConfigurationService;
+import services.EventService;
 import services.GardenerService;
 import services.PlantService;
-import services.TasteService;
 import services.WateringAreaService;
 import controllers.AbstractController;
 import domain.Actor;
-import domain.Comment;
+import domain.Event;
 import domain.Gardener;
 import domain.Plant;
-import domain.Taste;
 import domain.WateringArea;
 
 @Controller
@@ -35,25 +32,30 @@ public class WateringAreaGardenerController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private WateringAreaService		wateringAreaService;
+	private WateringAreaService	wateringAreaService;
 
 	@Autowired
-	private PlantService			plantService;
+	private PlantService		plantService;
 
 	@Autowired
-	private ActorService			actorService;
+	private ActorService		actorService;
 
 	@Autowired
-	private GardenerService			gardenerService;
+	private GardenerService		gardenerService;
+
+	/*
+	 * @Autowired
+	 * private TasteService tasteService;
+	 * 
+	 * @Autowired
+	 * private ConfigurationService configurationService;
+	 * 
+	 * @Autowired
+	 * private CommentService commentService;
+	 */
 
 	@Autowired
-	private TasteService			tasteService;
-
-	@Autowired
-	private ConfigurationService	configurationService;
-
-	@Autowired
-	private CommentService			commentService;
+	private EventService		eventService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -62,24 +64,101 @@ public class WateringAreaGardenerController extends AbstractController {
 		super();
 	}
 
+	// List ----------------------------------------------------------------
+	@RequestMapping(value = "/listRecommendedPlants", method = RequestMethod.GET)
+	public ModelAndView list(@RequestParam final int wateringAreaId) {
+		ModelAndView result;
+		final Collection<Plant> plants;
+
+		final Actor actor = this.actorService.findByPrincipal();
+		//final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		final WateringArea wateringArea = this.wateringAreaService.findOne(wateringAreaId);
+
+		plants = this.plantService.findRecommendedPlants(wateringArea);
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+
+		result = new ModelAndView("plant/list");
+		result.addObject("plants", plants);
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
+		result.addObject("principal", actor);
+
+		return result;
+	}
+
+	// Activate visibility ---------------------------------------------------------------
+
+	@RequestMapping(value = "/activateVisibility", method = RequestMethod.GET)
+	public ModelAndView activateVisibility(@RequestParam final Integer wateringAreaId) {
+		ModelAndView result;
+		WateringArea wateringArea;
+		//Collection<Comment> comments;
+		//Boolean isOwner = false;
+		final Actor actor = this.actorService.findByPrincipal();
+		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
+
+		//final Collection<Taste> tastes = this.tasteService.findAll();
+
+		if (gardener != null && !wateringArea.getGardener().equals(gardener))
+			return result = new ModelAndView("redirect:../../welcome/index.do");
+		//isOwner = true;
+
+		//comments = this.commentService.findAllOfAWateringArea(wateringAreaId);
+
+		this.wateringAreaService.activateVisibility(wateringArea);
+
+		result = new ModelAndView("redirect:/wateringArea/display.do?wateringAreaId=" + wateringArea.getId());
+		return result;
+
+	}
+
+	// Deactivate visibility ---------------------------------------------------------------
+
+	@RequestMapping(value = "/deactivateVisibility", method = RequestMethod.GET)
+	public ModelAndView deactivateVisibility(@RequestParam final Integer wateringAreaId) {
+		ModelAndView result;
+		WateringArea wateringArea;
+		//Collection<Comment> comments;
+		//Boolean isOwner = false;
+		final Actor actor = this.actorService.findByPrincipal();
+		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
+
+		//final Collection<Taste> tastes = this.tasteService.findAll();
+
+		if (gardener != null && !wateringArea.getGardener().equals(gardener))
+			return result = new ModelAndView("redirect:../../welcome/index.do");
+		//isOwner = true;
+
+		//comments = this.commentService.findAllOfAWateringArea(wateringAreaId);
+
+		this.wateringAreaService.deactivateVisibility(wateringArea);
+
+		result = new ModelAndView("redirect:/wateringArea/display.do?wateringAreaId=" + wateringArea.getId());
+
+		return result;
+
+	}
+
 	// Activate valve ---------------------------------------------------------------
 
 	@RequestMapping(value = "/activateValve", method = RequestMethod.GET)
 	public ModelAndView activateValve(@RequestParam final Integer wateringAreaId) {
 		ModelAndView result;
 		WateringArea wateringArea;
-		Collection<Comment> comments;
-		Boolean isOwner = false;
+		//Collection<Comment> comments;
+		//Boolean isOwner = false;
 		final Actor actor = this.actorService.findByPrincipal();
 		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
 		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
 
-		final Collection<Taste> tastes = this.tasteService.findAll();
+		//final Collection<Taste> tastes = this.tasteService.findAll();
 
-		if (gardener != null && wateringArea.getGardener().equals(gardener))
-			isOwner = true;
+		if (gardener != null && !wateringArea.getGardener().equals(gardener))
+			return result = new ModelAndView("redirect:../../welcome/index.do");
+		//isOwner = true;
 
-		comments = this.commentService.findAllOfAWateringArea(wateringAreaId);
+		//comments = this.commentService.findAllOfAWateringArea(wateringAreaId);
 
 		this.wateringAreaService.activateValve(wateringArea);
 
@@ -94,18 +173,19 @@ public class WateringAreaGardenerController extends AbstractController {
 	public ModelAndView deactivateValve(@RequestParam final Integer wateringAreaId) {
 		ModelAndView result;
 		WateringArea wateringArea;
-		Collection<Comment> comments;
-		Boolean isOwner = false;
+		//Collection<Comment> comments;
+		//Boolean isOwner = false;
 		final Actor actor = this.actorService.findByPrincipal();
 		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
 		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
 
-		final Collection<Taste> tastes = this.tasteService.findAll();
+		//final Collection<Taste> tastes = this.tasteService.findAll();
 
-		if (gardener != null && wateringArea.getGardener().equals(gardener))
-			isOwner = true;
+		if (gardener != null && !wateringArea.getGardener().equals(gardener))
+			return result = new ModelAndView("redirect:../../welcome/index.do");
+		//isOwner = true;
 
-		comments = this.commentService.findAllOfAWateringArea(wateringAreaId);
+		//comments = this.commentService.findAllOfAWateringArea(wateringAreaId);
 
 		this.wateringAreaService.deactivateValve(wateringArea);
 
@@ -226,8 +306,10 @@ public class WateringAreaGardenerController extends AbstractController {
 
 		Collection<Plant> plants;
 		plants = this.plantService.findAll();
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
 
 		result = new ModelAndView("wateringArea/create");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("requestURI", "wateringArea/gardener/create.do");
 		result.addObject("wateringArea", wateringArea);
 		result.addObject("plants", plants);
@@ -250,8 +332,10 @@ public class WateringAreaGardenerController extends AbstractController {
 
 		Collection<Plant> plants;
 		plants = this.plantService.findAll();
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
 
 		result = new ModelAndView("wateringArea/edit");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("requestURI", "wateringArea/gardener/edit.do");
 		result.addObject("wateringArea", wateringArea);
 		result.addObject("plants", plants);

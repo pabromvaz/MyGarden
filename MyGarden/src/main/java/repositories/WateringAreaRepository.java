@@ -2,6 +2,7 @@
 package repositories;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +17,8 @@ public interface WateringAreaRepository extends JpaRepository<WateringArea, Inte
 	Collection<WateringArea> findByGardenerId(Integer gardenerId);
 
 	@Query("select wa from WateringArea wa where wa.visible=true")
-	Collection<WateringArea> findAllVisible();
+	List<WateringArea> findAllVisible();
 
+	@Query("select wa from WateringArea wa where wa.visible=true and ((wa.plant.name like ?1) or (wa.gardener.name like ?1))")
+	Collection<WateringArea> findByKey(String Key);
 }

@@ -11,14 +11,14 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <div class="table-responsive">
-<display:table name="measurements" id="measurement" pagesize="2" requestURI="${requestURI}" class="displaytag">
+<display:table name="measurements" id="measurement" pagesize="10" requestURI="${requestURI}" class="displaytag">
 	
 
 	
-	<acme:column code="measurement.moisture" property="moisture"/>
-	<acme:column code="measurement.humidity" property="humidity"/>
-	<acme:column code="measurement.temperature" property="temperature"/>
-	<acme:column code="measurement.moment" property="moment"/>
+	<acme:column code="table.measurement.moisture" property="moisture"/>
+	<acme:column code="table.measurement.humidity" property="humidity"/>
+	<acme:column code="table.measurement.temperature" property="temperature"/>
+	<acme:column code="table.measurement.moment" property="moment" sortable="true"/>
 	
 	<security:authorize access="hasAnyRole('GARDENER')">
 	<display:column>

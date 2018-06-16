@@ -12,7 +12,7 @@ import domain.Event;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Integer> {
 
-	@Query("select event from Event event where event.wateringArea.gardener.id=?1")
+	@Query("select event from Event event where event.wateringArea.gardener.id=?1 order by event.moment DESC")
 	Collection<Event> findAllFromGardener(int gardenerId);
 
 	@Query("select event from Event event where event.wateringArea.gardener.id=?1 and event.readed=false")

@@ -11,11 +11,11 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <div class="table-responsive">
-<display:table name="predictions" id="prediction" requestURI="prediction/list.do" class="displaytag">
+<display:table name="predictions" pagesize="10" id="prediction" requestURI="prediction/list.do" class="displaytag">
 	
 
 	
-	<acme:column code="prediction.moment" property="moment"/>
+	<acme:column code="prediction.moment" property="moment" sortable="true"/>
 	<acme:column code="prediction.place" property="place"/>
 	<acme:column code="prediction.precipitation" property="precipitation"/>
 	

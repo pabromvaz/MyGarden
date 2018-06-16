@@ -13,43 +13,19 @@
 	<ul>
 		<li>
 			<b><spring:message code="measurement.moisture"/>:</b>
-			<jstl:out value="${measurement.moisture}" />
+			<jstl:out value="${measurement.moisture} %" />
 		</li>
 		
 		<li>
 			<b><spring:message code="measurement.humidity"/>:</b>
-			<jstl:out value="${measurement.humidity}"/>
+			<jstl:out value="${measurement.humidity} %"/>
 		</li>
 		
 		<li>
 			<b><spring:message code="measurement.temperature"/>:</b>
-			<jstl:out value="${measurement.temperature}"/>
+			<jstl:out value="${measurement.temperature} ºC"/>
 		</li>
 		
-		<li>
-			<b><spring:message code="measurement.light" />:</b>
-			<jstl:out value="${measurement.light}" />
-		</li>
-		
-		<li>
-			<b><spring:message code="measurement.ph" />:</b>
-			<jstl:out value="${measurement.ph}" />
-		</li>
-		
-		<li>
-			<b><spring:message code="measurement.nitrogen" />:</b>
-			<jstl:out value="${measurement.nitrogen}" />
-		</li>
-		
-		<li>
-			<b><spring:message code="measurement.phosphorus" />:</b>
-			<jstl:out value="${measurement.phosphorus}" />
-		</li>
-		
-		<li>
-			<b><spring:message code="measurement.potassium" />:</b>
-			<jstl:out value="${measurement.potassium}" />
-		</li>
 		
 		<li>
 			<b><spring:message code="measurement.moment" />:</b>
@@ -59,6 +35,7 @@
 	
 </div>
 
+<!--  
 <jstl:if test="${isOwner==true}">
 	<form:form method="post" action="measurement/wateringArea/delete.do" modelAttribute="measurement" >
 	
@@ -67,11 +44,6 @@
 		<form:hidden path="moisture" />
 		<form:hidden path="humidity" />
 		<form:hidden path="temperature" />
-		<form:hidden path="light" />
-		<form:hidden path="ph" />
-		<form:hidden path="nitrogen" />
-		<form:hidden path="phosphorus" />
-		<form:hidden path="potassium" />
 		<form:hidden path="moment" />
 		<form:hidden path="wateringArea" />
 		
@@ -83,5 +55,5 @@
 		</jstl:if>
 	</form:form>
 </jstl:if>
-
+-->
 <acme:button code="measurement.back" url="measurement/wateringArea/list.do?wateringAreaId=${measurement.wateringArea.id}"/>

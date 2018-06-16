@@ -20,7 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
+import services.ActorService;
+import services.EventService;
 import services.WateringAreaService;
+import domain.Actor;
+import domain.Event;
 import domain.WateringArea;
 
 @Controller
@@ -29,6 +34,12 @@ public class WelcomeController extends AbstractController {
 
 	@Autowired
 	private WateringAreaService	wateringAreaService;
+
+	@Autowired
+	private ActorService		actorService;
+
+	@Autowired
+	private EventService		eventService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -44,11 +55,25 @@ public class WelcomeController extends AbstractController {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;
+		Boolean isGardener = false;
+		try {
+			final Actor actor = this.actorService.findByPrincipal();
+			isGardener = this.actorService.checkAuthority(actor, Authority.GARDENER);
+
+		} catch (final Throwable oops) {
+			//result = this.createEditModelAndView(messageEmail, "messageEmail.commit.error");
+		}
 
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());
 		final Collection<WateringArea> wateringAreas = this.wateringAreaService.findAllVisible();
 		result = new ModelAndView("welcome/index");
+
+		if (isGardener) {
+			final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+			result.addObject("eventsNotReaded", eventsNotReaded.size());
+		}
+
 		result.addObject("name", name);
 		result.addObject("wateringAreas", wateringAreas);
 		result.addObject("moment", moment);

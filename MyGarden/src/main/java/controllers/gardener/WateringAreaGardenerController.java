@@ -64,6 +64,28 @@ public class WateringAreaGardenerController extends AbstractController {
 		super();
 	}
 
+	// State of valve ----------------------------------------------------------------
+	@RequestMapping(value = "/valveState", method = RequestMethod.GET)
+	public Boolean valveState(@RequestParam final int wateringAreaId) {
+		//ModelAndView result;
+		//final Collection<Plant> plants;
+
+		final Actor actor = this.actorService.findByPrincipal();
+		//final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		final WateringArea wateringArea = this.wateringAreaService.findOne(wateringAreaId);
+
+		//plants = this.plantService.findRecommendedPlants(wateringArea);
+		//final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+
+		//result = new ModelAndView("plant/list");
+		//result.addObject("plants", plants);
+		//result.addObject("eventsNotReaded", eventsNotReaded.size());
+		//result.addObject("principal", actor);
+
+		//return result;
+		return wateringArea.getValveActivated();
+	}
+
 	// List ----------------------------------------------------------------
 	@RequestMapping(value = "/listRecommendedPlants", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam final int wateringAreaId) {

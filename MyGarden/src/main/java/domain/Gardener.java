@@ -27,10 +27,13 @@ public class Gardener extends Actor {
 	// Attributes -------------------------------------------------------------
 
 	private String	picture;
-	private Boolean	animalDetectionEventActivated;
-	private Boolean	useOfFertilizerEventActivated;
-	private Boolean	waterTankEventActivated;
 
+
+	/*
+	 * private Boolean animalDetectionEventActivated;
+	 * private Boolean useOfFertilizerEventActivated;
+	 * private Boolean waterTankEventActivated;
+	 */
 
 	@NotBlank
 	@URL
@@ -42,30 +45,32 @@ public class Gardener extends Actor {
 		this.picture = picture;
 	}
 
-	public Boolean getAnimalDetectionEventActivated() {
-		return this.animalDetectionEventActivated;
-	}
 
-	public void setAnimalDetectionEventActivated(final Boolean animalDetectionEventActivated) {
-		this.animalDetectionEventActivated = animalDetectionEventActivated;
-	}
-
-	public Boolean getUseOfFertilizerEventActivated() {
-		return this.useOfFertilizerEventActivated;
-	}
-
-	public void setUseOfFertilizerEventActivated(final Boolean useOfFertilizerEventActivated) {
-		this.useOfFertilizerEventActivated = useOfFertilizerEventActivated;
-	}
-
-	public Boolean getWaterTankEventActivated() {
-		return this.waterTankEventActivated;
-	}
-
-	public void setWaterTankEventActivated(final Boolean waterTankEventActivated) {
-		this.waterTankEventActivated = waterTankEventActivated;
-	}
-
+	/*
+	 * public Boolean getAnimalDetectionEventActivated() {
+	 * return this.animalDetectionEventActivated;
+	 * }
+	 * 
+	 * public void setAnimalDetectionEventActivated(final Boolean animalDetectionEventActivated) {
+	 * this.animalDetectionEventActivated = animalDetectionEventActivated;
+	 * }
+	 * 
+	 * public Boolean getUseOfFertilizerEventActivated() {
+	 * return this.useOfFertilizerEventActivated;
+	 * }
+	 * 
+	 * public void setUseOfFertilizerEventActivated(final Boolean useOfFertilizerEventActivated) {
+	 * this.useOfFertilizerEventActivated = useOfFertilizerEventActivated;
+	 * }
+	 * 
+	 * public Boolean getWaterTankEventActivated() {
+	 * return this.waterTankEventActivated;
+	 * }
+	 * 
+	 * public void setWaterTankEventActivated(final Boolean waterTankEventActivated) {
+	 * this.waterTankEventActivated = waterTankEventActivated;
+	 * }
+	 */
 
 	// Relationships ----------------------------------------------------------
 	private Collection<WateringArea>	wateringAreas;

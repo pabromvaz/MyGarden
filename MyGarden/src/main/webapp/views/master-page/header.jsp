@@ -21,7 +21,7 @@
    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="#">My garden</a>
+        <a class="navbar-brand" href="">My garden</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -39,6 +39,15 @@
             </li>
           	</security:authorize>  
           	
+          	<security:authorize access="hasRole('ADMIN')">
+            <li class="nav-item active">
+              <a class="nav-link" href="profile/list.do"><spring:message code="master.page.profile.list" /></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="administrator/create.do"><spring:message code="master.page.administrator.create" /></a> 
+            </li>
+            </security:authorize>
+            
             <security:authorize access="isAuthenticated()">
             <li class="nav-item active">
               <a class="nav-link" href="plant/list.do"><spring:message code="master.page.plant.list" /></a>

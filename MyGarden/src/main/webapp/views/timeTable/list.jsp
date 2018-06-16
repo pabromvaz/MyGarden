@@ -13,12 +13,12 @@
 <acme:button url="timeTable/wateringArea/create.do?wateringAreaId=${wateringArea.id}" code="timeTable.create"/>
 
 <div class="table-responsive">
-<display:table name="timeTables" id="timeTable" requestURI="timeTable/list.do" class="displaytag">
+<display:table name="timeTables" pagesize="10" id="timeTable" requestURI="timeTable/list.do" class="displaytag">
 	
 
 	
-	<acme:column code="timeTable.activationMoment" property="activationMoment"/>
-	<acme:column code="timeTable.deactivationMoment" property="deactivationMoment"/>
+	<acme:column code="timeTable.activationMoment" property="activationMoment" sortable="true"/>
+	<acme:column code="timeTable.deactivationMoment" property="deactivationMoment" sortable="true"/>
 	
 	<security:authorize access="hasAnyRole('GARDENER')">
 	<display:column>

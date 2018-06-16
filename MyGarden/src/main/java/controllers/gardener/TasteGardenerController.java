@@ -56,7 +56,7 @@ public class TasteGardenerController extends AbstractController {
 				taste = this.tasteService.createLike(wateringArea);
 				this.tasteService.save(taste);
 			}
-			result = new ModelAndView("redirect:/wateringArea/list.do");
+			result = new ModelAndView("redirect:/wateringArea/display.do?wateringAreaId=" + wateringArea.getId());
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/wateringArea/list.do");
 		}
@@ -83,7 +83,7 @@ public class TasteGardenerController extends AbstractController {
 				taste = this.tasteService.createDislike(wateringArea);
 				this.tasteService.save(taste);
 			}
-			result = new ModelAndView("redirect:/wateringArea/list.do");
+			result = new ModelAndView("redirect:/wateringArea/display.do?wateringAreaId=" + wateringArea.getId());
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/wateringArea/list.do");
 		}

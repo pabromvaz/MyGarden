@@ -1,8 +1,10 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,7 +58,7 @@ public class MeasurementService {
 		return result;
 	}
 
-	public Measurement create(final WateringArea wateringArea, final Double moisture, final Double humidity, final Double temperature, final Double light, final Double pH, final Double nitrogen, final Double phosphorus, final Double potassium) {
+	public Measurement create(final WateringArea wateringArea, final Integer moisture, final Integer humidity, final Integer temperature) {
 		Assert.notNull(wateringArea);
 		Gardener gardener;
 		Measurement result;
@@ -72,11 +74,6 @@ public class MeasurementService {
 		result.setMoisture(moisture);
 		result.setHumidity(humidity);
 		result.setTemperature(temperature);
-		result.setLight(light);
-		result.setNitrogen(nitrogen);
-		result.setPh(pH);
-		result.setPhosphorus(phosphorus);
-		result.setPotassium(potassium);
 		result.setMoment(calendar.getTime());
 		result.setWateringArea(wateringArea);
 
@@ -84,7 +81,6 @@ public class MeasurementService {
 	}
 
 	public Measurement save(final Measurement measurement) {
-		//Assert.isTrue(this.gardenerService.findByPrincipal().equals(comment.getGardener()));
 		Assert.notNull(measurement);
 
 		Measurement result;
@@ -96,7 +92,6 @@ public class MeasurementService {
 
 	public void delete(final Measurement measurement) {
 		Assert.notNull(measurement);
-		//Assert.isTrue(this.gardenerService.findByPrincipal().equals(comment.getGardener()));
 
 		this.measurementRepository.delete(measurement);
 	}
@@ -109,4 +104,9 @@ public class MeasurementService {
 
 	// Other business methods -------------------------------------------------
 
+	public List<Measurement> showMeasurements(final WateringArea wateringArea) {
+		List<Measurement> result = new ArrayList<Measurement>();
+		result = this.measurementRepository.measurementsOfWateringAreaOrderedByMoment(wateringArea.getId());
+		return result;
+	}
 }

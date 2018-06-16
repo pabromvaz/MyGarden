@@ -21,6 +21,7 @@
 	<acme:input code="plant.maxTemperature" path="maxTemperature" />
 	<acme:input code="plant.moisture" path="moisture" />
 	<acme:input code="plant.ph" path="ph" />
+	<acme:input code="plant.humidity" path="humidity" />
 	
 	<form:label path="fertilizers">
 		<spring:message code="plant.fertilizers"/>
@@ -30,6 +31,7 @@
 	</jstl:forEach>
 	<form:errors path="fertilizers" cssClass="error"/>
 	
+	<br/>
 	<acme:submit name="save" code="plant.save" />
 	
 </form:form>

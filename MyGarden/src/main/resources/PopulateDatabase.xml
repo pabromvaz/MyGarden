@@ -123,12 +123,12 @@
 	<bean id="gardener1" class="domain.Gardener">
 		<property name="name" value="NameGardener1" />
 		<property name="surname" value="SurnameGardener1" />
-		<property name="email" value="gardener1@email.com" />
+		<property name="email" value="pabloyandrak@gmail.com" />
 		<property name="userAccount" ref="userAccount2" />
 		<property name="picture" value="https://www.google.es" />
-		<property name="animalDetectionEventActivated" value="true"/>
+		<!-- <property name="animalDetectionEventActivated" value="true"/>
 		<property name="useOfFertilizerEventActivated" value="true"/>
-		<property name="waterTankEventActivated" value="true"/>
+		<property name="waterTankEventActivated" value="true"/> -->
 		<property name="configuration" ref="configuration1"/>
 		<property name="sentMessages">
 			<list>
@@ -186,12 +186,12 @@
 	<bean id="gardener2" class="domain.Gardener">
 		<property name="name" value="NameGardener2" />
 		<property name="surname" value="SurnameGardener2" />
-		<property name="email" value="gardener2@email.com" />
+		<property name="email" value="pabloyandrak@gmail.com" />
 		<property name="userAccount" ref="userAccount4" />
 		<property name="picture" value="https://www.google.es" />
-		<property name="animalDetectionEventActivated" value="false"/>
+		<!--  <property name="animalDetectionEventActivated" value="false"/>
 		<property name="useOfFertilizerEventActivated" value="false"/>
-		<property name="waterTankEventActivated" value="false"/>
+		<property name="waterTankEventActivated" value="false"/>-->
 		<property name="configuration" ref="configuration2"/>
 		<property name="sentMessages">
 			<list>
@@ -223,12 +223,12 @@
 	<bean id="gardener3" class="domain.Gardener">
 		<property name="name" value="NameGardener3" />
 		<property name="surname" value="SurnameGardener3" />
-		<property name="email" value="gardener3@email.com" />
+		<property name="email" value="pabloyandrak@gmail.com" />
 		<property name="userAccount" ref="userAccount5" />
 		<property name="picture" value="https://www.google.es" />
-		<property name="animalDetectionEventActivated" value="true"/>
+		<!--  <property name="animalDetectionEventActivated" value="true"/>
 		<property name="useOfFertilizerEventActivated" value="false"/>
-		<property name="waterTankEventActivated" value="true"/>
+		<property name="waterTankEventActivated" value="true"/>-->
 		<property name="configuration" ref="configuration3"/>
 		<property name="sentMessages">
 			<list>
@@ -261,9 +261,9 @@
 	<bean id="configuration1" class="domain.Configuration">
 		<property name="manualWatering" value="true"/>
 		<property name="automaticWatering" value="false"/>
-		<property name="intrusionWarningActivated" value="true"/>
-		<property name="fertilizerWarningActivated" value="true"/>
-		<property name="tankWarningActivated" value="true"/>
+		<property name="intrusionWarningActivated" value="false"/>
+		<property name="fertilizerWarningActivated" value="false"/>
+		<property name="tankWarningActivated" value="false"/>
 		<property name="events">
 			<list>
 				<ref bean="event1" />
@@ -305,7 +305,6 @@
 		<property name="name" value="Fertilizante1" />
 		<property name="picture" value="https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg" />
 		<property name="description" value="Descripcion del fertilizante1" />
-		<property name="ph" value="7.0" />
 		<property name="nitrogen" value="25.0" />
 		<property name="phosphorus" value="10.0" />
 		<property name="potassium" value="7.0" />
@@ -321,7 +320,6 @@
 		<property name="name" value="Fertilizante2" />
 		<property name="picture" value="https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg" />
 		<property name="description" value="Descripcion del fertilizante2" />
-		<property name="ph" value="7.0" />
 		<property name="nitrogen" value="25.0" />
 		<property name="phosphorus" value="10.0" />
 		<property name="potassium" value="7.0" />
@@ -862,7 +860,7 @@
 	
 	<bean id="wateringArea11" class="domain.WateringArea">
 		<property name="name" value="Tomatera" />
-		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="picture" value="https://www.brucgirona.com/images/tomatera.jpg" />
 		<property name="place" value="Sevilla" />
 		<property name="description" value="Mi nueva tomatera" />
 		<property name="visible" value="true" />
@@ -903,7 +901,7 @@
 	
 	<bean id="wateringArea12" class="domain.WateringArea">
 		<property name="name" value="Tomatera" />
-		<property name="picture" value="https://t1.uc.ltmcdn.com/images/1/8/7/img_como_evitar_plagas_en_las_tomateras_29781_600.jpg" />
+		<property name="picture" value="https://www.guiadejardineria.com/wp-content/uploads/2016/11/como-injertar-tomateras-01-1.jpg" />
 		<property name="place" value="Sevilla" />
 		<property name="description" value="Mi nueva tomatera" />
 		<property name="visible" value="true" />
@@ -1664,40 +1662,25 @@
 	<!-- Measurement -->
 	
 	<bean id="measurement1" class="domain.Measurement">
-		<property name="moisture" value="30.0" />
-		<property name="humidity" value="20.0" />
-		<property name="temperature" value="21.0" />
-		<property name="light" value="70.0" />
-		<property name="ph" value="7.0" />
-		<property name="nitrogen" value="25.0" />
-		<property name="phosphorus" value="10.0" />
-		<property name="potassium" value="7.0" />
+		<property name="moisture" value="30" />
+		<property name="humidity" value="20" />
+		<property name="temperature" value="21" />
 		<property name="moment" value="02/02/2018 19:00" />
 		<property name="wateringArea" ref="wateringArea1" />
 	</bean>
 	
 	<bean id="measurement2" class="domain.Measurement">
-		<property name="moisture" value="30.0" />
-		<property name="humidity" value="20.0" />
-		<property name="temperature" value="21.0" />
-		<property name="light" value="70.0" />
-		<property name="ph" value="7.0" />
-		<property name="nitrogen" value="25.0" />
-		<property name="phosphorus" value="10.0" />
-		<property name="potassium" value="7.0" />
+		<property name="moisture" value="30" />
+		<property name="humidity" value="20" />
+		<property name="temperature" value="21" />
 		<property name="moment" value="02/01/2018 19:00" />
 		<property name="wateringArea" ref="wateringArea1" />
 	</bean>
 	
 	<bean id="measurement3" class="domain.Measurement">
-		<property name="moisture" value="30.0" />
-		<property name="humidity" value="20.0" />
-		<property name="temperature" value="21.0" />
-		<property name="light" value="70.0" />
-		<property name="ph" value="7.0" />
-		<property name="nitrogen" value="25.0" />
-		<property name="phosphorus" value="10.0" />
-		<property name="potassium" value="7.0" />
+		<property name="moisture" value="30" />
+		<property name="humidity" value="20" />
+		<property name="temperature" value="21" />
 		<property name="moment" value="01/30/2018 19:00" />
 		<property name="wateringArea" ref="wateringArea1" />
 	</bean>

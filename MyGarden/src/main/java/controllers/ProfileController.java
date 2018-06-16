@@ -37,6 +37,21 @@ public class ProfileController extends AbstractController {
 	private EventService	eventService;
 
 
+	// List ----------------------------------------------------------------
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+		Collection<Actor> profiles;
+
+		profiles = this.actorService.findAll();
+
+		result = new ModelAndView("profile/list");
+
+		result.addObject("profiles", profiles);
+
+		return result;
+	}
+
 	// MyProfile ---------------------------------------------------------------		
 
 	@RequestMapping(value = "/myProfile", method = RequestMethod.GET)
@@ -80,7 +95,7 @@ public class ProfileController extends AbstractController {
 		if (actor.equals(this.actorService.findByPrincipal()))
 			sameActor = true;
 
-		isGardener = this.actorService.checkAuthority(actor, Authority.GARDENER);
+		isGardener = this.actorService.checkAuthority(this.actorService.findByPrincipal(), Authority.GARDENER);
 		if (isGardener) {
 			final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
 			account = "gardener";

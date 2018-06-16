@@ -32,34 +32,26 @@ public class MeasurementTest extends AbstractTest {
 
 
 	// Tests ------------------------------------------------------------------
-	// FUNCTIONAL REQUIREMENTS
-	//-	Un actor autenticado como cliente debe ser capaz de:
-	//	Añadir comentarios a los juegos.
 
-	//El primer test negativo es causado porque no nos hemos logueado correctamente como customer, el segundo de
-	//ellos se produce porque le ponemos un score fuera del rango 0-10 y el tercero es provocado porque le
-	//pasamos un id de game que no existe.
 	@Test
-	public void driverAddEventToAWateringArea() {
+	public void driverAddMeasurementToAWateringArea() {
 		final Object testingData[][] = {
 			{
-				"gardener1", 20, 10.0, 10.0, 20.0, 40.0, 7.0, 20.0, 20.0, 20.0, null
+				"gardener1", 20, 90, 12, 22, null
 			}, {
-				"gardener2", 22, 10.0, 10.0, 20.0, 40.0, 7.0, 20.0, 20.0, 20.0, null
+				"gardener2", 22, 10, 10, 20, null
 			}, {
-				"gardener3", 23, 10.0, 10.0, 20.0, 40.0, 7.0, 20.0, 20.0, 20.0, null
+				"gardener3", 23, 10, 10, 20, null
 			}, {
-				"gardenerNoExist", 20, 10.0, 10.0, 20.0, 40.0, 7.0, 20.0, 20.0, 20.0, IllegalArgumentException.class
+				"gardenerNoExist", 20, 10, 10, 20, IllegalArgumentException.class
 			}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
-			this.AddEventToAWateringArea((String) testingData[i][0], (Integer) testingData[i][1], (Double) testingData[i][2], (Double) testingData[i][3], (Double) testingData[i][4], (Double) testingData[i][5], (Double) testingData[i][6],
-				(Double) testingData[i][7], (Double) testingData[i][8], (Double) testingData[i][9], (Class<?>) testingData[i][10]);
+			this.AddMeasurementToAWateringArea((String) testingData[i][0], (Integer) testingData[i][1], (Integer) testingData[i][2], (Integer) testingData[i][3], (Integer) testingData[i][4], (Class<?>) testingData[i][5]);
 	}
 
-	protected void AddEventToAWateringArea(final String username, final Integer wateringAreaId, final Double moisture, final Double humidity, final Double temperature, final Double light, final Double pH, final Double nitrogen, final Double phosphorus,
-		final Double potassium, final Class<?> expected) {
+	protected void AddMeasurementToAWateringArea(final String username, final Integer wateringAreaId, final Integer moisture, final Integer humidity, final Integer temperature, final Class<?> expected) {
 		Class<?> caught;
 
 		caught = null;
@@ -67,8 +59,8 @@ public class MeasurementTest extends AbstractTest {
 			this.authenticate(username);
 
 			final WateringArea wateringArea = this.wateringAreaService.findOne(wateringAreaId);
-			final Measurement event = this.measurementService.create(wateringArea, moisture, humidity, temperature, light, pH, nitrogen, phosphorus, potassium);
-			this.measurementService.save(event);
+			final Measurement measurement = this.measurementService.create(wateringArea, moisture, humidity, temperature);
+			this.measurementService.save(measurement);
 
 			this.measurementService.findAll();
 			this.unauthenticate();

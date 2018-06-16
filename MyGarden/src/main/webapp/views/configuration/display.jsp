@@ -12,25 +12,27 @@
 <div>
 	<ul>
 		<li>
-			<b><spring:message code="configuration.manualWatering"/>:</b>
 			<jstl:if test="${configuration.manualWatering==false}">
-					<spring:message code="configuration.Deactivated"/>
+					<b><spring:message code="configuration.manualWateringDeactivated"/></b>
+			
+					<!--<spring:message code="configuration.Deactivated"/>-->
 					<acme:button url="configuration/gardener/activateManualWatering.do?configurationId=${configuration.id}" code="configuration.activateManualWatering"/>
 				</jstl:if>
 			<jstl:if test="${configuration.manualWatering==true}">
-					<spring:message code="configuration.Activated"/>
+					<b><spring:message code="configuration.manualWateringActivated"/></b>
 					<acme:button url="configuration/gardener/deactivateManualWatering.do?configurationId=${configuration.id}" code="configuration.deactivateManualWatering"/>
 			</jstl:if>
 		</li>
 		
 		<li>
-			<b><spring:message code="configuration.automaticWatering"/>:</b>
 			<jstl:if test="${configuration.automaticWatering==false}">
-					<spring:message code="configuration.Deactivated"/>
+					<b><spring:message code="configuration.automaticWateringDeactivated"/></b>
+			
+					<!--<spring:message code="configuration.Deactivated"/>-->
 					<acme:button url="configuration/gardener/activateAutomaticWatering.do?configurationId=${configuration.id}" code="configuration.activateAutomaticWatering"/>
 				</jstl:if>
 			<jstl:if test="${configuration.automaticWatering==true}">
-					<spring:message code="configuration.Activated"/>
+					<b><spring:message code="configuration.automaticWateringActivated"/></b>
 					<acme:button url="configuration/gardener/deactivateAutomaticWatering.do?configurationId=${configuration.id}" code="configuration.deactivateAutomaticWatering"/>
 			</jstl:if>
 		</li>
@@ -41,9 +43,11 @@
 			<b><spring:message code="configuration.intrusionWarningActivated"/>:</b>
 			<jstl:if test="${configuration.intrusionWarningActivated==true}">
 				<spring:message code="configuration.True"/>
+				<acme:button url="configuration/gardener/deactivateIntrusionWarningEmail.do?configurationId=${configuration.id}" code="configuration.deactivateIntrusionWarningEmail"/>
 			</jstl:if>
 			<jstl:if test="${configuration.intrusionWarningActivated==false}">
 				<spring:message code="configuration.False"/>
+				<acme:button url="configuration/gardener/activateIntrusionWarningEmail.do?configurationId=${configuration.id}" code="configuration.activateIntrusionWarningEmail"/>
 			</jstl:if>
 		</li>
 		
@@ -51,9 +55,11 @@
 			<b><spring:message code="configuration.fertilizerWarningActivated"/>:</b>
 			<jstl:if test="${configuration.fertilizerWarningActivated==true}">
 				<spring:message code="configuration.True"/>
+				<acme:button url="configuration/gardener/deactivateFertilizerWarningEmail.do?configurationId=${configuration.id}" code="configuration.deactivateFertilizerWarningEmail"/>		
 			</jstl:if>
 			<jstl:if test="${configuration.fertilizerWarningActivated==false}">
 				<spring:message code="configuration.False"/>
+				<acme:button url="configuration/gardener/activateFertilizerWarningEmail.do?configurationId=${configuration.id}" code="configuration.activateFertilizerWarningEmail"/>	
 			</jstl:if>
 		</li>
 		
@@ -61,18 +67,12 @@
 			<b><spring:message code="configuration.tankWarningActivated"/>:</b>
 			<jstl:if test="${configuration.tankWarningActivated==true}">
 				<spring:message code="configuration.True"/>
+				<acme:button url="configuration/gardener/deactivateTankWarningEmail.do?configurationId=${configuration.id}" code="configuration.deactivateTankWarningEmail"/>
 			</jstl:if>
 			<jstl:if test="${configuration.tankWarningActivated==false}">
 				<spring:message code="configuration.False"/>
+				<acme:button url="configuration/gardener/activateTankWarningEmail.do?configurationId=${configuration.id}" code="configuration.activateTankWarningEmail"/>
 			</jstl:if>
 		</li>
 	</ul>	
 </div>
-
-<security:authorize access="hasAnyRole('GARDENER')">
-	<jstl:if test="${isOwner==true}">
-	<div>
-		<acme:button url="configuration/gardener/edit.do?configurationId=${configuration.id}" code="configuration.edit"/>
-	</div>
-	</jstl:if>
-</security:authorize>

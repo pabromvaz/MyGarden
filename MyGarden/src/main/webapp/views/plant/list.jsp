@@ -17,11 +17,11 @@
 	</div>
 </security:authorize>
 
-<display:table name="plants" id="plant" requestURI="plant/list.do" class="displaytag">
+<display:table name="plants" pagesize="10" id="plant" requestURI="plant/list.do" class="displaytag">
 	
 
 	
-	<acme:column code="plant.name" property="name"/>
+	<acme:column code="plant.name" property="name" sortable="true"/>
 	<acme:column code="plant.description" property="description"/>
 	
 	

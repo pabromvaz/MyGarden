@@ -322,6 +322,13 @@
 			<version>1.8.3</version> 
 		</dependency>
 		
+		<!-- java.Mail -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+    
 	</dependencies>
 
 </project> 

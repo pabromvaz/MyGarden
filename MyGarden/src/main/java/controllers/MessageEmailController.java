@@ -61,7 +61,7 @@ public class MessageEmailController extends AbstractController {
 		}
 
 		result.addObject("messageEmails", messageEmails);
-
+		result.addObject("requestURI", "messageEmail/listOut.do");
 		return result;
 	}
 
@@ -82,7 +82,7 @@ public class MessageEmailController extends AbstractController {
 		}
 
 		result.addObject("messageEmails", messageEmails);
-
+		result.addObject("requestURI", "messageEmail/listIn.do");
 		return result;
 	}
 
@@ -103,7 +103,7 @@ public class MessageEmailController extends AbstractController {
 		}
 
 		result.addObject("messageEmails", messageEmails);
-
+		result.addObject("requestURI", "messageEmail/listArchived.do");
 		return result;
 	}
 

@@ -36,6 +36,9 @@ public class EventService {
 	@Autowired
 	private ConfigurationService	configurationService;
 
+	@Autowired
+	private EmailSenderService		emailSenderService;
+
 
 	// Constructors -----------------------------------------------------------
 	public EventService() {
@@ -95,6 +98,13 @@ public class EventService {
 		Event result;
 
 		result = this.eventRepository.save(event);
+		if ((event.getWateringArea().getGardener().getConfiguration().getIntrusionWarningActivated() == true) && (event.getType() == "Intrusion"))
+			this.emailSenderService.sendEmail(event.getWateringArea().getGardener().getEmail(), event.getDescription());
+		//this.emailSenderService.sendEmail();
+		else if ((event.getWateringArea().getGardener().getConfiguration().getFertilizerWarningActivated() == true) && (event.getType() == "Fertilizer"))
+			this.emailSenderService.sendEmail(event.getWateringArea().getGardener().getEmail(), event.getDescription());
+		else if ((event.getWateringArea().getGardener().getConfiguration().getTankWarningActivated() == true) && (event.getType() == "Tank"))
+			this.emailSenderService.sendEmail(event.getWateringArea().getGardener().getEmail(), event.getDescription());
 
 		return result;
 	}

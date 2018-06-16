@@ -94,33 +94,19 @@ public class PlantService {
 		Double moistureAverage = 0.0;
 		Double humidityAverage = 0.0;
 		Double temperatureAverage = 0.0;
-		//Double lightAverage = 0.0;
 		Double phAverage = 0.0;
-		//Double nitrogenAverage = 0.0;
-		//Double phosphorusAverage = 0.0;
-		//Double potassiumAverage = 0.0;
 
 		for (final Measurement me : measurements) {
 			moistureAverage = moistureAverage + me.getMoisture();
 			humidityAverage = humidityAverage + me.getHumidity();
 			temperatureAverage = temperatureAverage + me.getTemperature();
-			//lightAverage = lightAverage + me.getLight();
-			phAverage = phAverage + me.getPh();
-			//nitrogenAverage = nitrogenAverage + me.getNitrogen();
-			//phosphorusAverage = phosphorusAverage + me.getPhosphorus();
-			//potassiumAverage = potassiumAverage + me.getPotassium();
 		}
 
 		moistureAverage = moistureAverage / measurements.size();
 		humidityAverage = humidityAverage / measurements.size();
 		temperatureAverage = temperatureAverage / measurements.size();
-		//lightAverage = lightAverage / measurements.size();
 		phAverage = phAverage / measurements.size();
-		//nitrogenAverage = nitrogenAverage / measurements.size();
-		//phosphorusAverage = phosphorusAverage / measurements.size();
-		//potassiumAverage = potassiumAverage / measurements.size();
 		result = this.plantRepository.findRecommendedPlant(humidityAverage, temperatureAverage);
-		//result = this.plantRepository.findAll();
 
 		return result;
 	}

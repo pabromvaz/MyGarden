@@ -23,7 +23,7 @@
 	
 	<definition name="fertilizer/create" extends="master.page">	
 		<put-attribute name="title" value="Create fertilizer" />
-		<put-attribute name="body" value="/views/fertilizer/create.jsp" />
+		<put-attribute name="body" value="/views/fertilizer/edit.jsp" />
 	</definition>
 	
 	<definition name="fertilizer/edit" extends="master.page">	

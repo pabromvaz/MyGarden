@@ -16,10 +16,10 @@
 			<jstl:out value="${plant.name}" />
 		</li>
 		
-		<li>
-			<b><spring:message code="plant.picture" />:</b><br/>
+		
+			<!-- <b><spring:message code="plant.picture" />:</b><br/>-->
 			<img src="${plant.picture}" style = "max-width: 200 px; max-height: 200px;"/>
-		</li>
+		
 		
 		<li>
 			<b><spring:message code="plant.description"/>:</b>
@@ -28,17 +28,17 @@
 		
 		<li>
 			<b><spring:message code="plant.minTemperature"/>:</b>
-			<jstl:out value="${plant.minTemperature}"/>
+			<jstl:out value="${plant.minTemperature} ºC"/>
 		</li>
 		
 		<li>
 			<b><spring:message code="plant.maxTemperature" />:</b>
-			<jstl:out value="${plant.maxTemperature}" />
+			<jstl:out value="${plant.maxTemperature} ºC" />
 		</li>
 		
 		<li>
 			<b><spring:message code="plant.moisture" />:</b>
-			<jstl:out value="${plant.moisture}" />
+			<jstl:out value="${plant.moisture} %" />
 		</li>
 		
 		<li>
@@ -47,12 +47,19 @@
 		</li>
 		
 		<li>
-			<jstl:set var="isEmpty" value="${false}"/>
-				<jstl:if test="${plant.wateringAreas.size() == 0}">
+			<b><spring:message code="plant.humidity" />:</b>
+			<jstl:out value="${plant.humidity} %" />
+		</li>
+		
+		<jstl:set var="isEmpty" value="${false}"/>
+			<jstl:if test="${plant.wateringAreas.size() == 0}">
+				<li>
+			
 					<jstl:set var="isEmpty" value="${true}"/>
 					<spring:message code="plant.noWateringAreas" />
-			</jstl:if>
-		</li>
+			
+				</li>
+		</jstl:if>
 	</ul>
 	
 </div>

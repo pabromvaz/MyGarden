@@ -17,7 +17,7 @@
 	<acme:input code="fertilizer.name" path="name" />
 	<acme:input code="fertilizer.picture" path="picture" />
 	<acme:textarea code="fertilizer.description" path="description" />
-	<acme:input code="fertilizer.ph" path="ph" />
+	
 	<acme:input code="fertilizer.nitrogen" path="nitrogen" />
 	<acme:input code="fertilizer.phosphorus" path="phosphorus" />
 	<acme:input code="fertilizer.potassium" path="potassium" />

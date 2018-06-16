@@ -27,11 +27,6 @@
 		</li>
 		
 		<li>
-			<b><spring:message code="fertilizer.ph"/>:</b>
-			<jstl:out value="${fertilizer.ph}"/>
-		</li>
-		
-		<li>
 			<b><spring:message code="fertilizer.nitrogen" />:</b>
 			<jstl:out value="${fertilizer.nitrogen}" />
 		</li>
@@ -61,9 +56,13 @@
 				<acme:column code="fertilizer.plant.minTemperature" property="minTemperature"/>
 				<acme:column code="fertilizer.plant.maxTemperature" property="maxTemperature"/>
 				<acme:column code="fertilizer.plant.moisture" property="moisture"/>
-				<acme:column code="fertilizer.plant.ph" property="ph"/>
-				<acme:button url="plant/display.do?plantId=${plant.id}" code="fertilizer.plant.display"/>
-		
+				<acme:column code="fertilizer.plant.humidity" property="humidity"/>
+				
+				
+				<display:column>
+					<a href="plant/display.do?plantId=${plant.id}"><spring:message code="fertilizer.plant.display"/></a>
+				</display:column>
+	
 			</display:table>	
 			</jstl:if>
 		</li>
@@ -71,7 +70,7 @@
 	
 </div>
 
-
+<security:authorize access="hasAnyRole('ADMIN')">
 <form:form method="post" action="fertilizer/administrator/delete.do" modelAttribute="fertilizer" >
 
 	<form:hidden path="id" />
@@ -80,7 +79,6 @@
 	<form:hidden path="picture" />
 	<form:hidden path="plants" />
 	<form:hidden path="description" />
-	<form:hidden path="ph" />
 	<form:hidden path="nitrogen" />
 	<form:hidden path="phosphorus" />
 	<form:hidden path="potassium" />
@@ -93,7 +91,7 @@
 	</jstl:if>
 </form:form>
 
-<security:authorize access="hasAnyRole('ADMIN')">
+
 	<div>
 		<acme:button url="fertilizer/administrator/edit.do?fertilizerId=${fertilizer.id}" code="fertilizer.edit"/>
 	</div>

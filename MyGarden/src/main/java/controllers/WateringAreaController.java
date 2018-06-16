@@ -2,6 +2,7 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,15 +15,21 @@ import services.ActorService;
 import services.CommentService;
 import services.EventService;
 import services.GardenerService;
+import services.MeasurementService;
 import services.PlantService;
+import services.PredictionService;
 import services.TasteService;
+import services.TimeTableService;
 import services.WateringAreaService;
 import domain.Actor;
 import domain.Comment;
 import domain.Configuration;
 import domain.Event;
 import domain.Gardener;
+import domain.Measurement;
+import domain.Prediction;
 import domain.Taste;
+import domain.TimeTable;
 import domain.WateringArea;
 
 @Controller
@@ -51,6 +58,15 @@ public class WateringAreaController extends AbstractController {
 
 	@Autowired
 	private EventService		eventService;
+
+	@Autowired
+	private MeasurementService	measurementService;
+
+	@Autowired
+	private TimeTableService	timeTableService;
+
+	@Autowired
+	private PredictionService	predictionService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -117,6 +133,9 @@ public class WateringAreaController extends AbstractController {
 		if (gardener != null && wateringArea.getGardener().equals(gardener))
 			isOwner = true;
 
+		final List<Measurement> measurements = this.measurementService.showMeasurements(wateringArea);
+		final List<TimeTable> timeTables = this.timeTableService.showTimeTables(wateringArea);
+		final List<Prediction> predictions = this.predictionService.showPredictions(wateringArea);
 		comments = this.commentService.findAllOfAWateringArea(wateringAreaId);
 		configuration = gardener.getConfiguration();
 
@@ -127,81 +146,102 @@ public class WateringAreaController extends AbstractController {
 		result.addObject("isOwner", isOwner);
 		result.addObject("actor", actor);
 		result.addObject("tastes", tastes);
+
+		if (!measurements.isEmpty()) {
+			final Measurement measurement = measurements.get(0);
+			result.addObject("measurement", measurement);
+		}
+		result.addObject("measurementSize", measurements.size());
+
+		if (!timeTables.isEmpty()) {
+			final TimeTable timeTable = timeTables.get(0);
+			result.addObject("timeTable", timeTable);
+		}
+		result.addObject("timeTableSize", timeTables.size());
+
+		if (!predictions.isEmpty()) {
+			final Prediction prediction = predictions.get(0);
+			result.addObject("prediction", prediction);
+		}
+		result.addObject("predictionSize", predictions.size());
+
 		result.addObject("configuration", configuration);
 		result.addObject("requestURI", "wateringArea/display.do");
-
 		return result;
 	}
 
-	// Search ----------------------------------------------------------------
-	//	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	//	public ModelAndView searchButton(@RequestParam final String key) {
-	//
-	//		ModelAndView result;
-	//		Collection<WateringArea> wateringAreas;
-	//		Collection<Taste> tastes;
-	//		Collection<Plant> categories;
-	//		Collection<Object[]> auxWateringAreas;
-	//
-	//		final Actor actor = this.actorService.findByPrincipal();
-	//		tastes = this.tasteService.findAll();
-	//
-	//		categories = this.plantService.findAll();
-	//
-	//		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
-	//		if (gardener != null)
-	//			wateringAreas = this.wateringAreaService.findByKeyWithAge(key);
-	//		else
-	//			wateringAreas = this.wateringAreaService.findByKey(key);
-	//
-	//		auxWateringAreas = this.wateringAreaService.avgGreaterthanEight(wateringAreas);
-	//
-	//		result = new ModelAndView("wateringArea/list");
-	//		result.addObject("wateringAreas", auxWateringAreas);
-	//		result.addObject("principal", actor);
-	//		result.addObject("tasteList", tastes);
-	//		result.addObject("categories", categories);
-	//
-	//		return result;
-	//	}
+	// Display for arduino ----------------------------------------------------------------
+	@RequestMapping(value = "/manualWateringIsActivated", method = RequestMethod.GET)
+	public ModelAndView manualWateringIsActivated(@RequestParam final int wateringAreaId) {
+		ModelAndView result;
+		WateringArea wateringArea;
+		//Collection<Comment> comments;
+		Configuration configuration;
+		Boolean isOwner = false;
+		final Actor actor = this.actorService.findByPrincipal();
+		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
 
+		//final Collection<Taste> tastes = this.tasteService.findAll();
+
+		if (gardener != null && wateringArea.getGardener().equals(gardener))
+			isOwner = true;
+
+		//final List<Measurement> measurements = this.measurementService.showMeasurements(wateringArea);
+		//final List<TimeTable> timeTables = this.timeTableService.showTimeTables(wateringArea);
+		//final List<Prediction> predictions = this.predictionService.showPredictions(wateringArea);
+		//comments = this.commentService.findAllOfAWateringArea(wateringAreaId);
+		configuration = gardener.getConfiguration();
+
+		result = new ModelAndView("wateringArea/manualWateringIsActivated");
+		result.addObject("wateringArea", wateringArea);
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
+		//result.addObject("comments", comments);
+		result.addObject("isOwner", isOwner);
+		//result.addObject("actor", actor);
+		//result.addObject("tastes", tastes);
+
+		//	if (!measurements.isEmpty()) {
+		//		final Measurement measurement = measurements.get(0);
+		//		result.addObject("measurement", measurement);
+		//	}
+		//	result.addObject("measurementSize", measurements.size());
+
+		//	if (!timeTables.isEmpty()) {
+		//		final TimeTable timeTable = timeTables.get(0);
+		//		result.addObject("timeTable", timeTable);
+		//	}
+		//	result.addObject("timeTableSize", timeTables.size());
+
+		//	if (!predictions.isEmpty()) {
+		//		final Prediction prediction = predictions.get(0);
+		//		result.addObject("prediction", prediction);
+		//	}
+		//	result.addObject("predictionSize", predictions.size());
+
+		result.addObject("configuration", configuration);
+		result.addObject("requestURI", "wateringArea/manualWateringIsActivated.do");
+		return result;
+	}
 	// Search ----------------------------------------------------------------
-	//	@RequestMapping(value = "/filter", method = RequestMethod.GET)
-	//	public ModelAndView filterButton(@RequestParam(required = false) final String key, @RequestParam(required = false) final Integer minPrice, @RequestParam(required = false) final Integer maxPrice) {
-	//
-	//		ModelAndView result;
-	//		Collection<WateringArea> wateringAreas;
-	//		Collection<Taste> tastes;
-	//		Collection<Plant> categories;
-	//		Collection<Object[]> auxWateringAreas;
-	//
-	//		Double minPrice2 = 0.0;
-	//		Double maxPrice2 = 0.0;
-	//		final Actor actor = this.actorService.findByPrincipal();
-	//		tastes = this.tasteService.findAll();
-	//
-	//		categories = this.plantService.findAll();
-	//
-	//		if (minPrice != null)
-	//			minPrice2 = (double) minPrice;
-	//
-	//		if (maxPrice != null)
-	//			maxPrice2 = (double) maxPrice;
-	//		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
-	//		if (gardener != null)
-	//			wateringAreas = this.wateringAreaService.findByPlantOrPriceWithAge(key, minPrice2, maxPrice2);
-	//		else
-	//			wateringAreas = this.wateringAreaService.findByPlantOrPrice(key, minPrice2, maxPrice2);
-	//
-	//		auxWateringAreas = this.wateringAreaService.avgGreaterthanEight(wateringAreas);
-	//
-	//		result = new ModelAndView("wateringArea/list");
-	//		result.addObject("wateringAreas", auxWateringAreas);
-	//		result.addObject("principal", actor);
-	//		result.addObject("tasteList", tastes);
-	//		result.addObject("categories", categories);
-	//
-	//		return result;
-	//	}
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ModelAndView searchButton(@RequestParam final String key) {
+
+		ModelAndView result;
+		Collection<WateringArea> wateringAreas;
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+
+		final Actor actor = this.actorService.findByPrincipal();
+
+		wateringAreas = this.wateringAreaService.findByKey(key);
+
+		result = new ModelAndView("wateringArea/list");
+		result.addObject("wateringAreas", wateringAreas);
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
+		result.addObject("principal", actor);
+
+		return result;
+	}
 
 }

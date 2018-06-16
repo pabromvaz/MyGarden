@@ -17,7 +17,7 @@
 	</div>
 </security:authorize>
 
-<display:table name="fertilizers" id="fertilizer" requestURI="fertilizer/list.do" class="displaytag">
+<display:table name="fertilizers" id="fertilizer" pagesize="10" requestURI="fertilizer/list.do" class="displaytag">
 	
 
 	

@@ -3,11 +3,8 @@ package controllers;
 
 import java.util.Collection;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +17,6 @@ import services.WateringAreaService;
 import domain.Actor;
 import domain.Event;
 import domain.Gardener;
-import domain.WateringArea;
 
 @Controller
 @RequestMapping("/event")
@@ -91,122 +87,4 @@ public class EventController extends AbstractController {
 
 		return result;
 	}
-
-	// Create -------------------------------------------------------------------
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public void create(@RequestParam final Integer wateringAreaId, final String name, final String description, final String type) {
-		final ModelAndView result;
-		WateringArea wateringArea;
-		Event event;
-
-		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
-		event = this.eventService.create(wateringArea, name, description, type);
-		this.eventService.save(event);
-		//result = this.createEditModelAndView(event);
-
-		//return result;
-	}
-
-	// Create EventDetection-------------------------------------------------------------------
-	@RequestMapping(value = "/createDetectionWarning", method = RequestMethod.GET)
-	public ModelAndView createDetectionWarning(@RequestParam final Integer wateringAreaId) {
-		final ModelAndView result;
-		WateringArea wateringArea;
-		Event event;
-
-		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
-		event = this.eventService.create(wateringArea, "Intrusión en" + wateringArea.getName(), "Se ha detectado una intrusión en la zona de riego" + wateringArea.getName(), "Intrusion");
-		this.eventService.save(event);
-		result = new ModelAndView("redirect:../../welcome/index.do");
-
-		return result;
-	}
-
-	// Create EventTankWarning-------------------------------------------------------------------
-	@RequestMapping(value = "/createTankWarning", method = RequestMethod.POST)
-	public void createTankWarning(@RequestParam final Integer wateringAreaId) {
-		final ModelAndView result;
-		WateringArea wateringArea;
-		Event event;
-
-		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
-		event = this.eventService.create(wateringArea, "Agua insuficiente en" + wateringArea.getName(), "La zona de riego" + wateringArea.getName() + "tiene insuficiente agua en el depósito", "Tank");
-		this.eventService.save(event);
-		//result = this.createEditModelAndView(event);
-
-		//return result;
-	}
-
-	// Create EventFertilizerWarning-------------------------------------------------------------------
-	@RequestMapping(value = "/createFertilizerWarning", method = RequestMethod.POST)
-	public void createFertilizerWarning(@RequestParam final Integer wateringAreaId) {
-		final ModelAndView result;
-		WateringArea wateringArea;
-		Event event;
-
-		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
-		event = this.eventService.create(wateringArea, "Usar fertilizante en" + wateringArea.getName(), "La zona de riego" + wateringArea.getName() + "requiere fertilizante", "Fertilizer");
-		this.eventService.save(event);
-		//result = this.createEditModelAndView(event);
-
-		//return result;
-	}
-	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Event event, final BindingResult binding) {
-		ModelAndView result;
-
-		if (binding.hasErrors())
-			if (event.getWateringArea() == null)
-				result = this.createEditModelAndView(event, "event.commit.error.not.wateringArea");
-			else
-				result = this.createEditModelAndView(event);
-		else
-			try {
-				this.eventService.save(event);
-				result = new ModelAndView("redirect:/wateringArea/display.do?wateringAreaId=" + event.getWateringArea().getId());
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(event, "event.commit.error");
-			}
-
-		return result;
-	}
-
-	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(@Valid final Event event, final BindingResult binding) {
-		ModelAndView result;
-		Actor actor;
-		Gardener gardener;
-
-		actor = this.actorService.findByPrincipal();
-		gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
-
-		if (gardener == null || !event.getWateringArea().getGardener().equals(gardener))
-			return result = new ModelAndView("redirect:../../welcome/index.do");
-
-		this.eventService.delete(event);
-		//result = new ModelAndView("redirect:../../event/wateringArea/list.do?wateringAreaId=" + event.getWateringArea().getId());
-		result = new ModelAndView("redirect:../../event/list.do");
-
-		return result;
-	}
-	// Ancillary methods ------------------------------------------------------
-
-	protected ModelAndView createEditModelAndView(final Event event) {
-		ModelAndView result;
-
-		result = this.createEditModelAndView(event, null);
-
-		return result;
-	}
-
-	protected ModelAndView createEditModelAndView(final Event event, final String message) {
-		ModelAndView result;
-
-		result = new ModelAndView("event/create");
-		result.addObject("event", event);
-		result.addObject("message", message);
-
-		return result;
-	}
-
 }

@@ -21,9 +21,9 @@
 			<jstl:out value="${wateringArea.name}" />
 		</li>
 		
-		<li>
+		
 			<img src="${wateringArea.picture}" style = "max-width: 400 px; max-height: 400px;"/>
-		</li>
+		
 		
 		<li>
 			<b><spring:message code="wateringArea.place"/>:</b>
@@ -52,36 +52,88 @@
 		
 		<jstl:if test="${isOwner==true && configuration.manualWatering==true}">
 		<li>
-			<b><spring:message code="wateringArea.valveActivated" />:</b>
+			<!--  <b><spring:message code="wateringArea.valveActivated" />:</b>-->
 			<!--<jstl:out value="${wateringArea.valveActivated}" />	-->
 				<jstl:if test="${wateringArea.valveActivated==false}">
-					<spring:message code="valveDeactivated" />
+					<b><spring:message code="valveDeactivated" /></b>
 					<acme:button url="wateringArea/gardener/activateValve.do?wateringAreaId=${wateringArea.id}" code="wateringArea.activateValve"/>
 				</jstl:if>
 				<jstl:if test="${wateringArea.valveActivated==true}">
-					<spring:message code="valveActivated" />
+					<b><spring:message code="valveActivated" /></b>
 					<acme:button url="wateringArea/gardener/deactivateValve.do?wateringAreaId=${wateringArea.id}" code="wateringArea.deactivateValve"/>
 				</jstl:if>
 		</li>
 		</jstl:if>
 		
 		<security:authorize access="hasAnyRole('GARDENER')" >
-		<li>
+		
 			<b><spring:message code="wateringArea.comments" />:</b>
 			<display:table name="${wateringArea.comments}" id="comment" class="displaytag" pagesize="5" keepStatus="true" requestURI="wateringArea/display.do?wateringAreaId=${wateringArea.id}" >
 					
-				<acme:column code="wateringArea.comments.gardener" property="gardener.name" />
+				<display:column>
+					<a href="profile/display.do?actorId=${wateringArea.gardener.id}"><spring:message code="profile.display" /></a>
+				</display:column>
+				<acme:column code="wateringArea.comments.gardener"  property="gardener.name" />
 				<acme:column code="wateringArea.comments.title" property="title"/>
 				<acme:column code="wateringArea.comments.description" property="description"/>
-				<acme:column code="wateringArea.comments.moment" property="moment"/>
+				<acme:column code="wateringArea.comments.moment" property="moment" sortable="true"/>
 				
 			</display:table>
-			<acme:button url="comment/gardener/create.do?wateringAreaId=${wateringArea.id}" code="wateringArea.comments.create"/>
-		</li>
+			<p style="position:center">
+				<acme:button url="comment/gardener/create.do?wateringAreaId=${wateringArea.id}" code="wateringArea.comments.create"/>
+			</p>
+		
+		
+		
+		
+		<jstl:if test="${(isOwner==true) &&(measurementSize>0)}">
+			<display:table name="${measurement}" id="measurement" style="position:left" class="displaytag"  keepStatus="true" >
+					
+				<acme:column code="wateringArea.measurement.moment" property="moment"/>
+				<acme:column code="wateringArea.measurement.moisture" property="moisture"/>
+				<acme:column code="wateringArea.measurement.humidity" property="humidity"/>
+				<acme:column code="wateringArea.measurement.temperature" property="temperature"/>							
+			</display:table>
+			<jstl:if test="${measurementSize>1}">
+				<p style="position:center">
+					<acme:button url="measurement/wateringArea/list.do?wateringAreaId=${wateringArea.id}" code="wateringArea.measurements"/>
+				</p>
+			</jstl:if>
+		</jstl:if>
+		
+		<jstl:if test="${(isOwner==true) &&(timeTableSize>0)}">
+			<display:table name="${timeTable}" id="timeTable" style="position:left" class="displaytag"  keepStatus="true" >
+					
+				<acme:column code="wateringArea.timeTable.activationMoment" property="activationMoment"/>
+				<acme:column code="wateringArea.timeTable.deactivationMoment" property="deactivationMoment"/>
+							
+			</display:table>
+			<jstl:if test="${timeTableSize>1}">
+				<p style="position:center">
+					<acme:button url="timeTable/wateringArea/list.do?wateringAreaId=${wateringArea.id}" code="wateringArea.timeTables"/>
+				</p>
+			</jstl:if>
+		</jstl:if>
+		
+		<jstl:if test="${(isOwner==true) &&(predictionSize>0)}">
+			<display:table name="${prediction}" id="prediction" style="position:left" class="displaytag"  keepStatus="true" >
+					
+				<acme:column code="wateringArea.prediction.moment" property="moment"/>
+				<acme:column code="wateringArea.prediction.place" property="place"/>
+				<acme:column code="wateringArea.prediction.precipitation" property="precipitation"/>
+							
+			</display:table>
+			<jstl:if test="${predictionSize>1}">
+				<p style="position:center">
+					<acme:button url="prediction/wateringArea/list.do?wateringAreaId=${wateringArea.id}" code="wateringArea.predictions"/>
+				</p>
+			</jstl:if>
+		</jstl:if>
 		</security:authorize>
 	</ul>
 	
 </div>
+
 
 <jstl:if test="${isOwner==true}">
 	<form:form method="post" action="wateringArea/gardener/delete.do" modelAttribute="wateringArea" >
@@ -117,25 +169,11 @@
 		<acme:button url="wateringArea/gardener/edit.do?wateringAreaId=${wateringArea.id}" code="wateringArea.edit"/>
 	</div>
 	
-	<div>
-		<acme:button url="measurement/wateringArea/list.do?wateringAreaId=${wateringArea.id}" code="wateringArea.measurements"/>
-	</div>
-	
-	<div>
-		<acme:button url="event/wateringArea/list.do?wateringAreaId=${wateringArea.id}" code="wateringArea.events"/>
-	</div>
-	
-	<div>
-		<acme:button url="timeTable/wateringArea/list.do?wateringAreaId=${wateringArea.id}" code="wateringArea.timeTables"/>
-	</div>
-	
-	<div>
-		<acme:button url="prediction/wateringArea/list.do?wateringAreaId=${wateringArea.id}" code="wateringArea.predictions"/>
-	</div>
-	
+	<jstl:if test="${measurementSize>1}">
 	<div>
 		<acme:button url="wateringArea/gardener/listRecommendedPlants.do?wateringAreaId=${wateringArea.id}" code="wateringArea.listRecommendedPlants"/>
 	</div>
+	</jstl:if>
 	</jstl:if>
 </security:authorize>
 

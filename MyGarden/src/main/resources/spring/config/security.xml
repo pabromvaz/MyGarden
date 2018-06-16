@@ -47,9 +47,9 @@
 
 		<security:intercept-url pattern="/gardener/create.do" access="permitAll" /> 
 		
-		<security:intercept-url pattern="/event/wateringArea/createDetectionWarning.do" access="permitAll" /> 
-		<security:intercept-url pattern="/event/wateringArea/createFertilizerWarning.do" access="permitAll" />
-		<security:intercept-url pattern="/event/wateringArea/createTankWarning.do" access="permitAll" />
+		<security:intercept-url pattern="/event/wateringArea/createDetectionWarning.do" access="hasRole('GARDENER')" /> 
+		<security:intercept-url pattern="/event/wateringArea/createFertilizerWarning.do" access="hasRole('GARDENER')" />
+		<security:intercept-url pattern="/event/wateringArea/createTankWarning.do" access="hasRole('GARDENER')" />
 
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
@@ -62,17 +62,29 @@
 		<security:intercept-url pattern="/comment/gardener/delete.do" access="hasRole('GARDENER')" /> 
 		
 		<security:intercept-url pattern="/configuration/gardener/display.do" access="hasRole('GARDENER')" /> 
-		<security:intercept-url pattern="/configuration/gardener/edit.do" access="hasRole('GARDENER')" /> 
+		<security:intercept-url pattern="/configuration/gardener/manualWateringCondition.do" access="hasRole('GARDENER')" /> 
+		
+		<!--  <security:intercept-url pattern="/configuration/gardener/edit.do" access="hasRole('GARDENER')" /> -->
 		<security:intercept-url pattern="/configuration/gardener/activateAutomaticWatering.do" access="hasRole('GARDENER')" /> 
 		<security:intercept-url pattern="/configuration/gardener/activateManualWatering.do" access="hasRole('GARDENER')" /> 
 		<security:intercept-url pattern="/configuration/gardener/deactivateAutomaticWatering.do" access="hasRole('GARDENER')" /> 
 		<security:intercept-url pattern="/configuration/gardener/deactivateManualWatering.do" access="hasRole('GARDENER')" /> 
+		<security:intercept-url pattern="/configuration/gardener/activateIntrusionWarningEmail.do" access="hasRole('GARDENER')" /> 
+		<security:intercept-url pattern="/configuration/gardener/deactivateIntrusionWarningEmail.do" access="hasRole('GARDENER')" /> 
+		<security:intercept-url pattern="/configuration/gardener/activateFertilizerWarningEmail.do" access="hasRole('GARDENER')" /> 
+		<security:intercept-url pattern="/configuration/gardener/deactivateFertilizerWarningEmail.do" access="hasRole('GARDENER')" /> 
+		<security:intercept-url pattern="/configuration/gardener/activateTankWarningEmail.do" access="hasRole('GARDENER')" /> 
+		<security:intercept-url pattern="/configuration/gardener/deactivateTankWarningEmail.do" access="hasRole('GARDENER')" /> 
 		
 		<security:intercept-url pattern="/wateringArea/gardener/listRecommendedPlants.do" access="hasRole('GARDENER')" /> 
+		
+		<security:intercept-url pattern="/wateringArea/gardener/valveState.do" access="hasRole('GARDENER')" />
 		
 		<security:intercept-url pattern="/wateringArea/list.do" access="hasRole('GARDENER')" /> 
 		<security:intercept-url pattern="/wateringArea/listMyWateringAreas.do" access="hasRole('GARDENER')" /> 
 		<security:intercept-url pattern="/wateringArea/display.do" access="hasRole('GARDENER')" />
+		<security:intercept-url pattern="/wateringArea/search.do" access="hasRole('GARDENER')" />
+		<security:intercept-url pattern="/wateringArea/manualWateringIsActivated.do" access="hasRole('GARDENER')" />
 		
 		<security:intercept-url pattern="/wateringArea/gardener/delete.do" access="hasRole('GARDENER')" />
 		<security:intercept-url pattern="/wateringArea/gardener/create.do" access="hasRole('GARDENER')" />
@@ -87,6 +99,7 @@
 		
 		<security:intercept-url pattern="/measurement/wateringArea/list.do" access="hasRole('GARDENER')" /> 
 		<security:intercept-url pattern="/measurement/wateringArea/display.do" access="hasRole('GARDENER')" />
+		<security:intercept-url pattern="/measurement/wateringArea/create.do" access="hasRole('GARDENER')" />
 		
 		<security:intercept-url pattern="/timeTable/wateringArea/list.do" access="hasRole('GARDENER')" />
 		<security:intercept-url pattern="/timeTable/wateringArea/display.do" access="hasRole('GARDENER')" />
@@ -109,6 +122,7 @@
 	<!-- ADMINISTRATOR -->
 	
 		<security:intercept-url pattern="/administrator/edit.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/administrator/create.do" access="hasRole('ADMIN')" />
 		
 		<security:intercept-url pattern="/plant/administrator/create.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/plant/administrator/edit.do" access="hasRole('ADMIN')" />
@@ -117,6 +131,7 @@
 		<security:intercept-url pattern="/fertilizer/administrator/create.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/fertilizer/administrator/edit.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/fertilizer/administrator/delete.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/profile/list.do" access="hasRole('ADMIN')" />
 		
 	<!-- ALL -->
 	

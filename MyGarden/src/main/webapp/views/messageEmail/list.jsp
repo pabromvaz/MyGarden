@@ -11,13 +11,13 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <div class="table-responsive">
-<display:table name="messageEmails" id="messageEmail" requestURI="messageEmail/list.do" class="displaytag">
+<display:table name="messageEmails" pagesize="10" id="messageEmail" requestURI="${requestURI}" class="displaytag">
 	
 
 	
 	<acme:column code="messageEmail.subject" property="subject"/>
 	<acme:column code="messageEmail.text" property="text"/>
-	<acme:column code="messageEmail.moment" property="moment"/>
+	<acme:column code="messageEmail.moment" property="moment" sortable="true"/>
 	<acme:column code="messageEmail.sender" property="sender.name"/>
 	<acme:column code="messageEmail.recipient" property="recipient.name"/>
 	<security:authorize access="hasAnyRole('ADMIN','GARDENER')">

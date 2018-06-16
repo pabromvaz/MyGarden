@@ -148,4 +148,40 @@ public class ConfigurationService {
 
 	}
 
+	public void activateIntrusionWarningEmail(final Configuration configuration) {
+		configuration.setIntrusionWarningActivated(true);
+		this.configurationRepository.save(configuration);
+
+	}
+
+	public void deactivateIntrusionWarningEmail(final Configuration configuration) {
+		configuration.setIntrusionWarningActivated(false);
+		this.configurationRepository.save(configuration);
+
+	}
+
+	public void activateFertilizerWarningEmail(final Configuration configuration) {
+		configuration.setFertilizerWarningActivated(true);
+		this.configurationRepository.save(configuration);
+
+	}
+
+	public void deactivateFertilizerWarningEmail(final Configuration configuration) {
+		configuration.setFertilizerWarningActivated(false);
+		this.configurationRepository.save(configuration);
+
+	}
+
+	public void activateTankWarningEmail(final Configuration configuration) {
+		configuration.setTankWarningActivated(true);
+		this.configurationRepository.save(configuration);
+
+	}
+
+	public void deactivateTankWarningEmail(final Configuration configuration) {
+		configuration.setTankWarningActivated(false);
+		this.configurationRepository.save(configuration);
+
+	}
+
 }

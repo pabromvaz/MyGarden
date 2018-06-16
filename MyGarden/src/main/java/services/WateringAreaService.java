@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,10 +79,18 @@ public class WateringAreaService {
 	}
 
 	public Collection<WateringArea> findAllVisible() {
-		Collection<WateringArea> result;
+		final Collection<WateringArea> result = new ArrayList<WateringArea>();
+		List<WateringArea> aux;
 
-		result = this.wateringAreaRepository.findAllVisible();
-
+		aux = this.wateringAreaRepository.findAllVisible();
+		if (aux.size() > 10)
+			for (int i = 0; i < 11; i++) {
+				final int random = (int) (Math.random() * 10 + 1);
+				result.add(aux.get(random));
+				aux.remove(random);
+			}
+		else
+			result.addAll(aux);
 		return result;
 	}
 
@@ -212,6 +221,12 @@ public class WateringAreaService {
 		wateringArea.setVisible(true);
 		this.wateringAreaRepository.save(wateringArea);
 
+	}
+
+	public Collection<WateringArea> findByKey(final String key) {
+		Collection<WateringArea> result = new ArrayList<WateringArea>();
+		result = this.wateringAreaRepository.findByKey(key);
+		return result;
 	}
 
 }

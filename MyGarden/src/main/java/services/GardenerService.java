@@ -87,9 +87,11 @@ public class GardenerService {
 		result.setSentMessages(sentMessages);
 		result.setReceivedMessages(receivedMessages);
 		result.setWateringAreas(wateringAreas);
-		result.setAnimalDetectionEventActivated(true);
-		result.setUseOfFertilizerEventActivated(true);
-		result.setWaterTankEventActivated(true);
+		/*
+		 * result.setAnimalDetectionEventActivated(true);
+		 * result.setUseOfFertilizerEventActivated(true);
+		 * result.setWaterTankEventActivated(true);
+		 */
 		final Configuration configuration = this.configurationService.create();
 		result.setConfiguration(configuration);
 		return result;

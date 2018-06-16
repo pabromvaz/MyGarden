@@ -21,6 +21,11 @@
 		<put-attribute name="body" value="/views/wateringArea/display.jsp" />
 	</definition>
 	
+	<definition name="wateringArea/manualWateringIsActivated" extends="master.page">	
+		<!--  <put-attribute name="title" value="Zona de riego" />-->
+		<put-attribute name="body" value="/views/wateringArea/manualWateringIsActivated.jsp" />
+	</definition>
+	
 	<definition name="wateringArea/create" extends="master.page">	
 		<put-attribute name="title" value="Create wateringArea" />
 		<put-attribute name="body" value="/views/wateringArea/edit.jsp" />

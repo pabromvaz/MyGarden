@@ -26,87 +26,37 @@ public class Measurement extends DomainEntity {
 
 
 	// Attributes -------------------------------------------------------------
-	private Double	moisture;
-	private Double	humidity;
-	private Double	temperature;
-	private Double	light;
-	private Double	ph;
-	private Double	nitrogen;
-	private Double	phosphorus;
-	private Double	potassium;
+	private Integer	moisture;
+	private Integer	humidity;
+	private Integer	temperature;
 	private Date	moment;
 
 
 	@NotNull
-	public Double getMoisture() {
+	public Integer getMoisture() {
 		return this.moisture;
 	}
 
-	public void setMoisture(final Double moisture) {
+	public void setMoisture(final Integer moisture) {
 		this.moisture = moisture;
 	}
 
 	@NotNull
-	public Double getHumidity() {
+	public Integer getHumidity() {
 		return this.humidity;
 	}
 
-	public void setHumidity(final Double humidity) {
+	public void setHumidity(final Integer humidity) {
 		this.humidity = humidity;
 	}
 
 	@NotNull
-	public Double getTemperature() {
+	public Integer getTemperature() {
 		return this.temperature;
 	}
 
-	public void setTemperature(final Double temperature) {
+	public void setTemperature(final Integer temperature) {
 		this.temperature = temperature;
-	}
-
-	@NotNull
-	public Double getLight() {
-		return this.light;
-	}
-
-	public void setLight(final Double light) {
-		this.light = light;
-	}
-
-	@NotNull
-	public Double getPh() {
-		return this.ph;
-	}
-
-	public void setPh(final Double ph) {
-		this.ph = ph;
-	}
-
-	@NotNull
-	public Double getNitrogen() {
-		return this.nitrogen;
-	}
-
-	public void setNitrogen(final Double nitrogen) {
-		this.nitrogen = nitrogen;
-	}
-
-	@NotNull
-	public Double getPhosphorus() {
-		return this.phosphorus;
-	}
-
-	public void setPhosphorus(final Double phosphorus) {
-		this.phosphorus = phosphorus;
-	}
-
-	@NotNull
-	public Double getPotassium() {
-		return this.potassium;
-	}
-
-	public void setPotassium(final Double potassium) {
-		this.potassium = potassium;
 	}
 
 	@Past

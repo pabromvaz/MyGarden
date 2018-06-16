@@ -96,39 +96,37 @@ public class MeasurementWateringAreaController extends AbstractController {
 	}
 
 	// Create -------------------------------------------------------------------
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final Integer wateringAreaId, final Double moisture, final Double humidity, final Double temperature, final Double light, final Double pH, final Double nitrogen, final Double phosphorus, final Double potassium) {
+	/*
+	 * @RequestMapping(value = "/create", method = RequestMethod.POST)
+	 * public ModelAndView create(@RequestParam final Integer wateringAreaId, @RequestParam final Integer moisture, @RequestParam final Integer humidity, @RequestParam final Integer temperature, @RequestParam final Integer light) {
+	 * ModelAndView result;
+	 * WateringArea wateringArea;
+	 * Measurement measurement;
+	 * 
+	 * wateringArea = this.wateringAreaService.findOne(wateringAreaId);
+	 * measurement = this.measurementService.create(wateringArea, moisture, humidity, temperature);
+	 * this.measurementService.save(measurement);
+	 * result = new ModelAndView("redirect:../../welcome/index.do");
+	 * 
+	 * return result;
+	 * }
+	 */
+
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	public ModelAndView create(@RequestParam final Integer wateringAreaId, @RequestParam final Integer moisture, @RequestParam final Integer humidity, @RequestParam final Integer temperature) {
 		ModelAndView result;
 		WateringArea wateringArea;
 		Measurement measurement;
 
 		wateringArea = this.wateringAreaService.findOne(wateringAreaId);
-		measurement = this.measurementService.create(wateringArea, moisture, humidity, temperature, light, pH, nitrogen, phosphorus, potassium);
-
-		result = this.createEditModelAndView(measurement);
-
-		return result;
-	}
-
-	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Measurement measurement, final BindingResult binding) {
-		ModelAndView result;
-
-		if (binding.hasErrors())
-			if (measurement.getWateringArea() == null)
-				result = this.createEditModelAndView(measurement, "measurement.commit.error.not.wateringArea");
-			else
-				result = this.createEditModelAndView(measurement);
-		else
-			try {
-				this.measurementService.save(measurement);
-				result = new ModelAndView("redirect:/wateringArea/display.do?wateringAreaId=" + measurement.getWateringArea().getId());
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(measurement, "measurement.commit.error");
-			}
+		measurement = this.measurementService.create(wateringArea, moisture, humidity, temperature);
+		this.measurementService.save(measurement);
+		result = new ModelAndView("redirect:../../welcome/index.do");
 
 		return result;
 	}
+
+	//Delete-----------------------------------------------------------------------------------------
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(@Valid final Measurement measurement, final BindingResult binding) {

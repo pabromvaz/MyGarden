@@ -56,4 +56,19 @@
 		<acme:button code="profile.edit" url="gardener/edit.do"/>
 	</div>
 	</jstl:if>
+	
+	<br/>
+	<br/>
+	<b><spring:message code="profile.wateringAreas" />:</b>
+			<display:table name="${profile.wateringAreas}" id="wateringArea" class="displaytag" pagesize="5" keepStatus="true" requestURI="profile/myProfile.do" >
+					
+				<display:column>
+					<a href="wateringArea/display.do?wateringAreaId=${wateringArea.id}"><spring:message code="profile.display" /></a>
+				</display:column>
+				<acme:column code="wateringArea.plant"  property="plant.name" sortable="true"/>
+				<acme:column code="wateringArea.name" property="name" sortable="true"/>
+				<acme:column code="wateringArea.description" property="description"/>
+				<acme:column code="wateringArea.place" property="place" sortable="true"/>
+				
+			</display:table>
 </security:authorize>

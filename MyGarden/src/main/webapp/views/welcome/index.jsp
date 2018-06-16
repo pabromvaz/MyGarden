@@ -18,10 +18,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"> 
 
 <p><spring:message code="welcome.greeting.prefix" /> ${name}<spring:message code="welcome.greeting.suffix" /></p>
-<!-- Page Content -->
+
+	<security:authorize access="hasAnyRole('GARDENER')" >
+	<!-- Page Content -->
     <div class="container">
 
-      <h1 class="my-4 text-center text-lg-left">Thumbnail Gallery</h1>
+      <h1 class="my-4 text-center text-lg-left"><spring:message code="thumbnailGallery" /></h1>
 
       <div class="row text-center text-lg-left">
 		<jstl:forEach items="${wateringAreas}" var="wateringArea">
@@ -37,5 +39,6 @@
       
     </div>
     <!-- /.container -->
+    </security:authorize>
 <p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 
 

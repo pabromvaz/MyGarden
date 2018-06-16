@@ -11,29 +11,23 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <div class="table-responsive">
-<display:table name="events" id="event" requestURI="event/list.do" class="displaytag" pagesize="10">
+<display:table name="profiles" pagesize="10" id="profile" requestURI="profile/list.do" class="displaytag">
 	
 
-	<jstl:if test="${event.readed == false}">
-		<jstl:set var="style" value="font-weight:bold;text-shadow: 0.1em 0.1em 0.2em darkgrey"/>
-	</jstl:if>
-	<jstl:if test="${event.readed == true}">
-		<jstl:set var="style" value="none"/>
-	</jstl:if>
+	<acme:column code="profile.name" property="name" sortable="true"/>
+	<acme:column code="profile.surname" property="surname"/>
 	
-	<acme:column code="event.moment" property="moment" style="${style}" sortable="true"/>
-	<acme:column code="event.name" property="name" style="${style}"/>
 	
-	<security:authorize access="hasAnyRole('GARDENER')">
+	<security:authorize access="hasAnyRole('ADMIN')">
 	<display:column>
-		<a href="event/display.do?eventId=${event.id}"><spring:message
-		code="event.display"/>
+		<a href="profile/display.do?actorId=${profile.id}"><spring:message
+		code="profile.display"/>
 		</a>
 	</display:column>
 	</security:authorize>
 	
 </display:table>
 </div>
-<acme:button code="event.back" url="wateringArea/display.do?wateringAreaId=${wateringArea.id}"/>
+
 
 

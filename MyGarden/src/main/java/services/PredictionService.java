@@ -1,9 +1,11 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -104,5 +106,11 @@ public class PredictionService {
 	}
 
 	// Other business methods -------------------------------------------------
+
+	public List<Prediction> showPredictions(final WateringArea wateringArea) {
+		List<Prediction> result = new ArrayList<Prediction>();
+		result = this.predictionRepository.predictionsOfWateringAreaOrderedByMoment(wateringArea.getId());
+		return result;
+	}
 
 }

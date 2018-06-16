@@ -71,6 +71,29 @@ public class ConfigurationGardenerController extends AbstractController {
 		return result;
 	}
 
+	// Display Arduino----------------------------------------------------------------
+	@RequestMapping(value = "/manualWateringCondition", method = RequestMethod.GET)
+	public ModelAndView manualWateringCondition() {
+		ModelAndView result;
+		Boolean isOwner = false;
+
+		final Collection<Event> eventsNotReaded = this.eventService.findAllNotReadedFromGardener();
+
+		final Actor actor = this.actorService.findByPrincipal();
+		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		final Configuration configuration = gardener.getConfiguration();
+		if (gardener != null)
+			isOwner = true;
+
+		result = new ModelAndView("configuration/manualWateringCondition");
+		result.addObject("eventsNotReaded", eventsNotReaded.size());
+		result.addObject("configuration", configuration);
+		result.addObject("isOwner", isOwner);
+		result.addObject("requestURI", "configuration/manualWateringCondition.do");
+
+		return result;
+	}
+
 	//Edit ---------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -136,6 +159,102 @@ public class ConfigurationGardenerController extends AbstractController {
 		configuration = gardener.getConfiguration();
 
 		this.configurationService.deactivateManualWatering(configuration);
+
+		result = new ModelAndView("redirect:/configuration/gardener/display.do");
+		return result;
+
+	}
+
+	// Activate/Deactivate intrusion warning ---------------------------------------------------------------
+
+	@RequestMapping(value = "/activateIntrusionWarningEmail", method = RequestMethod.GET)
+	public ModelAndView activateIntrusionWarningEmail() {
+		ModelAndView result;
+		Configuration configuration;
+		final Actor actor = this.actorService.findByPrincipal();
+		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		configuration = gardener.getConfiguration();
+
+		this.configurationService.activateIntrusionWarningEmail(configuration);
+
+		result = new ModelAndView("redirect:/configuration/gardener/display.do");
+		return result;
+
+	}
+
+	@RequestMapping(value = "/deactivateIntrusionWarningEmail", method = RequestMethod.GET)
+	public ModelAndView deactivateIntrusionWarningEmail() {
+		ModelAndView result;
+		Configuration configuration;
+		final Actor actor = this.actorService.findByPrincipal();
+		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		configuration = gardener.getConfiguration();
+
+		this.configurationService.deactivateIntrusionWarningEmail(configuration);
+
+		result = new ModelAndView("redirect:/configuration/gardener/display.do");
+		return result;
+
+	}
+
+	// Activate/Deactivate fertilizer warning ---------------------------------------------------------------
+
+	@RequestMapping(value = "/activateFertilizerWarningEmail", method = RequestMethod.GET)
+	public ModelAndView activateFertilizerWarningEmail() {
+		ModelAndView result;
+		Configuration configuration;
+		final Actor actor = this.actorService.findByPrincipal();
+		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		configuration = gardener.getConfiguration();
+
+		this.configurationService.activateFertilizerWarningEmail(configuration);
+
+		result = new ModelAndView("redirect:/configuration/gardener/display.do");
+		return result;
+
+	}
+
+	@RequestMapping(value = "/deactivateFertilizerWarningEmail", method = RequestMethod.GET)
+	public ModelAndView deactivateFertilizerWarningEmail() {
+		ModelAndView result;
+		Configuration configuration;
+		final Actor actor = this.actorService.findByPrincipal();
+		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		configuration = gardener.getConfiguration();
+
+		this.configurationService.deactivateFertilizerWarningEmail(configuration);
+
+		result = new ModelAndView("redirect:/configuration/gardener/display.do");
+		return result;
+
+	}
+
+	// Activate/Deactivate tank warning ---------------------------------------------------------------
+
+	@RequestMapping(value = "/activateTankWarningEmail", method = RequestMethod.GET)
+	public ModelAndView activateTankWarningEmail() {
+		ModelAndView result;
+		Configuration configuration;
+		final Actor actor = this.actorService.findByPrincipal();
+		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		configuration = gardener.getConfiguration();
+
+		this.configurationService.activateTankWarningEmail(configuration);
+
+		result = new ModelAndView("redirect:/configuration/gardener/display.do");
+		return result;
+
+	}
+
+	@RequestMapping(value = "/deactivateTankWarningEmail", method = RequestMethod.GET)
+	public ModelAndView deactivateTankWarningEmail() {
+		ModelAndView result;
+		Configuration configuration;
+		final Actor actor = this.actorService.findByPrincipal();
+		final Gardener gardener = this.gardenerService.findByUserAccount(actor.getUserAccount());
+		configuration = gardener.getConfiguration();
+
+		this.configurationService.deactivateTankWarningEmail(configuration);
 
 		result = new ModelAndView("redirect:/configuration/gardener/display.do");
 		return result;

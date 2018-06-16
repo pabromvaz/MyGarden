@@ -17,7 +17,7 @@ public class EmailSenderService {
 
 	private final Properties	properties	= new Properties();
 
-	private final String		password	= "BuBlAtUbLa";
+	private final String		password	= "passwordDelCorreo";
 
 	private Session				session;
 
@@ -27,7 +27,7 @@ public class EmailSenderService {
 		this.properties.put("mail.smtp.host", "smtp.gmail.com");
 		this.properties.put("mail.smtp.starttls.enable", "true");
 		this.properties.put("mail.smtp.port", 587);
-		this.properties.put("mail.smtp.mail.sender", "mygardenwebapplication@gmail.com");
+		this.properties.put("mail.smtp.mail.sender", "correo@gmail.com");
 		this.properties.put("mail.smtp.user", "mygardenwebapplication");
 		this.properties.put("mail.smtp.auth", "true");
 

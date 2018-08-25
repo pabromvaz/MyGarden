@@ -1,8 +1,10 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -102,4 +104,10 @@ public class TimeTableService {
 	}
 
 	// Other business methods -------------------------------------------------
+
+	public List<TimeTable> showTimeTables(final WateringArea wateringArea) {
+		List<TimeTable> result = new ArrayList<TimeTable>();
+		result = this.timeTableRepository.timeTablesOfWateringAreaOrderedByMoment(wateringArea.getId());
+		return result;
+	}
 }

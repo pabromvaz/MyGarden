@@ -168,7 +168,7 @@ public class WateringAreaService {
 		if (!measurements.isEmpty())
 			for (final Measurement measurement : measurements)
 				this.measurementService.delete(measurement);
-		/* Lo borramos los eventos */
+		/* Borramos los eventos */
 		events = wateringArea.getEvents();
 		if (!events.isEmpty())
 			for (final Event event : events)

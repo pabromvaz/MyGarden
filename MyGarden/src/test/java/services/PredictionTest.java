@@ -34,11 +34,12 @@ public class PredictionTest extends AbstractTest {
 	// Tests ------------------------------------------------------------------
 	// FUNCTIONAL REQUIREMENTS
 	//-	Un actor autenticado como cliente debe ser capaz de:
-	//	Añadir comentarios a los juegos.
+	//  Listar las predicciones
+	//	Visualizar los datos de las predicciones.
+	//  Borrar las predicciones
 
-	//El primer test negativo es causado porque no nos hemos logueado correctamente como customer, el segundo de
-	//ellos se produce porque le ponemos un score fuera del rango 0-10 y el tercero es provocado porque le
-	//pasamos un id de game que no existe.
+	//El primer test negativo es causado porque no nos hemos logueado correctamente (el responsable
+	// del huerto no existe)
 	@Test
 	public void driverCreatePrediction() {
 		final Object testingData[][] = {
@@ -89,15 +90,18 @@ public class PredictionTest extends AbstractTest {
 
 	}
 
+	//El primer test negativo es causado porque no nos hemos logueado correctamente (el responsable
+	// del huerto no existe)
+
 	@Test
 	public void driverDeletePrediction() {
 		final Object testingData[][] = {
 			{
-				"gardener1", 31, null
+				"gardener1", 54, null
 			}, {
-				"gardener2", 32, null
+				"gardener2", 55, null
 			}, {
-				"gardenerNoExist", 12, IllegalArgumentException.class
+				"gardenerNoExist", 55, IllegalArgumentException.class
 			}
 		};
 

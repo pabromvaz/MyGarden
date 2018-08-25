@@ -32,7 +32,12 @@ public class MeasurementTest extends AbstractTest {
 
 
 	// Tests ------------------------------------------------------------------
+	// FUNCTIONAL REQUIREMENTS
+	//-	Un actor autenticado como responsable del huerto debe ser capaz de:
+	//	Ver las mediciones
 
+	//	El test negativo se produce porque se intenta asignar una medición a una zona de riego sin 
+	//  autenticarse el sistema arduino como el responsable del huerto propietario de ella 
 	@Test
 	public void driverAddMeasurementToAWateringArea() {
 		final Object testingData[][] = {

@@ -33,12 +33,12 @@ public class TasteTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 	// FUNCTIONAL REQUIREMENTS
-	//-	Un actor autenticado como cliente debe ser capaz de:
-	//	Darle "me gusta/no me gusta" a los juegos.
+	//-	Un actor autenticado como responsable del huerto debe ser capaz de:
+	//	Darle "me gusta/no me gusta" a las zonas de riego.
 
-	//El primer caso negativos se produce porque intentamos darle like a un juego sin
-	//estar logueados, en el segundo nos logueamos como un developer que tampoco puede darle
-	//like a un juego y por ultimo introducimos un id que no pertenece a ningun juego
+	//El primer test negativo se produce porque el responsable del huerto no existe
+	//El segundo test negativo se produce porque es un administrador el que intenta dar un me gusta/no me gusta
+	//El tercer test negativo se produce porque la zona de riego no existe
 	@Test
 	public void driverLikeToAWateringArea() {
 		final Object testingData[][] = {
@@ -81,9 +81,9 @@ public class TasteTest extends AbstractTest {
 
 	}
 
-	//El primer caso negativos se produce porque intentamos darle dislike a un juego sin
-	//estar logueados, en el segundo nos logueamos como un developer que tampoco puede darle
-	//dislike a un juego y por ultimo introducimos un id que no pertenece a ningun juego
+	//El primer test negativo se produce porque el responsable del huerto no existe
+	//El segundo test negativo se produce porque es un administrador el que intenta dar un me gusta/no me gusta
+	//El tercer test negativo se produce porque la zona de riego no existe
 	@Test
 	public void driverDislikeToAWateringArea() {
 		final Object testingData[][] = {
@@ -126,13 +126,16 @@ public class TasteTest extends AbstractTest {
 
 	}
 
+	//El primer test negativo se produce porque el responsable del huerto no existe
+	//El segundo test negativo se produce porque es un administrador el que intenta cambiar algo que no tiene
+	//El tercer test negativo se produce porque no existe el "taste"
 	@Test
 	public void driverCambiarLikeODislike() {
 		final Object testingData[][] = {
 			{
-				"gardener1", 24, false, null
+				"gardener1", 47, false, null
 			}, {
-				"gardener1", 25, true, null
+				"gardener1", 48, true, null
 			}, {
 				"gardenerNoExist", 24, false, IllegalArgumentException.class
 			}, {

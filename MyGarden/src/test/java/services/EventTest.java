@@ -36,10 +36,9 @@ public class EventTest extends AbstractTest {
 	//-	Un actor autenticado como gardener debe ser capaz de:
 	//	Ver las incidencias de sus zonas de riego.
 	//  Listar las incidencias
+	//  Borrar las incidencias
 
-	//El primer test negativo es causado porque no nos hemos logueado correctamente como customer, el segundo de
-	//ellos se produce porque le ponemos un score fuera del rango 0-10 y el tercero es provocado porque le
-	//pasamos un id de game que no existe.
+	//Crear evento por parte del sistema. El primer test negativo es causado porque no existe el usuario del huerto.
 	@Test
 	public void driverAddEventToAWateringArea() {
 		final Object testingData[][] = {
@@ -70,6 +69,85 @@ public class EventTest extends AbstractTest {
 			this.eventService.save(event);
 
 			this.eventService.findAll();
+			this.unauthenticate();
+
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
+	}
+
+	//Listar incidencias de un responsable del huerto. El primer test negativo es causado porque no existe el usuario del huerto.
+	@Test
+	public void listEvents() {
+		final Object testingData[][] = {
+			{
+				"gardener1", null
+			}, {
+				"gardenerNoExist", IllegalArgumentException.class
+			}, {
+				"admin", IllegalArgumentException.class
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.listEvents((String) testingData[i][0], (Class<?>) testingData[i][1]);
+	}
+
+	protected void listEvents(final String username, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			this.authenticate(username);
+
+			this.eventService.findAllFromGardener();
+			this.unauthenticate();
+
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
+	}
+
+	/*
+	 * Borrar incidencias de un responsable del huerto.
+	 * El primer test negativo es causado porque no existe el usuario del huerto.
+	 * El segundo test negativo es causado porque al usuario logueado no le corresponde ese evento
+	 */
+	@Test
+	public void driverDeleteEvent() {
+		final Object testingData[][] = {
+			{
+				"gardener1", 56, null
+			}, {
+				"gardener1NoExist", 56, IllegalArgumentException.class
+			}, {
+				"admin", 56, IllegalArgumentException.class
+			}, {
+				"gardener2", 56, IllegalArgumentException.class
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.DeleteEvent((String) testingData[i][0], (Integer) testingData[i][1], (Class<?>) testingData[i][2]);
+	}
+
+	protected void DeleteEvent(final String username, final Integer eventId, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			this.authenticate(username);
+
+			final Event event = this.eventService.findOne(eventId);
+
+			this.eventService.delete(event);
+
 			this.unauthenticate();
 
 		} catch (final Throwable oops) {

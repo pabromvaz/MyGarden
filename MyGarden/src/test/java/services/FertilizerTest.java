@@ -2,6 +2,7 @@
 package services;
 
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,12 +33,16 @@ public class FertilizerTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 	// FUNCTIONAL REQUIREMENTS
-	//-	Un actor autenticado como cliente debe ser capaz de:
-	//	Añadir comentarios a los juegos.
+	//-	Un actor autenticado como administrador debe ser capaz de:
+	//	Añadir fertilizantes
+	//  Editar fetilizantes
+	//  Borrar fertilizantes
 
-	//El primer test negativo es causado porque no nos hemos logueado correctamente como customer, el segundo de
-	//ellos se produce porque le ponemos un score fuera del rango 0-10 y el tercero es provocado porque le
-	//pasamos un id de game que no existe.
+	//- Un actor autenticado debe ser capaz de:
+	// Listar fertilizantes
+	// Ver fertilizantes
+
+	//El primer test negativo es causado porque el administrador no existe
 	@Test
 	public void driverCreateFertilizer() {
 		final Object testingData[][] = {
@@ -49,6 +54,10 @@ public class FertilizerTest extends AbstractTest {
 				"admin", "fertilizerName1", "Description3", 20.0, 20.0, 20.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", null
 			}, {
 				"adminNoExist", "fertilizerName1", "Description4", 20.0, 20.0, 20.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", IllegalArgumentException.class
+			}, {
+				"gardener1", "fertilizerName1", "Description4", 20.0, 20.0, 20.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", IllegalArgumentException.class
+			}, {
+				"admin", " ", "Description4", 20.0, 20.0, 20.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", ConstraintViolationException.class
 			}
 		};
 
@@ -84,15 +93,21 @@ public class FertilizerTest extends AbstractTest {
 
 	}
 
+	// Los dos primeros tests negativos se deben a que no se puede editar un fertilizante que tiene plantas asignadas
+	//El tercer test negativo es causado porque el administrador no existe
 	@Test
 	public void driverEditFertilizer() {
 		final Object testingData[][] = {
 			{
-				"admin", 14, "fertilizerName1", "Description1", 20.0, 20.0, 20.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", null
+				"admin", 14, "fertilizerName1", "Description1", 20.0, 20.0, 20.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", IllegalArgumentException.class
 			}, {
-				"admin", 15, "fertilizerName1", "Description2", 20.0, 20.0, 20.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", null
+				"admin", 15, "fertilizerName1", "Description2", 20.0, 20.0, 20.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", IllegalArgumentException.class
 			}, {
 				"adminNoExist", 15, "fertilizerName1", "Description4", 20.0, 20.0, 20.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", IllegalArgumentException.class
+			}, {
+				"gardener1", 15, "fertilizerName1", "Description4", 20.0, 20.0, 20.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", IllegalArgumentException.class
+			}, {
+				"admin", 15, "", "Description4", 20.0, 20.0, 20.0, "https://www.como-podar.com/wp-content/uploads/2017/04/narango-2.jpg", IllegalArgumentException.class
 			}
 		};
 
@@ -128,15 +143,19 @@ public class FertilizerTest extends AbstractTest {
 
 	}
 
+	// Los tests negativos se deben a que no se puede eliminar un fertilizante que tiene plantas asignadas
+	// y que el administrador no existe (segundo caso)
 	@Test
 	public void driverDeleteFertilizer() {
 		final Object testingData[][] = {
 			{
-				"admin", 14, null
-			}, {
-				"admin", 15, null
+				"admin", 14, IllegalArgumentException.class
 			}, {
 				"adminNoExist", 15, IllegalArgumentException.class
+			}, {
+				"gardener1", 15, IllegalArgumentException.class
+			}, {
+				"admin", 2100, IllegalArgumentException.class
 			}
 		};
 

@@ -30,9 +30,10 @@ public class AdministratorTest extends AbstractTest {
 	// Tests ------------------------------------------------------------------
 
 	// REQUISITOS FUNCIONALES
-	// Crear un administrador
+	// Crear y editar un administrador
 
-	//Requisito funcional crear administrador
+	//Crear administrador
+	//El test negativo es porque la contraseña y su confirmación son distintas
 	@Test
 	public void driverCreateAdministrator() {
 		final Object testingData[][] = {
@@ -53,7 +54,7 @@ public class AdministratorTest extends AbstractTest {
 
 		Md5PasswordEncoder encoder;
 		String passwordEncoded;
-
+		this.authenticate("admin");
 		try {
 			Administrator administrator = null;
 
@@ -74,10 +75,12 @@ public class AdministratorTest extends AbstractTest {
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}
+		this.unauthenticate();
 		this.checkExceptions(expected, caught);
 	}
 
 	//Editar el perfil de un administrador
+	//El test negativo es porque la contraseña y su confirmación son distintas
 	@Test
 	public void driverEditAdministrator() {
 		final Object testingData[][] = {
@@ -97,9 +100,8 @@ public class AdministratorTest extends AbstractTest {
 		Class<?> caught = null;
 		Md5PasswordEncoder encoder;
 		String passwordEncoded;
-
+		this.authenticate("admin");
 		try {
-			this.authenticate("admin");
 
 			final Administrator administrator = this.administratorService.findByPrincipal();
 
@@ -115,10 +117,10 @@ public class AdministratorTest extends AbstractTest {
 			this.administratorService.save(administrator);
 			this.administratorService.findAll();
 
-			this.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}
+		this.unauthenticate();
 		this.checkExceptions(expected, caught);
 	}
 

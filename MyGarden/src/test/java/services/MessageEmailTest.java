@@ -2,6 +2,7 @@
 package services;
 
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,6 +43,8 @@ public class MessageEmailTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				"gardener1", "Envio1", "text1", this.actorService.findOne(9), null
+			}, {
+				"gardener1", "", "text1", this.actorService.findOne(9), ConstraintViolationException.class
 			}
 		};
 
@@ -78,8 +81,10 @@ public class MessageEmailTest extends AbstractTest {
 	public void driverRequestMessage() {
 		final Object testingData[][] = {
 			{
-				"gardener1", "Envio1", "text1", 41, null
-			},
+				"gardener1", "Envio1", "text1", 64, null
+			}, {
+				"gardener1", "", "text1", 64, ConstraintViolationException.class
+			}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
@@ -110,13 +115,50 @@ public class MessageEmailTest extends AbstractTest {
 
 	}
 
+	//En este driver se comprueba que un actor puede archivar un determinado mensaje.
+	// El test negativo se produce porque se intenta archivar un mensaje que no pertenece al usuario
+	@Test
+	public void driverFileMessage() {
+		final Object testingData[][] = {
+			{
+				"gardener1", 64, null
+			}, {
+				"gardener1", 65, IllegalArgumentException.class
+			},
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.FileMessage((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
+	}
+
+	protected void FileMessage(final String sender, final int message, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			this.authenticate(sender);
+			final MessageEmail aux1 = this.messageEmailService.findOne(message);
+			this.messageEmailService.change(aux1, true);
+
+			this.messageEmailService.findAll();
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
+	}
+
 	//En este driver se comprueba que un actor puede borrar un mensaje suyo.
 
 	@Test
 	public void driverBorrarMensaje() {
 		final Object testingData[][] = {
 			{
-				"gardener1", 40, null
+				"gardener1", 64, null
+			}, {
+				"gardener1", 65, IllegalArgumentException.class
 			}
 		};
 
@@ -133,7 +175,6 @@ public class MessageEmailTest extends AbstractTest {
 			final MessageEmail aux = this.messageEmailService.findOne(message);
 			this.messageEmailService.delete(aux);
 
-			//this.chirpService.findAll();
 			this.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();

@@ -76,6 +76,7 @@ public class AdministratorService {
 	}
 
 	public Administrator save(final Administrator administrator) {
+		Assert.notNull(this.findByPrincipal());
 		Assert.notNull(administrator);
 		Administrator result;
 

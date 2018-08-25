@@ -35,12 +35,14 @@ public class TimeTableTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 	// FUNCTIONAL REQUIREMENTS
-	//-	Un actor autenticado como cliente debe ser capaz de:
-	//	Añadir comentarios a los juegos.
+	//-	Un actor autenticado como responsable del huerto debe ser capaz de:
+	//	Añadir horarios a las zonas de riego propias
+	//  Visualizar los horarios de una zona de riego propia
+	//  Borrar los horarios de una zona de riego propia
+	//  Editar los horarios de una zona de riego propia
 
-	//El primer test negativo es causado porque no nos hemos logueado correctamente como customer, el segundo de
-	//ellos se produce porque le ponemos un score fuera del rango 0-10 y el tercero es provocado porque le
-	//pasamos un id de game que no existe.
+	//El primer test negativo es causado porque no nos hemos logueado correctamente
+
 	@Test
 	public void driverAddTimeTableToAWateringArea() {
 		final Object testingData[][] = {
@@ -52,6 +54,10 @@ public class TimeTableTest extends AbstractTest {
 				"gardener3", 23, "11/10/2018 19:00", "11/10/2018 21:00", null
 			}, {
 				"gardenerNoExist", 20, "11/10/2018 19:00", "11/10/2018 21:00", IllegalArgumentException.class
+			}, {
+				"gardener1", 20, "11/10/2018 19:00", "11/09/2018 21:00", IllegalArgumentException.class
+			}, {
+				"admin", 20, "11/10/2018 19:00", "11/10/2018 21:00", IllegalArgumentException.class
 			}
 		};
 
@@ -99,17 +105,21 @@ public class TimeTableTest extends AbstractTest {
 
 	}
 
+	//El primer test negativo es causado porque no nos hemos logueado correctamente
+
 	@Test
 	public void driverEditTimeTable() {
 		final Object testingData[][] = {
 			{
-				"gardener1", 28, "11/10/2018 19:00", "11/10/2018 21:00", null
+				"gardener1", 51, "11/10/2018 19:00", "11/10/2018 21:00", null
 			}, {
-				"gardener2", 29, "11/10/2018 19:00", "11/10/2018 21:00", null
+				"gardener2", 52, "11/10/2018 19:00", "11/10/2018 21:00", null
 			}, {
-				"gardener3", 30, "11/10/2018 19:00", "11/10/2018 21:00", null
+				"gardener3", 53, "11/10/2018 19:00", "11/10/2018 21:00", null
 			}, {
-				"gardenerNoExist", 20, "11/10/2018 19:00", "11/10/2018 21:00", IllegalArgumentException.class
+				"gardenerNoExist", 51, "11/10/2018 19:00", "11/10/2018 21:00", IllegalArgumentException.class
+			}, {
+				"gardener1", 51, "11/10/2018 19:00", "11/09/2018 21:00", IllegalArgumentException.class
 			}
 		};
 
@@ -156,17 +166,21 @@ public class TimeTableTest extends AbstractTest {
 
 	}
 
+	//El primer test negativo es causado porque no nos hemos logueado correctamente
+
 	@Test
 	public void driverDeleteTimeTable() {
 		final Object testingData[][] = {
 			{
-				"gardener1", 28, null
+				"gardener1", 51, null
 			}, {
-				"gardener2", 29, null
+				"gardener2", 52, null
 			}, {
-				"gardener3", 30, null
+				"gardener3", 53, null
 			}, {
-				"gardenerNoExist", 20, IllegalArgumentException.class
+				"gardenerNoExist", 51, IllegalArgumentException.class
+			}, {
+				"gardener1", 0, IllegalArgumentException.class
 			}
 		};
 

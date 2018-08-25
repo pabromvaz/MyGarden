@@ -37,7 +37,6 @@ public class CommentTest extends AbstractTest {
 	//	Añadir comentarios a las zonas de riego.
 
 	//El test negativo es causado porque no nos hemos logueado correctamente como gardener.
-
 	@Test
 	public void driverAddCommentToAWateringArea() {
 		final Object testingData[][] = {
@@ -49,6 +48,10 @@ public class CommentTest extends AbstractTest {
 				"gardener3", 23, "Titulo", "Descripcion", null
 			}, {
 				"gardenerNoExist", 20, "Titulo", "Descripcion", IllegalArgumentException.class
+			}, {
+				"gardenerNoExist", 20, " ", "Descripcion", IllegalArgumentException.class
+			}, {
+				"gardenerNoExist", 200, " ", "Descripcion", IllegalArgumentException.class
 			}
 		};
 

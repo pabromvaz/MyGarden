@@ -32,26 +32,27 @@ public class WateringAreaTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 	// FUNCTIONAL REQUIREMENTS
-	//-	Un actor autenticado como developer debe ser capaz de:
-	//	Crear, editar y borrar juegos.
+	//-	Un actor autenticado como responsable del huerto debe ser capaz de:
+	//	Crear, editar y borrar zonas de riego.
 
-	//El primer test negativo es causado porque no nos hemos logueado developer, el segundo de
-	//ellos se produce porque introducimos un campo vacio (descripcion) y el tercero es provocado porque le
-	//pasamos un id de categoria que no existe.
+	//El primer test negativo es causado porque el que intenta crear la zona de riego es un administrador
+	//El segundo test negativo se produce porque se deja el campo descripción en blanco
 
 	@Test
 	public void driverCreateWateringArea() {
 		final Object testingData[][] = {
 			{
-				"gardener1", "Name1", "Place1", "Description1", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, null
+				"gardener1", "Name1", "Place1", "Description1", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 16, null
 			}, {
-				"gardener2", "Name2", "Place2", "Description2", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, null
+				"gardener2", "Name2", "Place2", "Description2", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 17, null
 			}, {
-				"gardener3", "Name3", "Place3", "Description3", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, null
+				"gardener3", "Name3", "Place3", "Description3", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 18, null
 			}, {
-				"admin", "Name4", "Place1", "Descripcion4", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, IllegalArgumentException.class
+				"admin", "Name4", "Place1", "Descripcion4", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 19, IllegalArgumentException.class
 			}, {
-				"gardener1", "Name5", "Place4", "", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, ConstraintViolationException.class
+				"gardener1", "Name5", "Place4", "", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 19, ConstraintViolationException.class
+			}, {
+				"gardenerNoExist", "Name5", "Place4", "Descripcion4", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 19, IllegalArgumentException.class
 			}
 		};
 
@@ -74,9 +75,7 @@ public class WateringAreaTest extends AbstractTest {
 			wateringArea.setPicture(picture);
 
 			final Plant plant = this.plantService.findOne(plantId);
-			//categories.add(category);
-			//aux = this.gameService.save(game);
-			//this.categoryService.select(categories, aux);
+
 			wateringArea.setPlant(plant);
 			this.wateringAreaService.save(wateringArea);
 
@@ -91,19 +90,26 @@ public class WateringAreaTest extends AbstractTest {
 
 	}
 
+	//El primer test negativo es causado porque el que intenta editar la zona de riego es un administrador
+	//El segundo test negativo se produce porque se deja el campo descripción en blanco
+
 	@Test
 	public void driverEditWateringArea() {
 		final Object testingData[][] = {
 			{
-				"gardener1", "Name1", "Place1", "Description1", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, 20, null
+				"gardener1", "Name1", "Place1", "Description1", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 16, 20, null
 			}, {
-				"gardener2", "Name2", "Place2", "Description2", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, 22, null
+				"gardener2", "Name2", "Place2", "Description2", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 17, 22, null
 			}, {
-				"gardener3", "Name3", "Place3", "Description3", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, 23, null
+				"gardener3", "Name3", "Place3", "Description3", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 18, 23, null
 			}, {
-				"admin", "Name4", "Place1", "Descripcion4", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, 20, IllegalArgumentException.class
+				"admin", "Name4", "Place1", "Descripcion4", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 19, 20, IllegalArgumentException.class
 			}, {
-				"gardener1", "Name5", "Place4", "", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 14, 20, ConstraintViolationException.class
+				"gardener1", "Name5", "Place4", "", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 19, 20, ConstraintViolationException.class
+			}, {
+				"gardenerNoExist", "Name5", "Place4", "Descripcion4", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 19, 20, IllegalArgumentException.class
+			}, {
+				"gardener1", "Name5", "Place4", "Descripcion4", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 19, 22, IllegalArgumentException.class
 			}
 		};
 
@@ -127,9 +133,7 @@ public class WateringAreaTest extends AbstractTest {
 			wateringArea.setPicture(picture);
 
 			final Plant plant = this.plantService.findOne(plantId);
-			//categories.add(category);
-			//aux = this.gameService.save(game);
-			//this.categoryService.select(categories, aux);
+
 			wateringArea.setPlant(plant);
 			this.wateringAreaService.save(wateringArea);
 
@@ -144,6 +148,8 @@ public class WateringAreaTest extends AbstractTest {
 
 	}
 
+	//El primer test negativo es causado porque el que intenta borrar la zona de riego es un administrador
+
 	@Test
 	public void driverDeleteWateringArea() {
 		final Object testingData[][] = {
@@ -156,7 +162,11 @@ public class WateringAreaTest extends AbstractTest {
 			}, {
 				"admin", 20, IllegalArgumentException.class
 			}, {
-				"gardener1", 20, IllegalArgumentException.class
+				"gardenerNoExist", 20, IllegalArgumentException.class
+			}, {
+				"gardener1", 22, IllegalArgumentException.class
+			}, {
+				"gardener1", 0, IllegalArgumentException.class
 			}
 		};
 

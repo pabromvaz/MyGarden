@@ -111,7 +111,7 @@ public class EventService {
 
 	public void delete(final Event event) {
 		Assert.notNull(event);
-		//Assert.isTrue(this.gardenerService.findByPrincipal().equals(comment.getGardener()));
+		Assert.isTrue(this.gardenerService.findByPrincipal().equals(event.getWateringArea().getGardener()));
 
 		this.eventRepository.delete(event);
 	}

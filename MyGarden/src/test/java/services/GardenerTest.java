@@ -2,6 +2,7 @@
 package services;
 
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,9 +30,10 @@ public class GardenerTest extends AbstractTest {
 	// Tests ------------------------------------------------------------------
 
 	// REQUISITOS FUNCIONALES
-	// Crear un administrador
+	// Crear y editar un responsable del huerto
 
 	//Registrarse como responsable del huerto
+	//El test negativo es porque la contraseña y su confirmación son distintas
 	@Test
 	public void driverRegisterGardener() {
 		final Object testingData[][] = {
@@ -39,6 +41,8 @@ public class GardenerTest extends AbstractTest {
 				"gardener5", "gardener5", "gardener5", "nameGardener5", "surnameGardener5", "gardener5@gmail.com", "http://web.com/imagen.jpg", true, null
 			}, {
 				"gardener6", "gardener7", "gardener6", "nameGardener6", "surnameGardener6", "gardener6@gmail.com", "http://web.com/imagen.jpg", true, IllegalArgumentException.class
+			}, {
+				"gardener7", "gardener8", "gardener8", "", "surnameGardener8", "gardener8@gmail.com", "http://web.com/imagen.jpg", true, ConstraintViolationException.class
 			}
 		};
 
@@ -75,6 +79,7 @@ public class GardenerTest extends AbstractTest {
 	}
 
 	//Editar el perfil de un responsable del huerto
+	//El test negativo es porque la contraseña y su confirmación son distintas
 	@Test
 	public void driverEditGardener() {
 		final Object testingData[][] = {
@@ -82,6 +87,8 @@ public class GardenerTest extends AbstractTest {
 				"gardener1", "gardener1", "gardener1", "nameGardener1", "surnameGardener1", "gardener1@gmail.com", "http://web.com/imagen.jpg", null
 			}, {
 				"gardener1", "gardener1", "gardener4", "nameGardener1", "surnameGardener1", "gardener1@gmail.com", "http://web.com/imagen.jpg", IllegalArgumentException.class
+			}, {
+				"gardener1", "gardener1", "gardener1", "", "surnameGardener1", "gardener8@gmail.com", "http://web.com/imagen.jpg", ConstraintViolationException.class
 			}
 		};
 

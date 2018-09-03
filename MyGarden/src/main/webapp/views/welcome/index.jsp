@@ -19,26 +19,6 @@
 
 <p><spring:message code="welcome.greeting.prefix" /> ${name}<spring:message code="welcome.greeting.suffix" /></p>
 
-	<security:authorize access="hasAnyRole('GARDENER')" >
-	<!-- Page Content -->
-    <div class="container">
-
-      <h1 class="my-4 text-center text-lg-left"><spring:message code="thumbnailGallery" /></h1>
-
-      <div class="row text-center text-lg-left">
-		<jstl:forEach items="${wateringAreas}" var="wateringArea">
-   			<div class="col-lg-3 col-md-4 col-xs-6">
-          		<a href="wateringArea/display.do?wateringAreaId=${wateringArea.id}" class="d-block mb-4 h-100">
-            		<img class="img-fluid img-thumbnail" src="${wateringArea.picture}" style = " max-width: 350px!important; max-height: 300px!important;" alt="">
-         		</a>
-        	</div>
-		</jstl:forEach>
-        
-       
-      </div>
-      
-    </div>
-    <!-- /.container -->
-    </security:authorize>
+	
 <p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 
 

@@ -91,6 +91,7 @@ public class WateringAreaController extends AbstractController {
 		result.addObject("wateringAreas", wateringAreas);
 		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("principal", actor);
+		result.addObject("requestURI", "wateringArea/list.do");
 
 		return result;
 	}
@@ -111,6 +112,7 @@ public class WateringAreaController extends AbstractController {
 		result.addObject("wateringAreas", wateringAreas);
 		result.addObject("eventsNotReaded", eventsNotReaded.size());
 		result.addObject("principal", actor);
+		result.addObject("requestURI", "wateringArea/list.do");
 
 		return result;
 	}

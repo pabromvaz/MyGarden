@@ -83,15 +83,17 @@ public class WateringAreaService {
 		List<WateringArea> aux;
 
 		aux = this.wateringAreaRepository.findAllVisible();
-		if (aux.size() > 10)
-			for (int i = 0; i < 11; i++) {
-				final int random = (int) (Math.random() * 10 + 1);
-				result.add(aux.get(random));
-				aux.remove(random);
-			}
-		else
-			result.addAll(aux);
-		return result;
+		/*
+		 * if (aux.size() > 10)
+		 * for (int i = 0; i < 11; i++) {
+		 * final int random = (int) (Math.random() * 10 + 1);
+		 * result.add(aux.get(random));
+		 * aux.remove(random);
+		 * }
+		 * else
+		 * result.addAll(aux);
+		 */
+		return aux;
 	}
 
 	public WateringArea create() {

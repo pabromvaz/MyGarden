@@ -25,7 +25,7 @@ value="<spring:message code="wateringArea.searchButton"/>" />
 
 
 <div class="table-responsive">
-<display:table name="wateringAreas" id="wateringArea" pagesize="10" requestURI="wateringArea/list.do" class="displaytag">
+<display:table name="wateringAreas" id="wateringArea" pagesize="10"  requestURI="wateringArea/list.do" class="displaytag">
 	
 
 	<acme:column code="wateringArea.plant" property="plant.name" sortable="true"/>
